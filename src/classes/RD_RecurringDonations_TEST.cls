@@ -33,7 +33,7 @@
 * @group Recurring Donations
 * @description Test class for the RecurringDonations class
 */
-@isTest
+@isTest(isParallel=true)
 public class RD_RecurringDonations_TEST {
 
     /*********************************************************************************************************
@@ -52,12 +52,12 @@ public class RD_RecurringDonations_TEST {
         UTIL_Debug.debug('multiply: ' + system.label.npe03.RecurringDonationMultiplyValue);
         UTIL_Debug.debug('divide: ' + system.label.npe03.RecurringDonationDivideValue);
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         Contact c = new Contact();
         c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         c.AccountId = a.Id;        
         insert c;
         
@@ -114,12 +114,12 @@ public class RD_RecurringDonations_TEST {
         if (strTestOnly != '*' && strTestOnly != 'insertWeeklyOpportunities') return;
         
          Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         Contact c = new Contact();
         c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         c.AccountId = a.Id;
         insert c;       
 
@@ -149,12 +149,12 @@ public class RD_RecurringDonations_TEST {
         if (strTestOnly != '*' && strTestOnly != 'insertQuarterlyOpportunities') return;
         
          Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         Contact c = new Contact();
         c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         c.AccountId = a.Id;
         insert c;       
 
@@ -184,12 +184,12 @@ public class RD_RecurringDonations_TEST {
 
         UTIL_CustomSettingsFacade.getRecurringDonationsSettingsForTest(new npe03__Recurring_Donations_Settings__c());    
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         Contact c = new Contact();
         c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         c.AccountId = a.Id;
         insert c;       
 
@@ -228,7 +228,7 @@ public class RD_RecurringDonations_TEST {
         if (strTestOnly != '*' && strTestOnly != 'deleteRecurringDonation') return;
 
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         npe03__Recurring_Donation__c r2 = new npe03__Recurring_Donation__c();
@@ -287,7 +287,7 @@ public class RD_RecurringDonations_TEST {
         
         Contact c = new Contact();
         c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         insert c; 
 
         Test.startTest();
@@ -411,12 +411,12 @@ public class RD_RecurringDonations_TEST {
         ));             
         
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         Contact c = new Contact();
         c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         c.AccountId = a.Id;
         insert c;       
         
@@ -481,12 +481,12 @@ public class RD_RecurringDonations_TEST {
         ));           
         
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         Contact c = new Contact();
         c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         c.AccountId = a.Id;
         insert c;       
 
@@ -526,12 +526,12 @@ public class RD_RecurringDonations_TEST {
         ));           
         
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         Contact c = new Contact();
         c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         c.AccountId = a.Id;
         insert c;       
 
@@ -566,12 +566,12 @@ public class RD_RecurringDonations_TEST {
         ));           
         
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         c.AccountId = a.Id;
         insert c;       
 
@@ -610,12 +610,12 @@ public class RD_RecurringDonations_TEST {
         ));           
         
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         c.AccountId = a.Id;
         insert c;       
 
@@ -654,12 +654,12 @@ public class RD_RecurringDonations_TEST {
         ));           
         
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         c.AccountId = a.Id;
         insert c;       
 
@@ -700,12 +700,12 @@ public class RD_RecurringDonations_TEST {
         ));           
         
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         c.AccountId = a.Id;
         insert c;       
 
@@ -754,12 +754,12 @@ public class RD_RecurringDonations_TEST {
         ));           
         
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         c.AccountId = a.Id;
         insert c;       
 
@@ -811,12 +811,12 @@ public class RD_RecurringDonations_TEST {
         ));           
         
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         c.AccountId = a.Id;
         insert c;       
 
@@ -866,12 +866,12 @@ public class RD_RecurringDonations_TEST {
         ));           
         
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         c.AccountId = a.Id;
         insert c;       
 
@@ -928,12 +928,12 @@ public class RD_RecurringDonations_TEST {
         ));           
         
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         c.AccountId = a.Id;
         insert c;       
 
@@ -989,12 +989,12 @@ public class RD_RecurringDonations_TEST {
         ));           
         
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         c.AccountId = a.Id;
         insert c;       
 
@@ -1051,12 +1051,12 @@ public class RD_RecurringDonations_TEST {
         ));           
         
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         insert a;
         
         Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        c.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
+        c.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         c.AccountId = a.Id;
         insert c;       
 

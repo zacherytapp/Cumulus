@@ -35,8 +35,7 @@
  * @description Test class to provide coverage for TDTM triggers on objects for which there are currently no TDTM classes. 
  *
 ***/
-
-@isTest
+@isTest(isParallel=True)
 public with sharing class TDTM_TriggerScaffolds_TEST {
 
     /*************************************************************************** 

@@ -33,8 +33,8 @@
  * @group Opportunity
  * @description test class for the MTCH_Opportunity_TDTM trigger handler
  */
- 
-@isTest 
+
+@isTest(isParallel=True)
 public with sharing class MTCH_Opportunity_TEST {
 
     /*******************************************************************************************************

@@ -33,14 +33,15 @@
 * @group Utilities
 * @description Test class for the Force.com Typeahead component
 */
-@isTest
+@isTest(isParallel=True)
 public with sharing class UTIL_Typeahead_TEST {
 
     private static testMethod void testQuery() {
+		String acctNameBase = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
 	    list<Account> aa = new list<Account>{
-	      new Account(Name='Test Account'),
-	      new Account(Name='Another Account', BillingCity='Test City'),
-	      new Account(Name='Third Account')
+	      new Account(Name=acctNameBase + '1'),
+	      new Account(Name=acctNameBase + '2', BillingCity='Test City'),
+	      new Account(Name=acctNameBase + '3')
 	    };
 	    insert aa;
 	    
@@ -53,7 +54,7 @@ public with sharing class UTIL_Typeahead_TEST {
 	    Test.stopTest();
 	
 	    system.assertEquals(2, accts.size());
-	    system.assertEquals('Another Account', accts[0].get('Name'));
-	    system.assertEquals('Test Account', accts[1].get('Name'));
+	    system.assertEquals(acctNameBase + '1', accts[0].get('Name'));
+	    system.assertEquals(acctNameBase + '2', accts[1].get('Name'));
     }
 }

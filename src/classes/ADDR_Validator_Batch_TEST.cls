@@ -33,7 +33,7 @@
 * @group Address Management
 * @description Test class for batch address verification.
 */
-@isTest
+@isTest(isParallel=True)
 public with sharing class ADDR_Validator_Batch_TEST {
 
     // if you only want to run one test in this class, fill in its name here.

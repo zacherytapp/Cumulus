@@ -34,7 +34,7 @@
 * @description test the controller for the Level Edit/New/Clone override visualforce page
 */
 
-@isTest
+@isTest(isParallel=True)
 private with sharing class LVL_LevelEdit_TEST {
     
     /*******************************************************************************************************

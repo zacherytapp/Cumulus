@@ -34,7 +34,7 @@
 * @group-content ../../ApexDocContent/Households.htm
 * @description Apex test class for all Apex code used in the Manage Household UI Lightning Component based page
 */
-@isTest
+@isTest(isParallel=True)
 private class HH_ManageHH_TEST {
 
     /*********************************************************************************************************

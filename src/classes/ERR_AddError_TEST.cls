@@ -35,7 +35,7 @@
 * it here since we are following the same design.
 * @group ErrorHandling
 */
-@isTest
+@isTest(isParallel=True)
 public with sharing class ERR_AddError_TEST {
     /*******************************************************************************************************
     * @description test (lack of) error handling on a database dml operation, verify success and failure results

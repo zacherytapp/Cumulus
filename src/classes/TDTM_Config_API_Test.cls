@@ -35,7 +35,7 @@
  * @description Test class for TDTM_Config_API Class and enabling TDTM control for SI's
  *
 ***/
-@isTest
+@isTest(isParallel=True)
 private class TDTM_Config_API_Test {
 
     /*********************************************************************************************************

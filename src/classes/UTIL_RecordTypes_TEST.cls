@@ -34,7 +34,7 @@
 * @description Tests for recordtype wrapper for easy access to record type information.
 */
 
-@isTest
+@isTest(isParallel=True)
 private class UTIL_RecordTypes_TEST {
 
     // TEST

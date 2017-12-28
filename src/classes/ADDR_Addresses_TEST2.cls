@@ -34,7 +34,7 @@
 * @description Tests specific to Address Management. 
 */
 
-@isTest
+@isTest(isParallel=true)
 public with sharing class ADDR_Addresses_TEST2 {
     /*********************************************************************************************************
     * @description if you only want to run one test in this class, fill in its name here.
@@ -1521,7 +1521,7 @@ public with sharing class ADDR_Addresses_TEST2 {
         createHHTestData(cHH, cCon);
         
         Contact con = new Contact();
-        con.lastname = 'test';
+        con.lastname = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
         con.AccountId = listAccT[0].Id;
         con.is_Address_Override__c = true;
         con.Current_Address__c = listAddrT[0].Id;
@@ -1552,9 +1552,9 @@ public with sharing class ADDR_Addresses_TEST2 {
     static testMethod void updateOrgContactToHH() {
         if (strTestOnly != '*' && strTestOnly != 'updateOrgContactToHH') return;
         
-        Account acc = new Account(Name='Org Account');
+        Account acc = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert acc;
-        Contact con = new Contact(Lastname='Testy', AccountId=acc.Id);
+        Contact con = new Contact(Lastname=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, AccountId=acc.Id);
         insert con;
         
         // now give the contact an address and change it to get a hh account
@@ -1565,11 +1565,11 @@ public with sharing class ADDR_Addresses_TEST2 {
         Test.stopTest();
 
         // verify results
-        acc = [select Id, Name, BillingStreet from Account where Name like '%Testy%'];
+        acc = [select Id, Name, BillingStreet from Account where Name LIKE :('%'+CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'%')];
         list<Address__c> listAddr = [select Id, Default_Address__c, MailingStreet__c from Address__c];
         system.assertEquals(1, listAddr.size());
         con = [select Id, Lastname, MailingStreet, Current_Address__c from Contact];
-        system.assertEquals('Testy', con.Lastname);
+        system.assertEquals(CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, con.Lastname);
         system.assertEquals('123 abc', con.MailingStreet);
         system.assertEquals(listAddr[0].Id, con.Current_Address__c);
         system.assertEquals(listAddr[0].MailingStreet__c, con.MailingStreet);

@@ -35,7 +35,7 @@
 * through the Cicero API.
  */
 
-@isTest
+@isTest(isParallel=True)
 public with sharing class ADDR_Cicero_TEST {
 	
     /*********************************************************************************************************

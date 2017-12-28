@@ -33,8 +33,8 @@
  * @group Opportunity
  * @description test class for the FindGifts VF page allowing users to find matched gifts for a particular Opportunity using custom filters.
  */
- 
-@isTest 
+
+@isTest(isParallel=True)
 public with sharing class MTCH_FindGifts_TEST {
 
     private static final String RECEIVED_STATUS = 'Received';

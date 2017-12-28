@@ -33,8 +33,7 @@
 * @group Settings
 * @description tests for the Health Check wizard
 */
-@isTest
-
+@isTest(isParallel=True)
 public with sharing class STG_PanelHealthCheck_TEST {
     
     /*******************************************************************************************************

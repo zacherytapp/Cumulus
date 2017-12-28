@@ -33,7 +33,7 @@
 * @group Households
 * @description Unit tests for HH_HouseholdNamingSettingValidator class
 */
-@isTest
+@isTest(isParallel=True)
 private class HH_HouseholdNamingSettingValidator_TEST {
 
     /*********************************************************************************************************

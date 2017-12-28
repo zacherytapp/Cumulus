@@ -33,7 +33,7 @@
 * @group Opportunity
 * @description Test class for the Opportunity Primary Contact lookup.
 */
-@isTest
+@isTest(isParallel=True)
 public with sharing class OPP_PrimaryContact_TEST {
 
     /*********************************************************************************************************

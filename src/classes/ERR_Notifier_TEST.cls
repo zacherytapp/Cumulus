@@ -33,7 +33,7 @@
 * @group ErrorHandling
 * @description Unit tests for ERR_Notifier class
 */
-@isTest
+@isTest(isParallel=True)
 private class ERR_Notifier_TEST {
 	
     /**************************************************************************************************************************

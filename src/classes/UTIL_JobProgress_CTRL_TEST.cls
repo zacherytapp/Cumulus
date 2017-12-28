@@ -33,7 +33,7 @@
 * @group Utilities
 * @description Tests for the JobProgress indicator component controller.
 */
-@isTest
+@isTest(isParallel=True)
 public with sharing class UTIL_JobProgress_CTRL_TEST {
 
     static testMethod void jobProgressController(){

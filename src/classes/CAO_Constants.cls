@@ -77,38 +77,43 @@ public with sharing class CAO_Constants {
 
     /*******************************************************************************************************
     * @description A contact's firstname to use in test code.
+    */
+    public static final string ACCOUNT_NAME_FOR_TESTS = 'TEST_ACCOUNT_' + UTIL_UnitTestData_TEST.getGuid();
+
+    /*******************************************************************************************************
+    * @description A contact's firstname to use in test code.
     */ 
-    public static  string CONTACT_FIRSTNAME_FOR_TESTS = 'test';
+    public static final string CONTACT_FIRSTNAME_FOR_TESTS = 'test' + UTIL_UnitTestData_TEST.getGuid();
 
     /*******************************************************************************************************
     * @description A contact's lastname to use in test code.
     */ 
-    public static  string CONTACT_LASTNAME_FOR_TESTS = 'Contact_forTests';
+    public static final string CONTACT_LASTNAME_FOR_TESTS = 'Contact_forTests' + UTIL_UnitTestData_TEST.getGuid();
 
     /*******************************************************************************************************
     * @description A contact's email to use in test code.
     */ 
-    public static  string CONTACT_EMAIL_FOR_TESTS = 'junk@test.net';
+    public static final string CONTACT_EMAIL_FOR_TESTS = 'junk' + UTIL_UnitTestData_TEST.getGuid() + '@test.net';
 
     /*******************************************************************************************************
     * @description A contact's preferred email to use in test code.
     */ 
-    public static  string CONTACT_PREFERRED_EMAIL_FOR_TESTS = 'Work';
+    public static final string CONTACT_PREFERRED_EMAIL_FOR_TESTS = 'Work';
 
     /*******************************************************************************************************
     * @description A contact's phone number to use in test code.
     */ 
-    public static  string CONTACT_PHONE_FOR_TESTS = '206-777-8888';
+    public static final string CONTACT_PHONE_FOR_TESTS = '206-777-' + UTIL_UnitTestData_TEST.getGuid().right(4);
 
     /*******************************************************************************************************
     * @description A contact's preferred phone to use in test code.
     */ 
-    public static  string CONTACT_PREFERRED_PHONE_FOR_TESTS = 'Work';
+    public static final string CONTACT_PREFERRED_PHONE_FOR_TESTS = 'Work';
     
     /*******************************************************************************************************
     * @description The name to use for the Individual Bucket Account in test code.
     */ 
-    public static  string INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS = 'IndividualAccountNameForTests';
+    public static final string INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS = 'IndividualAccountNameForTests';
 
     /*******************************************************************************************************
     * @description Returns whether we are in the One-to-One Account Model

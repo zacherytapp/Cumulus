@@ -33,7 +33,7 @@
 * @group Accounts
 * @description Tests for ACCT_ViewOverride_CTRL
 */
-@isTest
+@isTest(isParallel=True)
 private class ACCT_ViewOverride_TEST {
 
     /*******************************************************************************************************

@@ -33,7 +33,7 @@
 * @group Payments
 * @description tests for the PMT_Payment_TDTM class
 */
-@isTest
+@isTest(isParallel=true)
 private class PMT_Payment_TEST {
 
     /** @description Non default currency type sObject for this org.*/
@@ -59,7 +59,7 @@ private class PMT_Payment_TEST {
     @TestSetup
     static void test_createTestData() {
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_And_Orgs_Settings__c (npe01__Payments_Enabled__c= true));
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert acc;
     }
 

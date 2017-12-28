@@ -33,7 +33,7 @@
 * @group Opportunity
 * @description testing for matching donation button for opportunity
 */
-@isTest
+@isTest(isParallel=True)
 private class OPP_MatchingDonationsBTN_TEST {
 
     static testmethod void TestMatchingDonationPage()

@@ -33,7 +33,7 @@
 * @group Households
 * @description test class for the campaign dedupe button from the campaign record 
 */
-@isTest
+@isTest(isParallel=True)
 private class HH_CampaignDedupeBTN_TEST {  
   
  

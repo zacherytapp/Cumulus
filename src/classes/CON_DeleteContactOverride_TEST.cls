@@ -34,7 +34,7 @@
 * @group-content ../../ApexDocContent/Contacts.htm
 * @description Test class for Contact delete override.
 */
-@isTest
+@isTest(isParallel=True)
 private class CON_DeleteContactOverride_TEST {
     /** @description Contact home page. */
     private static final String CONTACT_HOME = '/003/o';

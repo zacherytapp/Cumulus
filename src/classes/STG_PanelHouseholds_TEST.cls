@@ -33,7 +33,7 @@
 * @group Settings
 * @description Unit tests for STG_PanelHouseholds_CTRL class
 */
-@isTest
+@isTest(isParallel=True)
 private class STG_PanelHouseholds_TEST {
     /*********************************************************************************************************
     * @description Constant representing Household_Naming_Settings__c.Household_Name_Format__c field name

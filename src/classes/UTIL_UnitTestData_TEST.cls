@@ -34,7 +34,7 @@
 * @description Provides automated generation of unit test data for tests throughout the org 
 */
 
-@isTest
+@isTest(isParallel=True)
 public class UTIL_UnitTestData_TEST { 
     /** @description A mock Account Id .*/
     public static final String MOCK_ACCOUNT_ID = Account.sObjectType.getDescribe().getKeyPrefix() + '000000000001AAA';
@@ -362,11 +362,11 @@ public class UTIL_UnitTestData_TEST {
             }
 
             u = new User(
-                Alias = 'jsmith',
+                Alias = 'jsmith12',
                 Email = 'jsmith@acme.com',
                 EmailEncodingKey = 'UTF-8',
                 LanguageLocaleKey = 'en_US',
-                LastName = 'Smith',
+                LastName = 'Smith12',
                 LocaleSidKey = 'en_US',
                 ProfileId = p.Id,
                 TimeZoneSidKey = 'America/Los_Angeles',
@@ -708,5 +708,12 @@ public class UTIL_UnitTestData_TEST {
             TDTM_ObjectDataGateway.ClearCachedTriggerHandlersForTest();
             haveTriggerRecordsBeenCreated = true;
         }
+    }
+
+    /**
+     * @description Generate a unique string to append to indexed fields to make them unique
+     */
+    public static String getGuid() {
+        return String.valueOf(Math.abs(Crypto.getRandomInteger()));
     }
 }

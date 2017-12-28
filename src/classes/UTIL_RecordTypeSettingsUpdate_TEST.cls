@@ -32,7 +32,7 @@
 * @group Utilities
 * @description Tests for UTIL_RecordTypeSettingsUpdate
 */
-@isTest
+@isTest(isParallel=True)
 private class UTIL_RecordTypeSettingsUpdate_TEST {
     @isTest
     private static void testNullSettingsRemainNull() {

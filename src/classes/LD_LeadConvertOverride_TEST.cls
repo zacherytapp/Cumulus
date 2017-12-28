@@ -33,7 +33,7 @@
 * @group Lead Conversion
 * @description Tests for the lead conversion override page and logic
 */
-@isTest
+@isTest(isParallel=True)
 private class LD_LeadConvertOverride_TEST {
 
     /*******************************************************************************************************

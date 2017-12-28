@@ -34,7 +34,7 @@
 * @description test Class which holds test methods for common utilities, 
 * such as detecting whether we are in a managed package, and some string helpers.
 */
-@isTest
+@isTest(isParallel=True)
 public with sharing class UTIL_Namespace_TEST {
 
     static testmethod void TestNamespacePrefixFixups() {

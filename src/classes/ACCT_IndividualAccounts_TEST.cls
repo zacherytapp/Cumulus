@@ -33,7 +33,7 @@
 * @group Accounts
 * @description Tests for ACCT_IndividualAccounts_TDTM
 */
-@isTest
+@isTest(isParallel=true)
 private class ACCT_IndividualAccounts_TEST {    
 
     /*********************************************************************************************************
@@ -599,7 +599,7 @@ private class ACCT_IndividualAccounts_TEST {
                
         CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
         
-        Account acct = new Account(Name='Test Account 876');
+        Account acct = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert acct;
         
         Account[] insertedAccount = [select npe01__SystemIsIndividual__c from Account where id = :acct.id];
@@ -750,7 +750,7 @@ private class ACCT_IndividualAccounts_TEST {
                 
         CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
         
-        String acctName = 'Test Account 876';
+        String acctName = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         Account acct = new Account(Name=acctName);
         insert acct;
 
@@ -805,7 +805,7 @@ private class ACCT_IndividualAccounts_TEST {
         
         CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
         
-        Account acct = new Account(Name='Test Account 876');
+        Account acct = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert acct;
         
         Account[] insertedAccount = [select npe01__SystemIsIndividual__c from Account where id = :acct.id];
@@ -969,7 +969,7 @@ private class ACCT_IndividualAccounts_TEST {
         CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
         
         Account orgAccount = new Account(
-            Name='Fake account'
+            Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS
         );
         insert orgAccount;
                

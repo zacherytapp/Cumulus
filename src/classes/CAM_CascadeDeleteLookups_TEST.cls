@@ -33,7 +33,7 @@
 * @group Utilities
 * @description Tests for cascade delete of Recurring Donations
 */
-@isTest
+@isTest(isParallel=True)
 private class CAM_CascadeDeleteLookups_TEST {
 
     /*********************************************************************************************************

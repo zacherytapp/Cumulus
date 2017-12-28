@@ -34,7 +34,7 @@
 * @group-content ../../ApexDocContent/Allocations.htm
 * @description Tests for the Manage Allocations page. 
 */
-@isTest
+@isTest(isParallel=True)
 private class ALLO_ManageAllocations_TEST {
 
     /*********************************************************************************************************

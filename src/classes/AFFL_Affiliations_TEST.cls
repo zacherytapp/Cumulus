@@ -34,7 +34,7 @@
 * @group-content ../../ApexDocContent/Affiliations.htm
 * @description Test class for affiliations.
 */
-@isTest
+@isTest(isParallel=True)
 public class AFFL_Affiliations_TEST {
     
     // if you only want to run one test in this class, fill in its name here.
@@ -50,7 +50,7 @@ public class AFFL_Affiliations_TEST {
         npe5__Affiliations_Settings__c affiliationsSettingsForTests = UTIL_CustomSettingsFacade.getAffiliationsSettingsForTests(
             new npe5__Affiliations_Settings__c(npe5__Automatic_Affiliation_Creation_Turned_On__c = true));
         
-        Account acc = new Account(Name='test77');
+        Account acc = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert acc;
         
         String title = 'CEO';
@@ -67,7 +67,7 @@ public class AFFL_Affiliations_TEST {
         system.assertEquals(title, createdAffiliations[0].npe5__Role__c);
         system.assertEquals(System.Today(), createdAffiliations[0].npe5__StartDate__c);
         
-        Account acc2 = new Account(Name='test88');
+        Account acc2 = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert acc2;
         
         Test.startTest();
@@ -103,7 +103,7 @@ public class AFFL_Affiliations_TEST {
         npe5__Affiliations_Settings__c affiliationsSettingsForTests = UTIL_CustomSettingsFacade.getAffiliationsSettingsForTests(
             new npe5__Affiliations_Settings__c(npe5__Automatic_Affiliation_Creation_Turned_On__c = false));
         
-        Account acc = new Account(Name='test77');
+        Account acc = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert acc;
         
         Contact con = getContact(acc.Id, 'CEO');
@@ -127,7 +127,7 @@ public class AFFL_Affiliations_TEST {
         npe5__Affiliations_Settings__c affiliationsSettingsForTests = UTIL_CustomSettingsFacade.getAffiliationsSettingsForTests(
             new npe5__Affiliations_Settings__c(npe5__Automatic_Affiliation_Creation_Turned_On__c = true));
         
-        Account acc = new Account(Name='my bucket account', npe01__SYSTEMIsIndividual__c=true);
+        Account acc = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS, npe01__SYSTEMIsIndividual__c=true);
         insert acc;
         
         Contact con = getContact(acc.Id, 'CEO');
@@ -149,8 +149,8 @@ public class AFFL_Affiliations_TEST {
         npe5__Affiliations_Settings__c affiliationsSettingsForTests = UTIL_CustomSettingsFacade.getAffiliationsSettingsForTests(
             new npe5__Affiliations_Settings__c(npe5__Automatic_Affiliation_Creation_Turned_On__c = true));
         
-        Account acc = new Account(Name='test77');        
-        Account acc2 = new Account(Name='test88');
+        Account acc = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS + '1');
+        Account acc2 = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS + '2');
         insert new Account[] {acc, acc2};
         
         Contact con = getContact(acc.ID, 'CEO');
@@ -178,7 +178,7 @@ public class AFFL_Affiliations_TEST {
     }
 
     private static Contact getContact(Id accountId, String title) {
-    	return new Contact(FirstName = 'test', LastName = 'testerson', AccountId = accountId, Title = title);
+    	return new Contact(FirstName = 'test', LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, AccountId = accountId, Title = title);
     }
    
    
@@ -725,12 +725,12 @@ public class AFFL_Affiliations_TEST {
         UTIL_CustomSettingsFacade.getAffiliationsSettingsForTests(new npe5__Affiliations_Settings__c(npe5__Automatic_Affiliation_Creation_Turned_On__c = true));
         
         list<contact> listCon = new list<Contact>();
-        listCon.add(new Contact(LastName = 'foo1', Title='Developer'));
-        listCon.add(new Contact(LastName = 'foo2', Title='CEO'));
+        listCon.add(new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'1', Title='Developer'));
+        listCon.add(new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'2', Title='CEO'));
         insert listCon;
 
         test.StartTest();
-        Account acc = new Account(Name='foo', npe01__One2OneContact__c=listCon[0].id, npe01__SYSTEMIsIndividual__c=false);
+        Account acc = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS, npe01__One2OneContact__c=listCon[0].id, npe01__SYSTEMIsIndividual__c=false);
         insert acc;
         
         list<npe5__Affiliation__c> queryAffl = [select id, npe5__Status__c, npe5__StartDate__c, npe5__Role__c, 
@@ -769,11 +769,11 @@ public class AFFL_Affiliations_TEST {
             new npe5__Affiliations_Settings__c(npe5__Automatic_Affiliation_Creation_Turned_On__c = true)
         );
 
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert acc;
         
         Contact con = new Contact(
-            LastName='foo'
+            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS
         );
         insert con;
         
@@ -820,11 +820,11 @@ public class AFFL_Affiliations_TEST {
             new npe5__Affiliations_Settings__c(npe5__Automatic_Affiliation_Creation_Turned_On__c = true)
         );
 
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert acc;
         
         Contact con = new Contact(
-            LastName='foo',
+            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
             Primary_Affiliation__c = acc.id
         );
         insert con;
@@ -837,7 +837,7 @@ public class AFFL_Affiliations_TEST {
         Contact queryCon = [SELECT Id, Primary_Affiliation__c FROM Contact WHERE Id = :con.id];
         system.assertEquals(null, queryCon.Primary_Affiliation__c, 'Contact primary affiliation should be blank.');
 
-        Account newPrimary = new Account(Name='foo');
+        Account newPrimary = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert newPrimary;
 
         npe5__Affiliation__c affl = new npe5__Affiliation__c(

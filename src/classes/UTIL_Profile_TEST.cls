@@ -33,7 +33,7 @@
 * @group Utilities
 * @description Unit tests for UTIL_Profile class
 */
-@isTest
+@isTest(isParallel=True)
 private class UTIL_Profile_TEST {
 
     /**************************************************************************************************************************

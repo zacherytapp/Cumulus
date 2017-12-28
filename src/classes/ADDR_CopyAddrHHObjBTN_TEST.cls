@@ -33,7 +33,7 @@
 * @group Address Management
 * @description test class for the Copy Address button controller
 */
-@isTest
+@isTest(isParallel=True)
 private with sharing class ADDR_CopyAddrHHObjBTN_TEST {
 
     /*******************************************************************************************************

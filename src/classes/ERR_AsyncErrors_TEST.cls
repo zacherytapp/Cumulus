@@ -32,7 +32,7 @@
 * @group ErrorHandling
 * @description Unit tests for ERR_AsyncErrors
 */
-@isTest
+@isTest(isParallel=True)
 public class ERR_AsyncErrors_TEST {
     @isTest
     private static void testQueryForErrorsInLastDayIfNotPreviouslyRun() {

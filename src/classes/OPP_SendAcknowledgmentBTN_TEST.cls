@@ -33,7 +33,7 @@
 * @group Opportunity
 * @description Test class for the Send Acknowledgment buttons (single and list view) on Opportunities.  
 */
-@isTest
+@isTest(isParallel=True)
 public with sharing class OPP_SendAcknowledgmentBTN_TEST {
     private static final String TO_BE_ACKNOWLEDGED_STATUS = 'To Be Acknowledged';
 

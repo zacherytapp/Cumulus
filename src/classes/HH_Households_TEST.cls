@@ -33,8 +33,8 @@
 * @group Households
 * @description This class contains unit tests for validating the behavior of the Households class 
 */
-@isTest
-public with sharing class HH_Households_TEST {
+@isTest(isParallel=true)
+public class HH_Households_TEST {
 	
     /*********************************************************************************************************
     * @description Tests default constructor
@@ -416,7 +416,7 @@ public with sharing class HH_Households_TEST {
         npo02__Households_Settings__c householdSettingsForTests = UTIL_CustomSettingsFacade.getHouseholdsSettingsForTests(new npo02__Households_Settings__c (npo02__Household_Rules__c = HH_Households.ALL_INDIVIDUALS_PROCESSOR));
         
         Account acct = new Account(
-            Name = 'Test Organization 888'
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS
         );
         insert acct;
         
@@ -634,7 +634,7 @@ public with sharing class HH_Households_TEST {
         Integer conCount = 200;
         for(Integer i=0;i<conCount;i++){
             Contact con = new Contact(
-                FirstName='test',
+                FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
                 LastName=lastname,
                 MailingStreet = street,
                 MailingCity = city,
@@ -726,26 +726,29 @@ public with sharing class HH_Households_TEST {
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests
             (new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.ONE_TO_ONE_PROCESSOR));
   
-        Contact con = new Contact(firstname='joe', lastname='smith');
+        Contact con = new Contact(
+                FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
+                LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS
+        );
         insert con;
   
         npo02__Household__c hh = [select Id, Name, npo02__Formal_greeting__c, npo02__Informal_greeting__c from npo02__Household__c];
     
-        system.assertEquals('smith ' + system.label.npo02.DefaultHouseholdName, hh.Name);
-        system.assertEquals('joe smith', hh.npo02__Formal_greeting__c);
-        system.assertEquals('joe', hh.npo02__Informal_greeting__c);
-  
-        con.firstname = 'Joe';
-        con.lastname = 'Smith';
+        system.assertEquals(con.LastName + ' ' + system.label.npo02.DefaultHouseholdName, hh.Name);
+        system.assertEquals(con.FirstName + ' ' + con.LastName, hh.npo02__Formal_greeting__c);
+        system.assertEquals(con.FirstName, hh.npo02__Informal_greeting__c);
+
+        con.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS.toUpperCase();
+        con.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS.toUpperCase();
         Test.startTest();
         update con;
         Test.stopTest();
   
         hh = [select Id, Name, npo02__Formal_greeting__c, npo02__Informal_greeting__c from npo02__Household__c];
     
-        system.assertEquals('Smith ' + system.label.npo02.DefaultHouseholdName, hh.Name);
-        system.assertEquals('Joe Smith', hh.npo02__Formal_greeting__c);
-        system.assertEquals('Joe', hh.npo02__Informal_greeting__c);
+        system.assertEquals(con.LastName + ' ' + system.label.npo02.DefaultHouseholdName, hh.Name);
+        system.assertEquals(con.FirstName + ' ' + con.LastName, hh.npo02__Formal_greeting__c);
+        system.assertEquals(con.FirstName, hh.npo02__Informal_greeting__c);
     } 
 
     // Helpers

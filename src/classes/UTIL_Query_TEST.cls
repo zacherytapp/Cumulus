@@ -33,7 +33,7 @@
 * @group Utilities
 * @description Unit tests for UTIL_Query class
 */
-@isTest
+@isTest(isParallel=True)
 private class UTIL_Query_TEST {
 	
     /*********************************************************************************************************

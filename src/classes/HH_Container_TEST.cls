@@ -34,7 +34,7 @@
 * @group-content ../../ApexDocContent/Households.htm
 * @description Apex test class for all Apex code used in HH_Container_LCTRL
 */
-@isTest
+@isTest(isParallel=True)
 private class HH_Container_TEST {
 
     private static Account hhA;

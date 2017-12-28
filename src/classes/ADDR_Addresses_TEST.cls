@@ -34,8 +34,8 @@
 * @description Tests specific to Address Management. 
 */
 
-@isTest
-public with sharing class ADDR_Addresses_TEST {
+@isTest(isParallel=true)
+public class ADDR_Addresses_TEST {
 
     /*********************************************************************************************************
     * @description if you only want to run one test in this class, fill in its name here.
@@ -1342,9 +1342,9 @@ public with sharing class ADDR_Addresses_TEST {
         Integer contactSize = 1;
         createHHTestData(hhSize, contactSize);
 
-        Account account = new Account(Name = 'AccountWithoutAddress');
+        Account account = new Account(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert account;
-        Contact contact = new Contact(LastName = 'TestPrimaryAddressTypeExistingContact', AccountId = account.Id);
+        Contact contact = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, AccountId = account.Id);
         insert contact;
 
         Test.startTest();
@@ -1404,7 +1404,7 @@ public with sharing class ADDR_Addresses_TEST {
 
         Test.startTest();
 
-        Contact contact = new Contact(LastName = 'TestPrimaryAddressTypeNewContact', AccountId = listAccT[0].Id);
+        Contact contact = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, AccountId = listAccT[0].Id);
         populateContactAddress(contact, listAddrT[0]);
         insert contact;
 
@@ -1825,7 +1825,7 @@ public with sharing class ADDR_Addresses_TEST {
     static testMethod void ContactRepository_getContactsShouldReturnEmptyListWhenAccountHasNoContacts() {
         if (strTestOnly != '*' && strTestOnly != 'ContactRepository_getContactsShouldReturnEmptyListWhenAccountHasNoContacts') return;
 
-        Account account = new Account(Name = 'AccountWithoutContacts');
+        Account account = new Account(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert account;
 
         ADDR_Addresses_TDTM.ContactRepository contactRepo = new ADDR_Addresses_TDTM.ContactRepository(new Set<Id>{ account.Id });

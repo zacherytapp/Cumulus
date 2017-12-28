@@ -930,7 +930,7 @@ private with sharing class ACCT_HHAccounts_TEST {
         
         ID rtIdAccountHH = ACCT_IndividualAccounts_TDTM.rtIdForAccountModel(true);
         if (rtIdAccountHH != null) {
-            Account acc = new Account(name='test', RecordTypeId = rtIdAccountHH);
+            Account acc = new Account(name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS, RecordTypeId = rtIdAccountHH);
             insert acc;
             acc = [select Id, Name, RecordTypeId, npe01__SYSTEMISINDIVIDUAL__c, npe01__SYSTEM_AccountType__c 
                 from Account where Id = :acc.Id];
@@ -951,7 +951,7 @@ private with sharing class ACCT_HHAccounts_TEST {
         
         ID rtIdAccountHH = ACCT_IndividualAccounts_TDTM.rtIdForAccountModel(true);
         if (rtIdAccountHH != null) {
-            Account acc = new Account(name='test');
+            Account acc = new Account(name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
             insert acc;
             acc = [select Id, Name, RecordTypeId, npe01__SYSTEMISINDIVIDUAL__c, npe01__SYSTEM_AccountType__c 
                 from Account where Id = :acc.Id];

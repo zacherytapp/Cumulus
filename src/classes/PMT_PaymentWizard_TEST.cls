@@ -33,7 +33,7 @@
 * @group Payments
 * @description tests for payment creation wizard
 */
-@isTest
+@isTest(isParallel=True)
 private class PMT_PaymentWizard_TEST {
 
     /*********************************************************************************************************

@@ -33,7 +33,7 @@
 * @group Utilities
 * @description Tests for currency utility class
 */
-@isTest
+@isTest(isParallel=True)
 public class UTIL_Currency_TEST {
 
     /**

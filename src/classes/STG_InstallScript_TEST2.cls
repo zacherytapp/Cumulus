@@ -32,7 +32,8 @@
 * @date 2014
 * @group Settings
 * @description Test class for the Install Script for the NPSP package. 
-*/@isTest
+*/
+@isTest(isParallel=True)
 public with sharing class STG_InstallScript_TEST2 {
 
     //If the handlers in our default TDTM config are different from what it's in the org (either action or load order),

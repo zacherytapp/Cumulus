@@ -37,7 +37,7 @@
 * be the same for all calls in a transaction, and by calling it statically we reduce the calls
 * that are made, making the total transaction more efficient.
 */
-@isTest
+@isTest(isParallel=True)
 public with sharing class UTIL_Describe_TEST {
 
     // TEST

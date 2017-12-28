@@ -33,8 +33,8 @@
  * @group Opportunity
  * @description test class for the Manage Soft Credits VF page 
  */
- 
-@isTest 
+
+@isTest(isParallel=True)
 public with sharing class PSC_ManageSoftCredits_TEST {
     
     /*******************************************************************************************************

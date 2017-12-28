@@ -34,7 +34,7 @@
 * @group ContactMerge
 */
 
-@isTest
+@isTest(isParallel=True)
 public with sharing class CON_ChangeAccount_TEST {
 
     /*********************************************************************************************************

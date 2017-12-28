@@ -33,7 +33,7 @@
 * @group Address Management
 * @description Validator to provide address geocoding/verification through the Google Geocoding API
  */
-@isTest
+@isTest(isParallel=True)
 public with sharing class ADDR_GoogleGeoAPI_Validator_TEST {
     public static Addr_Verification_Settings__c getDefaultSettings() {
         // use the household account model

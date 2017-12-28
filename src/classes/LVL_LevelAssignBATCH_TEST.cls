@@ -33,8 +33,7 @@
 * @group Levels
 * @description test the batchable class for Level Assignments
 */
-
-@isTest
+@isTest(isParallel=True)
 private class LVL_LevelAssignBATCH_TEST {
 
     private static Level__c lvlTin { get; set; }

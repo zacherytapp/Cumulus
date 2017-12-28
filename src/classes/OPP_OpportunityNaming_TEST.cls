@@ -34,7 +34,7 @@
 * @group-content ../../ApexDocContent/Opportunity.htm
 * @description Test class for Opportunity Naming.
 */
-@isTest
+@isTest(isParallel=True)
 private class OPP_OpportunityNaming_TEST
 {
     /*********************************************************************************************************
@@ -74,10 +74,10 @@ private class OPP_OpportunityNaming_TEST
             ons.Opportunity_Record_Types__c = UTIL_RecordTypes.getrecordTypeIdForGiftsTests(Opportunity.sObjectType);
         insert ons;
 
-        Account acc = new Account(Name='accname');
+        Account acc = new Account(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert acc;
 
-        Contact con = new Contact(LastName='conname');
+        Contact con = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS);
         insert con;
 
         Opportunity opp = new Opportunity(
@@ -93,12 +93,13 @@ private class OPP_OpportunityNaming_TEST
         insert opp;
 
         list<Opportunity> queryOpp = [SELECT Name FROM Opportunity WHERE Id = :opp.id];
-        string oppName = 'accname conname 2000.01.01';
-        if (hasActiveRecType())
+        string oppName = acc.Name + ' ' + con.LastName + ' 2000.01.01';
+        if (hasActiveRecType()) {
             oppname += ' ' + UTIL_RecordTypes.getrecordTypeNameForGiftsTests(Opportunity.sObjectType);
+        }
         system.assertEquals(oppName, queryOpp[0].Name, 'The name should be calculated based on the setting.');
 
-        acc.Name = 'newname';
+        acc.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS + 'XTZ';
         update acc;
 
         ApexPages.StandardController sc = new ApexPages.StandardController(opp);
@@ -111,7 +112,7 @@ private class OPP_OpportunityNaming_TEST
         ctrl.buttonClick();
 
         queryOpp = [SELECT Name FROM Opportunity WHERE Id = :opp.id];
-        oppname = 'newname conname 2000.01.01';
+        oppname = acc.Name + ' ' + con.LastName + ' 2000.01.01';
         if (hasActiveRecType())
             oppname += ' ' + UTIL_RecordTypes.getrecordTypeNameForGiftsTests(Opportunity.sObjectType);
         system.assertEquals(oppName, queryOpp[0].Name, 'The name should be recalculated after clicking the button.');
@@ -135,10 +136,10 @@ private class OPP_OpportunityNaming_TEST
             ons.Opportunity_Record_Types__c = UTIL_RecordTypes.getrecordTypeIdForGiftsTests(Opportunity.sObjectType);
         insert ons;
 
-        Account acc = new Account(Name='accname');
+        Account acc = new Account(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert acc;
 
-        Contact con = new Contact(LastName='conname');
+        Contact con = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS);
         insert con;
 
         Opportunity opp = new Opportunity(
@@ -155,7 +156,7 @@ private class OPP_OpportunityNaming_TEST
 
         list<Opportunity> queryOpp = [SELECT Name FROM Opportunity WHERE Id = :opp.id];
 
-        string oppname = 'accname';
+        string oppname = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         if (hasActiveRecType())
             oppname += ' ' + UTIL_RecordTypes.getrecordTypeNameForGiftsTests(Opportunity.sObjectType);
         system.assertEquals(oppname, queryOpp[0].Name, 'The name should be calculated based on the setting; missing fields should be excluded.');
@@ -187,7 +188,7 @@ private class OPP_OpportunityNaming_TEST
         if (hasActiveRecType())
             onsList[1].Opportunity_Record_Types__c = UTIL_RecordTypes.getRecordTypeIdForGiftsTests(Opportunity.sObjectType);
 
-        Contact con = new Contact(LastName='conname', HasOptedOutOfFax=true);
+        Contact con = new Contact(LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, HasOptedOutOfFax=true);
         insert con;
 
         list<Contact> queryCon = [SELECT Id, AccountId FROM Contact WHERE Id = :con.id];
@@ -229,7 +230,7 @@ private class OPP_OpportunityNaming_TEST
 
         queryOpp = [SELECT Name, RecordType.Name, Account.npe01__SYSTEMIsIndividual__c FROM Opportunity WHERE AccountId = :queryCon[0].accountId];
 
-        string oppname = 'conname true';
+        string oppname = con.LastName + ' true';
         if (hasActiveRecType())
             oppname += ' ' + UTIL_RecordTypes.getrecordTypeNameForGiftsTests(Opportunity.sObjectType);
 
@@ -258,10 +259,10 @@ private class OPP_OpportunityNaming_TEST
         );
         insert ons;
 
-        Account acc = new Account(Name='accname');
+        Account acc = new Account(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert acc;
 
-        Contact con = new Contact(LastName='conname');
+        Contact con = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS);
         insert con;
 
         Opportunity opp = new Opportunity(

@@ -33,7 +33,7 @@
 * @group Address Management
 * @description Class that tests ADDR_SmartyStreets_Gateway class.
 */
-@isTest
+@isTest(isParallel=True)
 public with sharing class ADDR_Validation_Gateway_TEST {
 	
 	// if you only want to run one test in this class, fill in its name here.
