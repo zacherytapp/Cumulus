@@ -33,7 +33,7 @@
 * @group Opportunity
 * @description Tests for OpportunityContactRoles
 */
-@isTest
+@isTest(IsParallel=true)
 private class OPP_OpportunityContactRoles_TEST {
 
     /*********************************************************************************************************
@@ -55,7 +55,7 @@ private class OPP_OpportunityContactRoles_TEST {
     static testMethod void createOrUpdateCR() {
         if (strTestOnly != '*' && strTestOnly != 'createOrUpdateCR') return;
         
-        Account acc = new Account(Name='test77');
+        Account acc = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert acc;
 
         Contact con = UTIL_UnitTestData_TEST.getContact();
@@ -65,7 +65,7 @@ private class OPP_OpportunityContactRoles_TEST {
         //Simulate user interface creation of opp from button on contact screen, 
         //i.e. Role field is blank in the new contact role.
         Opportunity opp1 = new Opportunity(
-            Name = 'Apex Test Opp1',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS+'1',
             AccountId = acc.Id,
             CloseDate = date.today(), StageName = UTIL_UnitTestData_TEST.getClosedWonStage()
         );
@@ -85,7 +85,7 @@ private class OPP_OpportunityContactRoles_TEST {
         
         //Now simulate import of an opp record with a contact ID.
         Opportunity opp2 = new Opportunity(
-            Name = 'Apex Test Opp2',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS+'2',
             AccountId = acc.Id,
             Primary_Contact__c = con.Id,
             CloseDate = date.today(), StageName = UTIL_UnitTestData_TEST.getClosedWonStage()
@@ -116,7 +116,7 @@ private class OPP_OpportunityContactRoles_TEST {
         TDTM_ObjectDataGateway.ClearCachedTriggerHandlersForTest();
         
         Opportunity opp1 = new Opportunity(
-            Name = 'Apex Test Opp1',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             npe01__Contact_Id_for_Role__c = con.Id,
             CloseDate = date.today(),
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage()
@@ -147,7 +147,7 @@ private class OPP_OpportunityContactRoles_TEST {
         Contact[] createdContacts = [select AccountId from Contact where Id = :con.id];
 
         Opportunity opp1 = new Opportunity(
-            Name = 'Apex Test Opp1',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             Primary_Contact__c = con.Id,
             CloseDate = date.today(),
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage()
@@ -180,7 +180,7 @@ private class OPP_OpportunityContactRoles_TEST {
         Contact[] createdContacts = [select AccountId from Contact where Id = :con.id];
 
         Opportunity opp1 = new Opportunity(
-            Name = 'Apex Test Opp1',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             Primary_Contact__c = con.Id,
             CloseDate = date.today(),
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage()
@@ -215,7 +215,7 @@ private class OPP_OpportunityContactRoles_TEST {
         Contact[] createdContacts = [select AccountId from Contact where Id = :con.id];
 
         Opportunity opp1 = new Opportunity(
-            Name = 'Apex Test Opp1',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             AccountId = createdContacts[0].AccountId,
             CloseDate = date.today(),
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage()
@@ -245,7 +245,7 @@ private class OPP_OpportunityContactRoles_TEST {
         Contact[] createdContacts = [select AccountId from Contact where Id = :con.id];
 
         Opportunity opp1 = new Opportunity(
-            Name = 'Apex Test Opp1',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             npe01__Contact_Id_for_Role__c = con.Id,
             CloseDate = date.today(),
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage()
@@ -273,7 +273,7 @@ private class OPP_OpportunityContactRoles_TEST {
         if (strTestOnly != '*' && strTestOnly != 'oppRolesForBadId') return;
 
         Opportunity opp1 = new Opportunity(
-            Name = 'Apex Test Opp1',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             npe01__Contact_Id_for_Role__c = 'junk',
             CloseDate = date.today(),
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage()
@@ -308,7 +308,7 @@ private class OPP_OpportunityContactRoles_TEST {
         insert testCons;
 
         Opportunity opp = new Opportunity(
-            Name = 'Test',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             Primary_Contact__c = testCons[0].id,
             Honoree_Contact__c = testCons[1].id,
             Notification_Recipient_Contact__c = testCons[2].id,
@@ -352,7 +352,7 @@ private class OPP_OpportunityContactRoles_TEST {
         insert testCons;
 
         Opportunity opp = new Opportunity(
-            Name = 'Test',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             Primary_Contact__c = testCons[0].id,
             Honoree_Contact__c = testCons[1].id,
             Notification_Recipient_Contact__c = testCons[2].id,
@@ -407,7 +407,7 @@ private class OPP_OpportunityContactRoles_TEST {
         insert testCons;
 
         Opportunity opp = new Opportunity(
-            Name = 'Test',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             Primary_Contact__c = testCons[0].id,
             Honoree_Contact__c = testCons[2].id,
             CloseDate = date.today(),
@@ -500,7 +500,7 @@ private class OPP_OpportunityContactRoles_TEST {
             system.assertEquals(hhAccountId, queryCon[i].AccountId, 'Contacts should be in the same household.');
 
         Opportunity opp = new Opportunity(
-            Name = 'Test',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             Primary_Contact__c = primaryCon.id,
             Honoree_Contact__c = householdMembers[0].id,
             CloseDate = date.today(),
