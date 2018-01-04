@@ -41,7 +41,7 @@ public with sharing class ERR_Handler_CTRL_TEST {
     public pageReference withManualRollback() {
         Savepoint sp = Database.setSavepoint();
         try {       
-            Contact contact1 = new Contact(FirstName = 'test', LastName = 'testerson1', Title = 'VP1');
+            Contact contact1 = UTIL_UnitTestData_TEST.getContact();
             insert contact1;
             
             //Deleting the contact to force an exception. In the method above an exception is not thrown

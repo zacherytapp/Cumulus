@@ -42,11 +42,11 @@ public with sharing class MTCH_FindGifts_TEST {
     /*******************************************************************************************************
     * @description test data for all tests
     */ 
-    public static Account accMG;
-    public static integer cItem = 10;
-    public static list<Contact> listCon;
-    public static list<Opportunity> listOpp;
-    public static Opportunity oppMG;
+    private static Account accMG;
+    private static integer cItem = 8;
+    private static list<Contact> listCon;
+    private static list<Opportunity> listOpp;
+    private static Opportunity oppMG;
         
     /*******************************************************************************************************
     * @description Initialize test data, create Matching Gift as Closed Won and set gift percent to 100
@@ -70,7 +70,7 @@ public with sharing class MTCH_FindGifts_TEST {
         
         // create some Contacts in Household Accounts
         listCon = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(cItem);
-        UTIL_UnitTestData_TEST.makeLastNamesUnique(listCon);
+        listCon = UTIL_UnitTestData_TEST.makeLastNamesUnique(listCon);
         insert listCon;
         listCon = [select Id, Firstname,Lastname, AccountId from Contact];
         system.assertEquals(cItem, listCon.size());

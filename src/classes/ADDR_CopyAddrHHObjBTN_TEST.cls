@@ -59,7 +59,8 @@ private with sharing class ADDR_CopyAddrHHObjBTN_TEST {
         
         Contact cc = new Contact(
            npo02__Household__c = hh.id,
-           LastName = 'TestLName',
+           FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
+           LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
            MailingStreet = '1 Oak Lane',
            MailingState = 'British Columbia',
            MailingPostalCode = '98122',
@@ -96,7 +97,7 @@ private with sharing class ADDR_CopyAddrHHObjBTN_TEST {
         //test error conditions
         
         //unsupported object test
-        Account a = new Account(Name = 'TESTACCOUNT');
+        Account a = new Account(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert a;        
         Test.setCurrentPageReference(new PageReference('Page.ADDR_CopyAddrHHObjBTN'));
         system.currentPageReference().getParameters().put('id', a.id);

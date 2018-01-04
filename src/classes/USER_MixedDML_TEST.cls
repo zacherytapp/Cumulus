@@ -35,7 +35,7 @@
 * @description Test class for the USER Trigger Mixed DML bug regression.
 */
 @isTest
-public with sharing class USER_MixedDML_TEST {
+private class USER_MixedDML_TEST {
     private static testMethod void testInsertingUserWithTriggerHandlerMixedDML() {
         System.assert([SELECT Id FROM Trigger_Handler__c].isEmpty(), 'There should be no trigger handler records found!');
         List<User> newUsers = USER_UserService_TEST.createUsers();

@@ -34,7 +34,7 @@
 * @description Component that coverage github functionality
 */
 
-@isTest
+@isTest(IsParallel=true)
 public with sharing class RP_GitHubTest {
 
     /*********************************************************************************************************

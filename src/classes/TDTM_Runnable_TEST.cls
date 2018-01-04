@@ -35,7 +35,7 @@
  * @description Test class for TDTM_Runnable
  *
 ***/
-@isTest
+@isTest(IsParallel=true)
 public with sharing class TDTM_Runnable_TEST {
 
     private static string strTestOnly = '*';
@@ -50,10 +50,13 @@ public with sharing class TDTM_Runnable_TEST {
               Class__c = 'ERR_ParentAccountUpdater2_TEST', Load_Order__c = 1, Object__c = 'Contact', 
               Trigger_Action__c = 'AfterInsert;');
          
-        Account acc = new Account(Name = 'Old Acc Name');
+        Account acc = new Account(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert acc;
         
-        Contact contact = new Contact(FirstName = 'Old First Name', LastName = 'Testerson', AccountId = acc.Id);
+        Contact contact = new Contact(
+                FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
+                LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+                AccountId = acc.Id);
         
         Test.startTest(); 
         insert contact;
@@ -62,8 +65,8 @@ public with sharing class TDTM_Runnable_TEST {
         contact = [select FirstName from Contact where Id = :contact.ID];
         acc = [select Name from Account where Id = :acc.Id];
         
-        System.assertEquals('New First Name', contact.FirstName); //To verify fields from record are available in future
-        System.assertEquals('New Acc Name', acc.Name);
+        System.assertEquals(CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, contact.FirstName); //To verify fields from record are available in future
+        System.assertEquals(CAO_Constants.ACCOUNT_NAME_FOR_TESTS, acc.Name);
     }
     
     /*************************************************************************** 
@@ -77,8 +80,8 @@ public with sharing class TDTM_Runnable_TEST {
     	npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.HH_ACCOUNT_PROCESSOR));
     
-    	List<Contact> contacts = new List<Contact>();
-		for(integer i = 0; i< 200; i++) {
+    	List<Contact> contacts = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(200);
+		/*for(integer i = 0; i< 200; i++) {
 		    Contact contact = new contact(firstname='Test', lastname='Person' + i);
 		    contact.MailingStreet = 'multiple-address';
 		    contact.MailingCity = 'Cupertino';
@@ -86,7 +89,7 @@ public with sharing class TDTM_Runnable_TEST {
 		    contact.MailingPostalCode = '95014';
 		    contact.MailingCountry = 'United States';
 		    contacts.add(contact);
-		}
+		}*/
 		
 		Test.startTest();
 		insert contacts;

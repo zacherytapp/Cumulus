@@ -43,7 +43,7 @@ public with sharing class ERR_ParentAccountUpdater_TEST extends TDTM_Runnable {
         
         for(SObject o : newList) {
             Contact c = (Contact)o;
-            c.Account.Name = 'New Acc Name';
+            c.Account.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
             dmlWrapper.objectsToUpdate.add(c.Account);
         }
         

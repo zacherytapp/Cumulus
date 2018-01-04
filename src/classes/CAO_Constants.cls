@@ -78,22 +78,22 @@ public with sharing class CAO_Constants {
     /*******************************************************************************************************
     * @description A contact's firstname to use in test code.
     */
-    public static final string ACCOUNT_NAME_FOR_TESTS = 'TEST_ACCOUNT_' + UTIL_UnitTestData_TEST.getGuid();
+    public static final string ACCOUNT_NAME_FOR_TESTS = 'TEST_ACCOUNT_' + getUniqueString();
 
     /*******************************************************************************************************
     * @description A contact's firstname to use in test code.
     */ 
-    public static final string CONTACT_FIRSTNAME_FOR_TESTS = 'test' + UTIL_UnitTestData_TEST.getGuid();
+    public static final string CONTACT_FIRSTNAME_FOR_TESTS = 'test' + getUniqueString();
 
     /*******************************************************************************************************
     * @description A contact's lastname to use in test code.
     */ 
-    public static final string CONTACT_LASTNAME_FOR_TESTS = 'Contact_forTests' + UTIL_UnitTestData_TEST.getGuid();
+    public static final string CONTACT_LASTNAME_FOR_TESTS = 'Contact_forTests' + getUniqueString();
 
     /*******************************************************************************************************
     * @description A contact's email to use in test code.
     */ 
-    public static final string CONTACT_EMAIL_FOR_TESTS = 'junk' + UTIL_UnitTestData_TEST.getGuid() + '@test.net';
+    public static final string CONTACT_EMAIL_FOR_TESTS = 'junk' + getUniqueString() + '@test.net';
 
     /*******************************************************************************************************
     * @description A contact's preferred email to use in test code.
@@ -103,7 +103,7 @@ public with sharing class CAO_Constants {
     /*******************************************************************************************************
     * @description A contact's phone number to use in test code.
     */ 
-    public static final string CONTACT_PHONE_FOR_TESTS = '206-777-' + UTIL_UnitTestData_TEST.getGuid().right(4);
+    public static final string CONTACT_PHONE_FOR_TESTS = '206-777-' + getUniqueString().right(4);
 
     /*******************************************************************************************************
     * @description A contact's preferred phone to use in test code.
@@ -194,5 +194,12 @@ public with sharing class CAO_Constants {
         IndividualAccountName = accountName;
 
         return individualAccountForTests.id;
+    }
+
+    /**
+     * @description Generate a unique string to append to indexed fields to make them unique
+     */
+    public static String getUniqueString() {
+        return String.valueOf(Math.abs(Crypto.getRandomInteger()));
     }
 }

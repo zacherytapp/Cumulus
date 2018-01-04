@@ -34,7 +34,7 @@
 * @description Tests for Performance Analysis Logging class for NPSP.
 */
 
-@isTest
+@isTest(IsParallel=true)
 public with sharing class UTIL_PerfLogger_TEST {
 
     /*******************************************************************************************************

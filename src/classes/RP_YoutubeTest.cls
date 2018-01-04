@@ -34,7 +34,7 @@
 * @description Component that retrieves youtube videos from the Salesforce Fundation channel.
 */
 
-@isTest
+@isTest(IsParallel=true)
 private class RP_YoutubeTest {
 
     /*********************************************************************************************************

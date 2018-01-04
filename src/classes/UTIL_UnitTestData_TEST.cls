@@ -731,11 +731,4 @@ public class UTIL_UnitTestData_TEST {
             haveTriggerRecordsBeenCreated = true;
         }
     }
-
-    /**
-     * @description Generate a unique string to append to indexed fields to make them unique
-     */
-    public static String getGuid() {
-        return String.valueOf(Math.abs(Crypto.getRandomInteger()));
-    }
 }

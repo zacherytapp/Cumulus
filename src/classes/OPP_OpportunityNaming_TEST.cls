@@ -83,7 +83,7 @@ private class OPP_OpportunityNaming_TEST
         Opportunity opp = new Opportunity(
             AccountId = acc.id,
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
-            Name='temp',
+            Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             Amount=8,
             CloseDate = Date.newInstance(2000, 1, 1),
             Primary_Contact__c = con.id
@@ -128,7 +128,7 @@ private class OPP_OpportunityNaming_TEST
         if (strTestOnly != '*' && strTestOnly != 'testMissingData') return;
 
         Opportunity_Naming_Settings__c ons = new Opportunity_Naming_Settings__c(
-            Name = 'foo',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             Opportunity_Name_Format__c = '{!Account.Name} {!Account.npe01__One2OneContact__r.Primary_Affiliation__r.Name} {!Campaign.Name} {!Type} {!RecordType.Name}',
             Attribution__c = Label.oppNamingBoth
         );
@@ -145,7 +145,7 @@ private class OPP_OpportunityNaming_TEST
         Opportunity opp = new Opportunity(
             AccountId = acc.id,
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
-            Name='temp',
+            Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             Amount=8,
             CloseDate = Date.newInstance(2000, 1, 1),
             npe01__Contact_Id_for_Role__c = con.id
@@ -204,7 +204,7 @@ private class OPP_OpportunityNaming_TEST
         opportunity opp = new Opportunity(
             AccountId = queryCon[0].accountId,
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
-            Name='Test',
+            Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             Amount=8.8,
             CloseDate = Date.newInstance(2000, 1, 1),
             npe01__Contact_Id_for_Role__c = con.id
@@ -222,7 +222,7 @@ private class OPP_OpportunityNaming_TEST
         //verify opps haven't been renamed yet
         list<Opportunity> queryOpp = [SELECT Name FROM Opportunity WHERE Id IN :listOpp];
         for (Opportunity thisopp : queryOpp) {
-            system.assert(thisopp.name.contains('Test'));
+            system.assert(thisopp.name.contains(CAO_Constants.ACCOUNT_NAME_FOR_TESTS));
         }
 
         test.startTest();
@@ -257,7 +257,7 @@ private class OPP_OpportunityNaming_TEST
         if (strTestOnly != '*' && strTestOnly != 'testException') return;
 
         Opportunity_Naming_Settings__c ons = new Opportunity_Naming_Settings__c(
-            Name = 'foo',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             Opportunity_Name_Format__c = '{!Account.Invalid_Field}',
             Attribution__c = Label.oppNamingBoth
         );
@@ -272,7 +272,7 @@ private class OPP_OpportunityNaming_TEST
         Opportunity opp = new Opportunity(
             AccountId = acc.id,
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
-            Name='temp',
+            Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             Amount=8,
             CloseDate = Date.newInstance(2000, 1, 1),
             npe01__Contact_Id_for_Role__c = con.id
@@ -290,7 +290,7 @@ private class OPP_OpportunityNaming_TEST
 
         system.assertEquals(null, oppException, 'No exception should be thrown.');
         list<Opportunity> queryOpp = [SELECT Name FROM Opportunity WHERE Id = :opp.id];
-        system.assertEquals('temp', queryOpp[0].Name, 'The name should not be calculated, as it is an invalid format based on the setting.');
+        system.assertEquals(CAO_Constants.ACCOUNT_NAME_FOR_TESTS, queryOpp[0].Name, 'The name should not be calculated, as it is an invalid format based on the setting.');
         List<Error__c> errors = [select Id from Error__c];
         System.assertEquals(1, errors.size(), 'An error record should be created.');
 

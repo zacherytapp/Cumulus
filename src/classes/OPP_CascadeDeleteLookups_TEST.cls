@@ -33,7 +33,7 @@
 * @group Utilities
 * @description Tests for cascade delete of Recurring Donations
 */
-@isTest
+@isTest(IsParallel=true)
 private class OPP_CascadeDeleteLookups_TEST {
 
     /*********************************************************************************************************
@@ -41,19 +41,19 @@ private class OPP_CascadeDeleteLookups_TEST {
     * Then undeletes the opportunity, which undeletes the allocation. Verifies results.
     */
     static testMethod void testOppCascade(){
-        Account org = new Account(Name='org');
+        Account org = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert org;
 
         Opportunity orgOpp = new Opportunity(
             Amount = 8,
             AccountId = org.id,
-            Name = 'foo',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             StageName = UTIL_UnitTestData_TEST.getClosedLostStage(),
             CloseDate = System.today()
         );
         insert orgOpp;
 
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name='foo');
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert gau;
         Allocation__c alloForInsert = new Allocation__c(Opportunity__c=orgOpp.id, Amount__c = 4, General_Accounting_Unit__c = gau.id);
         insert alloForInsert;

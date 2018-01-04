@@ -105,7 +105,7 @@ private class ACCT_IndividualAccounts_TEST {
         
         
     	//Create a contact
-    	Contact contact1 = new Contact(FirstName = 'Test', LastName = 'Testerson');
+    	Contact contact1 = UTIL_UnitTestData_TEST.getContact();
         insert contact1;
         
     	//Verify it's using Individual
@@ -120,7 +120,8 @@ private class ACCT_IndividualAccounts_TEST {
     	contactsSettings.npe01__Account_Processor__c = CAO_Constants.HH_ACCOUNT_PROCESSOR;
             
     	//Create a Contact
-    	Contact contact2 = new Contact(FirstName = 'Test2', LastName = 'Testerson2');
+    	Contact contact2 = UTIL_UnitTestData_TEST.getContact();
+        contact2.LastName = contact2.LastName + '2';
         Test.startTest();
         insert contact2;
         Test.stopTest();
@@ -154,7 +155,7 @@ private class ACCT_IndividualAccounts_TEST {
 
         Contact con = new Contact(
             FirstName='Jack',
-            LastName='Ruby',
+            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
             Title = 'Doctor',
             npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
             npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
@@ -166,13 +167,13 @@ private class ACCT_IndividualAccounts_TEST {
         Test.stopTest();
 
         Contact[] insertedContacts = [Select Account.npo02__Formal_Greeting__c, FirstName, LastName, AccountId  from Contact where id=:con.id];
-        system.assertEquals('Doctor Jack Ruby', insertedContacts[0].Account.npo02__Formal_Greeting__c);
+        system.assertEquals('Doctor Jack ' + CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, insertedContacts[0].Account.npo02__Formal_Greeting__c);
 
         con.Title = 'Hard Worker';
         update con;
 
         Contact[] updatedContacts = [Select Account.npo02__Formal_Greeting__c, FirstName, LastName, AccountId  from Contact where id=:con.id];
-        system.assertEquals('Hard Worker Jack Ruby', updatedContacts[0].Account.npo02__Formal_Greeting__c);
+        system.assertEquals('Hard Worker Jack ' + CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, updatedContacts[0].Account.npo02__Formal_Greeting__c);
     }
 
     
@@ -716,7 +717,7 @@ private class ACCT_IndividualAccounts_TEST {
         
         Id accountId = insertedContacts[0].AccountId;
         
-        Contact con2 = new Contact(FirstName='John', LastName='Smith',AccountId=null);       
+        Contact con2 = UTIL_UnitTestData_TEST.getContact();
         insert con2;
         
         // now update the contact to the existing account from contact 1
@@ -931,7 +932,7 @@ private class ACCT_IndividualAccounts_TEST {
        Opportunity opp = new Opportunity(
             Amount=500,
             AccountId=createdAccountId,
-            Name='test',
+            Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             StageName='Closed/Won',
             CloseDate=System.today()
         );
@@ -1072,8 +1073,8 @@ private class ACCT_IndividualAccounts_TEST {
         );
 
         Contact con = new Contact(
-            FirstName = 'Jane',
-            LastName = 'Smith',
+            FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
+            LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
             npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
             npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
             npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
@@ -1084,7 +1085,7 @@ private class ACCT_IndividualAccounts_TEST {
         Contact insertedCon = [SELECT Account.Name, AccountId FROM Contact WHERE Id = :con.Id LIMIT 1];
         Id acctId = insertedCon.AccountId;
 
-        Contact con2 = new Contact(FirstName = 'Johnny', LastName = 'Test', AccountId = null);
+        Contact con2 = new Contact(FirstName = 'Johnny', LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'2', AccountId = null);
         con2.AccountId = acctId;
         insert con2;
 
@@ -1122,7 +1123,7 @@ private class ACCT_IndividualAccounts_TEST {
 
         Contact con = new Contact(
             FirstName = 'Johnny',
-            LastName = 'Test',
+            LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
             npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
             npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
             npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
@@ -1163,7 +1164,7 @@ private class ACCT_IndividualAccounts_TEST {
 
         Contact con = new Contact(
             FirstName = 'Johnny',
-            LastName = 'Test',
+            LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
             npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
             npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
             npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
@@ -1182,7 +1183,7 @@ private class ACCT_IndividualAccounts_TEST {
         Opportunity opp = new Opportunity(
             Amount = 500,
             AccountId = acctId,
-            Name = 'test',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
             CloseDate = System.today(),
             Primary_Contact__c = othercon.id
@@ -1272,7 +1273,7 @@ private class ACCT_IndividualAccounts_TEST {
         );
 
         Contact con = new Contact(
-            LastName = 'Test'
+            LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS
         );
         insert con;
 
@@ -1289,7 +1290,7 @@ private class ACCT_IndividualAccounts_TEST {
         }
 
         Test.startTest();
-        con.FirstName = 'foo';
+        con.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
         con.OwnerId = secondUser[0].id;
         try {
             update con;
@@ -1310,7 +1311,7 @@ private class ACCT_IndividualAccounts_TEST {
         UTIL_UnitTestData_TEST.turnOffAutomaticHHNaming();
         UTIL_UnitTestData_TEST.setupInvalidHHNamingSettings();
 
-        Contact contact = new Contact(LastName = 'Smith');
+        Contact contact = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS);
         try {
             insert contact;
 
@@ -1319,14 +1320,14 @@ private class ACCT_IndividualAccounts_TEST {
         }
 
         try {
-            contact.FirstName = 'John';
+            contact.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
             update contact;
 
         } catch (Exception e) {
             System.assert(false, 'Unexpected error on Contact update: ' + e.getMessage());
         }
 
-        System.assertEquals('John', [SELECT FirstName FROM Contact WHERE Id = :contact.Id][0].FirstName, 'Contact update should succeed');
+        System.assertEquals(CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, [SELECT FirstName FROM Contact WHERE Id = :contact.Id][0].FirstName, 'Contact update should succeed');
     }
 
     /*********************************************************************************************************
@@ -1345,12 +1346,12 @@ private class ACCT_IndividualAccounts_TEST {
         System.assert(soql.contains('npe01__WorkEmail__c'));// the only field added from Household Naming fields
 
         Contact[] contacts = new Contact[]{
-            new Contact(LastName = 'testSoql1'),
-            new Contact(LastName = 'testSoql2')
+            new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'1'),
+            new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'2')
         };
         insert contacts;
 
-        insert new Contact(LastName = 'testSoqlExclude');
+        insert new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'3');
 
         // Verify the SOQL is correct and there is no duplicate field error raised
         Contact[] actualContacts;

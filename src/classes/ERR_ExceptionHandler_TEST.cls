@@ -33,7 +33,7 @@
 * @group ErrorHandling
 * @description Tests exception handler
 */
-@isTest
+@isTest(IsParallel=true)
 private with sharing class ERR_ExceptionHandler_TEST {
 
     /*********************************************************************************************************

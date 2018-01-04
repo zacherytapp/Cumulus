@@ -38,17 +38,23 @@ private class OPP_MatchingDonationsBTN_TEST {
 
     static testmethod void TestMatchingDonationPage()
     {
-        Account testaccount = new Account(name='Test Company');
+        Account testaccount = new Account(name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert testaccount;
-        
-        Contact testcontact = new Contact(AccountID = testaccount.Id,FirstName = 'Test',LastName = 'Company',Email = 'Test.Company@example.com');
+
+        Contact testcontact = UTIL_UnitTestData_TEST.getContact();
+        testcontact.AccountId = testaccount.Id;
         insert testcontact;
-        
-        Opportunity testoppty = new Opportunity(AccountId = testaccount.Id,
-        closedate = system.today(),amount = 100,name='Test Company Donation',StageName = 'Closed Won');
+
+        Opportunity testoppty = new Opportunity(
+                AccountId = testaccount.Id,
+                Closedate = System.today(),
+                Amount = 100,
+                Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
+                StageName = UTIL_UnitTestData_TEST.getClosedWonStage());
         insert testoppty;
         
-        OpportunityContactRole testocr = new OpportunityContactRole (OpportunityId = testoppty.Id, ContactId = testcontact.Id, IsPrimary = true);
+        OpportunityContactRole testocr = new OpportunityContactRole(
+                OpportunityId = testoppty.Id, ContactId = testcontact.Id, IsPrimary = true);
         insert testocr;
         
         ApexPages.StandardController sc = new ApexPages.StandardController(testoppty);

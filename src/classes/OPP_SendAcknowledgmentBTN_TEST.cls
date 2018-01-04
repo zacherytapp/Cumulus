@@ -100,7 +100,8 @@ public with sharing class OPP_SendAcknowledgmentBTN_TEST {
         Account account = new Account(Name = 'Test Company');
         insert account;
         
-        Contact contact = new Contact(AccountID = account.Id, FirstName = 'Test', LastName = 'Company', Email = 'Test.Company@example.com');
+        Contact contact = UTIL_UnitTestData_TEST.getContact();
+        contact.AccountId = account.Id;
         insert contact;
         
         List<Opportunity> opps = new List<Opportunity>();
@@ -109,8 +110,11 @@ public with sharing class OPP_SendAcknowledgmentBTN_TEST {
 
         for (Integer i = 0; i < oppCount; i++) {
             opps.add(new Opportunity(
-                AccountId = account.Id, Primary_Contact__c = contact.Id,
-                CloseDate = today, Amount = 100, Name = 'Test Company Donation', 
+                AccountId = account.Id,
+                Primary_Contact__c = contact.Id,
+                CloseDate = today,
+                Amount = 100,
+                Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
                 StageName = closedWonStage, Acknowledgment_Status__c = TO_BE_ACKNOWLEDGED_STATUS
             ));
         }

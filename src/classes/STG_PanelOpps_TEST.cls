@@ -31,7 +31,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 * @group Settings
 * @description test code for payments settings panel
 */
-@isTest
+@isTest(IsParallel=true)
 public with sharing class STG_PanelOpps_TEST {
 
     /**

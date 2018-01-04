@@ -36,7 +36,7 @@
 * @description Component that coverage getting started functionality (links assing)
 */
 
-@isTest
+@isTest(IsParallel=true)
 public with sharing class RP_GettingStartedTest {
 
     /*********************************************************************************************************

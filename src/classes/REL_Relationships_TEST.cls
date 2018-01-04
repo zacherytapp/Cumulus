@@ -33,7 +33,7 @@
 * @group Relationships
 * @description Testing for the Relationships class
 */
-@isTest
+@isTest(IsParallel=true)
 private class REL_Relationships_TEST {
     
     /*********************************************************************************************************
@@ -83,9 +83,9 @@ private class REL_Relationships_TEST {
                                                 npe4__Female__c='TestFemaleType2',npe4__Neutral__c='TestNeutralType2',
                                                 npe4__Active__c=false);                                
         
-            c1 = new Contact(Salutation = 'Mr.', FirstName = 'Walter_Test', LastName = 'Roosevelt_Test');
-            c2 = new Contact(Salutation = 'Mrs.', FirstName = 'Jane_Test', LastName = 'Nixon_Test');        
-            c3 = new Contact(Salutation = 'Dr.', FirstName = 'Pat_Test', LastName = 'Cleveland_Test');
+            c1 = new Contact(Salutation = 'Mr.', FirstName = 'Walter_Test', LastName = 'Roosevelt_Test' + CAO_Constants.getUniqueString());
+            c2 = new Contact(Salutation = 'Mrs.', FirstName = 'Jane_Test', LastName = 'Nixon_Test' + CAO_Constants.getUniqueString());
+            c3 = new Contact(Salutation = 'Dr.', FirstName = 'Pat_Test', LastName = 'Cleveland_Test' + CAO_Constants.getUniqueString());
             insert new Contact[] {c1, c2, c3};
         }
     }
@@ -242,7 +242,7 @@ private class REL_Relationships_TEST {
         //Relationships_ProcessControl.hasRun = false;
         
         //Insert a campaign
-        Campaign campaign = new Campaign(Name='TestCampaign', isActive=true, Type='Other');
+        Campaign campaign = new Campaign(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS, isActive=true, Type='Other');
         insert campaign;
         
         //Insert a campaign member
@@ -278,7 +278,7 @@ private class REL_Relationships_TEST {
         //reset the process controller to mimic a second user action
         //Relationships_ProcessControl.hasRun = false;        
         //insert a campaignmember
-        Campaign c = new Campaign(Name='TestCampaign', isActive=true);
+        Campaign c = new Campaign(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS, isActive=true);
         insert c;
         CampaignMember cm = new CampaignMember(ContactId = c2.id, CampaignId = c.id);
         insert cm;        

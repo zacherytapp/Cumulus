@@ -35,7 +35,7 @@
 * @description Test class for the UTIL_DMLService class.
 */
 
-@isTest
+@isTest(IsParallel=true)
 public with sharing class UTIL_DMLService_TEST {
     
     private static final Integer NUMBER_OF_RECORDS_ZERO = 0;
@@ -44,6 +44,16 @@ public with sharing class UTIL_DMLService_TEST {
     private static final Integer NUMBER_OF_RECORDS_THREE = 3;
     private static final String ERROR_STATUS_CODE_DUPLICATES_DETECTED = 'DUPLICATES_DETECTED';
 
+    private static List<Contact> createTestData(Integer numContacts) {
+        Account acct = new Account(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        insert acct;
+
+        List<Contact> contacts = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(2);
+        for (Contact c : contacts) {
+            c.AccountId = acct.Id;
+        }
+        return contacts;
+    }
 
     /*********************************************************************************************************
     * @description If you only want to run a single test in this class, fill in its name here.
@@ -61,10 +71,7 @@ public with sharing class UTIL_DMLService_TEST {
     private static testMethod void testRecordInsertWithDefaults() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordInsertWithDefaults') return;
         
-        Account acct = new Account(Name = 'DMLOptionsAccount');
-        insert acct;
-
-        Contact con = new Contact(FirstName = 'Blue', LastName = 'Cloud', AccountId = acct.Id); 
+        Contact con = createTestData(1)[0];
                  
         Test.startTest();
         UTIL_DMLService.insertRecord(con);
@@ -86,12 +93,14 @@ public with sharing class UTIL_DMLService_TEST {
     private static testMethod void testRecordsInsertWithDefaults() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordsInsertWithDefaults') return;
         
-        Account acct = new Account(Name = 'DMLOptionsAccount');
+        Account acct = new Account(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert acct;
 
-        List<Contact> contacts = new List<Contact> { new Contact(FirstName = 'Blue', LastName = 'Cloud', AccountId = acct.Id),
-                                                        new Contact(FirstName = 'Astro', LastName = 'Cloud', AccountId = acct.Id) };
-                         
+        List<Contact> contacts = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(2);
+        for (Contact c : contacts) {
+            c.AccountId = acct.Id;
+        }
+
         Test.startTest();
         UTIL_DMLService.insertRecords(contacts);
         Test.stopTest();
@@ -111,12 +120,9 @@ public with sharing class UTIL_DMLService_TEST {
     **********************************************************************************************************/
     private static testMethod void testRecordInsertWithAllOrNone() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordInsertWithAllOrNone') return;
-        
-        Account acct = new Account(Name = 'DMLOptionsAccount');
-        insert acct;
 
-        Contact con = new Contact(FirstName = 'Blue', LastName = 'Cloud', AccountId = acct.Id); 
-                 
+        Contact con = createTestData(1)[0];
+
         Test.startTest();
         UTIL_DMLService.insertRecord(con, false);
         Test.stopTest();
@@ -164,13 +170,10 @@ public with sharing class UTIL_DMLService_TEST {
     **********************************************************************************************************/
     private static testMethod void testRecordsInsertWithAllOrNoneFalse() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordsInsertWithAllOrNone') return;
-        
-        Account acct = new Account(Name = 'DMLOptionsAccount');
-        insert acct;
 
-        List<Contact> contacts = new List<Contact> { new Contact(FirstName = 'Blue', LastName = 'Cloud', AccountId = acct.Id),
-                                                        new Contact(FirstName = 'Astro', AccountId = acct.Id) };
-                         
+        List<Contact> contacts = createTestData(2);
+        contacts[1].LastName = null;    // force one record to be bad
+
         Test.startTest();
         UTIL_DMLService.insertRecords(contacts, false);
         Test.stopTest();
@@ -190,12 +193,9 @@ public with sharing class UTIL_DMLService_TEST {
     **********************************************************************************************************/
     private static testMethod void testRecordInsertDMLOptions() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordInsertDMLOptions') return;
-        
-        Account acct = new Account(Name = 'DMLOptionsAccount');
-        insert acct;
 
-        Contact con = new Contact(FirstName = 'Blue', LastName = 'Cloud', AccountId = acct.Id); 
-                 
+        Contact con = createTestData(1)[0];
+
         Test.startTest();
         UTIL_DMLService.insertRecord(con, new Database.DMLOptions());
         Test.stopTest();
@@ -215,12 +215,8 @@ public with sharing class UTIL_DMLService_TEST {
     **********************************************************************************************************/
     private static testMethod void testRecordsInsertWithDMLOptions() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordsInsertWithDMLOptions') return;
-        
-        Account acct = new Account(Name = 'DMLOptionsAccount');
-        insert acct;
 
-        List<Contact> contacts = new List<Contact> { new Contact(FirstName = 'Blue', LastName = 'Cloud', AccountId = acct.Id),
-                                                        new Contact(FirstName = 'Astro', LastName = 'Cloud', AccountId = acct.Id) };
+        List<Contact> contacts = createTestData(2);
                          
         Test.startTest();
         UTIL_DMLService.insertRecords(contacts, new Database.DMLOptions());
@@ -241,12 +237,9 @@ public with sharing class UTIL_DMLService_TEST {
     **********************************************************************************************************/
     private static testMethod void testRecordUpdateWithDefaults() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordUpdateWithDefaults') return;
-        
-        Account acct = new Account(Name = 'DMLOptionsAccount');
-        insert acct;
 
-        Contact con = new Contact(FirstName = 'Blue', LastName = 'Cloud', AccountId = acct.Id); 
-                 
+        Contact con = createTestData(1)[0];
+
         Test.startTest();
         UTIL_DMLService.insertRecord(con);
         Test.stopTest();
@@ -275,12 +268,8 @@ public with sharing class UTIL_DMLService_TEST {
     **********************************************************************************************************/
     private static testMethod void testRecordsUpdateWithDefaults() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordsUpdateWithDefaults') return;
-        
-        Account acct = new Account(Name = 'DMLOptionsAccount');
-        insert acct;
 
-        List<Contact> contacts = new List<Contact> { new Contact(FirstName = 'Blue', LastName = 'Cloud', AccountId = acct.Id),
-                                                     new Contact(FirstName = 'Astro', LastName = 'Cloud', AccountId = acct.Id) };
+        List<Contact> contacts = createTestData(2);
                          
         Test.startTest();
         UTIL_DMLService.insertRecords(contacts);
@@ -312,12 +301,9 @@ public with sharing class UTIL_DMLService_TEST {
     **********************************************************************************************************/
     private static testMethod void testRecordUpdateWithAllOrNone() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordUpdateWithAllOrNone') return;
-        
-        Account acct = new Account(Name = 'DMLOptionsAccount');
-        insert acct;
 
-        Contact con = new Contact(FirstName = 'Blue', LastName = 'Cloud', AccountId = acct.Id); 
-                 
+        Contact con = createTestData(1)[0];
+
         Test.startTest();
         UTIL_DMLService.insertRecord(con, false);
         Test.stopTest();
@@ -346,12 +332,8 @@ public with sharing class UTIL_DMLService_TEST {
     **********************************************************************************************************/
     private static testMethod void testRecordsUpdateWithAllOrNone() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordsUpdateWithAllOrNone') return;
-        
-        Account acct = new Account(Name = 'DMLOptionsAccount');
-        insert acct;
 
-        List<Contact> contacts = new List<Contact> { new Contact(FirstName = 'Blue', LastName = 'Cloud', AccountId = acct.Id),
-                                                     new Contact(FirstName = 'Astro', LastName = 'Cloud', AccountId = acct.Id) };
+        List<Contact> contacts = createTestData(2);
                          
         Test.startTest();
         UTIL_DMLService.insertRecords(contacts, false);
@@ -383,12 +365,9 @@ public with sharing class UTIL_DMLService_TEST {
     **********************************************************************************************************/
     private static testMethod void testRecordUpdateWithDMLOptions() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordUpdateWithDMLOptions') return;
-        
-        Account acct = new Account(Name = 'DMLOptionsAccount');
-        insert acct;
 
-        Contact con = new Contact(FirstName = 'Blue', LastName = 'Cloud', AccountId = acct.Id); 
-                 
+        Contact con = createTestData(1)[0];
+
         Test.startTest();
         UTIL_DMLService.insertRecord(con, false);
         Test.stopTest();
@@ -417,13 +396,9 @@ public with sharing class UTIL_DMLService_TEST {
     **********************************************************************************************************/
     private static testMethod void testRecordsUpdateWithDMLOptions() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordsUpdateWithDMLOptions') return;
-        
-        Account acct = new Account(Name = 'DMLOptionsAccount');
-        insert acct;
 
-        List<Contact> contacts = new List<Contact> { new Contact(FirstName = 'Blue', LastName = 'Cloud', AccountId = acct.Id),
-                                                     new Contact(FirstName = 'Astro', LastName = 'Cloud', AccountId = acct.Id) };
-                         
+        List<Contact> contacts = createTestData(2);
+
         Test.startTest();
         UTIL_DMLService.insertRecords(contacts, false);
         Test.stopTest();
@@ -455,7 +430,8 @@ public with sharing class UTIL_DMLService_TEST {
     private static testMethod void testRecordUpsertWithDefaults() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordUpsertWithDefaults') return;
 
-        Account acct = new Account(Name = 'UpsertedAccount');
+        Account acct = new Account(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+
         Test.startTest();
         UTIL_DMLService.upsertRecord(acct);
         Test.stopTest();
@@ -484,11 +460,7 @@ public with sharing class UTIL_DMLService_TEST {
     private static testMethod void testRecordsUpsertWithDefaults() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordsUpsertWithDefaults') return;
 
-        Account acct = new Account(Name = 'UpsertedAccount');
-        insert acct;
-
-        List<Contact> contacts = new List<Contact> { new Contact(FirstName = 'Blue', LastName = 'Cloud', AccountId = acct.Id),
-                                                     new Contact(FirstName = 'Astro', LastName = 'Cloud', AccountId = acct.Id) };
+        List<Contact> contacts = createTestData(2);
 
         Test.startTest();
         UTIL_DMLService.upsertRecords(contacts);
@@ -520,10 +492,7 @@ public with sharing class UTIL_DMLService_TEST {
     private static testMethod void testRecordUpsertWithAllOrNone() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordUpsertWithAllOrNone') return;
 
-        Account acct = new Account(Name = 'UpsertedAccount');
-        insert acct;
-
-        Contact con = new Contact(FirstName = 'Blue', LastName = 'Cloud', AccountId = acct.Id);
+        Contact con = createTestData(1)[0];
 
         Test.startTest();
         UTIL_DMLService.upsertRecord(con, false);
@@ -553,11 +522,7 @@ public with sharing class UTIL_DMLService_TEST {
     private static testMethod void testRecordsUpsertWithAllOrNone() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordsUpsertWithAllOrNone') return;
 
-        Account acct = new Account(Name = 'UpsertedAccount');
-        insert acct;
-
-        List<Contact> contacts = new List<Contact> { new Contact(FirstName = 'Blue', LastName = 'Cloud', AccountId = acct.Id),
-                                                     new Contact(FirstName = 'Astro', LastName = 'Cloud', AccountId = acct.Id) };
+        List<Contact> contacts = createTestData(2);
 
         Test.startTest();
         UTIL_DMLService.upsertRecords(contacts, false);
@@ -594,12 +559,12 @@ public with sharing class UTIL_DMLService_TEST {
         Error_Settings__c errorSettings = UTIL_CustomSettingsFacade.getErrorSettings();
         UTIL_DMLService.insertRecord(errorSettings);
 
-        Account acct = new Account(Name='Blue Cloud', BillingCity='San Francisco');
+        Account acct = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS, BillingCity='San Francisco');
         UTIL_DMLService.insertRecord(acct);
         List<Account> retrievedAccts = [SELECT Id, Name FROM Account];
-        System.assertEquals('Blue Cloud', retrievedAccts[0].Name);
+        System.assertEquals(CAO_Constants.ACCOUNT_NAME_FOR_TESTS, retrievedAccts[0].Name);
 
-        Account dupeAcct = new Account(Name='Blue Cloud', BillingCity='San Francisco');
+        Account dupeAcct = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS, BillingCity='San Francisco');
         Database.SaveResult sr = UTIL_DMLService.insertRecord(dupeAcct, false); // AllOrNone flag set to false to check if the Duplicate Rule's Action is set to Block. 
         if (!sr.isSuccess()) {
             for (Database.Error duplicateError : sr.getErrors()) {
@@ -622,17 +587,17 @@ public with sharing class UTIL_DMLService_TEST {
         retrievedAccts = [SELECT Id, Name FROM Account];
         System.assertEquals(NUMBER_OF_RECORDS_TWO, retrievedAccts.size());
 
-        Account dupeAcctUpdate = new Account(Name='Blue Cloud Update', BillingCity='San Francisco');
+        Account dupeAcctUpdate = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS + ' Update', BillingCity='San Francisco');
         UTIL_DMLService.insertRecord(dupeAcctUpdate);
         retrievedAccts = [SELECT Id, Name FROM Account];
         System.assertEquals(NUMBER_OF_RECORDS_THREE, retrievedAccts.size());
 
-        dupeAcctUpdate.Name = 'Blue Cloud';
+        dupeAcctUpdate.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         UTIL_DMLService.updateRecord(dupeAcctUpdate);
 
         retrievedAccts = [SELECT Id, Name FROM Account];
         for(Account eachAcct : retrievedAccts) {
-            System.assertEquals('Blue Cloud', eachAcct.Name);
+            System.assertEquals(CAO_Constants.ACCOUNT_NAME_FOR_TESTS, eachAcct.Name);
         }
     }
 

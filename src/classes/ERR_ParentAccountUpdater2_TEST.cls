@@ -49,14 +49,14 @@ public with sharing class ERR_ParentAccountUpdater2_TEST extends TDTM_Runnable {
 	        
 	        for(SObject o : contactsWithParentId) {
 	        	Contact contact = (Contact)o;
-	        	contact.FirstName = 'New First Name';
+	        	contact.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
 	        	dmlWrapper.objectsToUpdate.add(contact);
 	        	parentAccIds.add(contact.AccountId);
 	        }
 
 	        List<Account> parentAccs = [select Id, Name from Account where Id in :parentAccIds];
 	        for(Account acc : parentAccs) {
-	            acc.Name = 'New Acc Name';
+	            acc.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
 	            dmlWrapper.objectsToUpdate.add(acc);
 	        }
         //If we are not in a future setting the name of the parent account does not throw a null pointer exception.	
@@ -64,8 +64,8 @@ public with sharing class ERR_ParentAccountUpdater2_TEST extends TDTM_Runnable {
         	List<Contact> contactsWithParentInfo = [select Account.Id, Account.Name from Contact where Id in :newList];
         	for(SObject o : contactsWithParentInfo) {
         		Contact contact = (Contact)o;
-        		contact.FirstName = 'New First Name';
-        		contact.Account.Name = 'New Acc Name';
+        		contact.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
+        		contact.Account.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
         		dmlWrapper.objectsToUpdate.add(contact.Account);
         	}
         }

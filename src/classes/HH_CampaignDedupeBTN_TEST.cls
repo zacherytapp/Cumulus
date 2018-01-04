@@ -59,25 +59,25 @@ private class HH_CampaignDedupeBTN_TEST {
             
     // create test data
     Account acct = new Account (
-      Name='Test Account'
+      Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS
     );
     insert acct;
     
     Contact con = new Contact (
-      FirstName='Kevin',
-      LastName='Test',
-      AccountId = acct.id,    
-      npo02__TotalOppAmount__c = 100
+        FirstName='Kevin',
+        LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'1',
+        AccountId = acct.id,
+        npo02__TotalOppAmount__c = 100
     );
     insert con;
     id hhid = [select npo02__Household__r.id from Contact where id = :con.id].npo02__household__r.id;
     system.assert(hhid != null);
     UTIL_Debug.debug('HHID IS===================' + hhid);
     Contact con2 = new Contact (
-      FirstName = 'Amy',
-      LastName = 'Test',
-      AccountId = acct.id,            
-      npo02__household__c = hhid
+        FirstName = 'Amy',
+        LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'2',
+        AccountId = acct.id,
+        npo02__household__c = hhid
     );
     UTIL_Debug.debug('HHID IS NOW===================' + hhid);
     

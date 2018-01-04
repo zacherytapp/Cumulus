@@ -45,7 +45,7 @@ private class CON_CascadeDeleteLookups_TEST {
         insert con;
 
         npe03__Recurring_Donation__c rd = new npe03__Recurring_Donation__c(
-            Name = 'test',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             npe03__Installments__c = 2,
             npe03__Amount__c = 1,
             npe03__Installment_Period__c = system.label.npe03.RecurringDonationInstallmentPeriodYearly,
@@ -137,7 +137,7 @@ private class CON_CascadeDeleteLookups_TEST {
         insert new List<Contact>{ conWinner, conLoser} ;
 
         npe03__Recurring_Donation__c rd = new npe03__Recurring_Donation__c(
-            Name = 'test',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             npe03__Installments__c = 2,
             npe03__Amount__c = 1,
             npe03__Installment_Period__c = system.label.npe03.RecurringDonationInstallmentPeriodYearly,
