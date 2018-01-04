@@ -69,7 +69,9 @@ public with sharing class MTCH_FindGifts_TEST {
         insert accMG = new Account(name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS, Matching_Gift_Percent__c = matchingGiftPercent);
         
         // create some Contacts in Household Accounts
-        insert listCon = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(cItem);
+        listCon = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(cItem);
+        UTIL_UnitTestData_TEST.makeLastNamesUnique(listCon);
+        insert listCon;
         listCon = [select Id, Firstname,Lastname, AccountId from Contact];
         system.assertEquals(cItem, listCon.size());
         

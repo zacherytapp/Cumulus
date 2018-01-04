@@ -188,7 +188,10 @@ private class OPP_OpportunityNaming_TEST
         if (hasActiveRecType())
             onsList[1].Opportunity_Record_Types__c = UTIL_RecordTypes.getRecordTypeIdForGiftsTests(Opportunity.sObjectType);
 
-        Contact con = new Contact(LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, HasOptedOutOfFax=true);
+        Contact con = new Contact(
+                FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
+                LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+                HasOptedOutOfFax=true);
         insert con;
 
         list<Contact> queryCon = [SELECT Id, AccountId FROM Contact WHERE Id = :con.id];
@@ -230,9 +233,10 @@ private class OPP_OpportunityNaming_TEST
 
         queryOpp = [SELECT Name, RecordType.Name, Account.npe01__SYSTEMIsIndividual__c FROM Opportunity WHERE AccountId = :queryCon[0].accountId];
 
-        string oppname = con.LastName + ' true';
-        if (hasActiveRecType())
+        String oppname = con.FirstName + ' ' +con.LastName + ' true';
+        if (hasActiveRecType()) {
             oppname += ' ' + UTIL_RecordTypes.getrecordTypeNameForGiftsTests(Opportunity.sObjectType);
+        }
 
         system.assertEquals(oppname, queryOpp[0].Name, 'The name should be calculated based on the individual attributed setting.');
 

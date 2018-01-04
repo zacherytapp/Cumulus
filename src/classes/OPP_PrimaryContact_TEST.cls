@@ -87,10 +87,11 @@ public with sharing class OPP_PrimaryContact_TEST {
     static testMethod void testBatch() {
         if (strTestOnly != '*' && strTestOnly != 'testBatch') return;
         list<Contact> conList = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(1);
+        UTIL_UnitTestData_TEST.makeLastNamesUnique(conList);
         insert conList;
 
         Opportunity opp = new Opportunity(
-            Name = 'foo',
+            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
             Primary_Contact__c = conList[0].id,
             CloseDate = system.today(),
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),

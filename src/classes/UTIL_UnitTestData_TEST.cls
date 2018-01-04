@@ -131,19 +131,25 @@ public class UTIL_UnitTestData_TEST {
                 OtherCity = 'Seattle'
             );
     }
-    
+
+    /**
+     * @description Create the specified number of Contact records with unique values in the FirstName, WorkEmail, and
+     * WorkPhone fields. The LastName field is the same for all Contacts (needed for some Unit Tests)
+     * @param n Number of Contacts to create
+     * @return List of Contact records (not inserted)
+     */
     public static List<Contact> CreateMultipleTestContacts (integer n) {
         
         List<contact> ContactsToAdd = New List<contact> ();
         
         for (integer i=0;i<n;i++) {
             Contact newCon = New Contact (
-                FirstName= CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS + i,
-                LastName= CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+                FirstName= CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS + '.' + i,
+                LastName= CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, // LastName needs to be the same for most of the test that use this
                 npe01__Private__c=false,
-                npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
+                npe01__WorkEmail__c = i + '.' + CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
                 npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-                npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
+                npe01__WorkPhone__c = i + '-' +CAO_Constants.CONTACT_PHONE_FOR_TESTS,
                 npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS,
                 OtherCity = 'Seattle'
             );
@@ -154,12 +160,25 @@ public class UTIL_UnitTestData_TEST {
 
             ContactsToAdd.add (newCon);
         }
-        
 
         // testing doing the insert in the calling code - will maybe reinstate this
         //insert ContactsToAdd;
         
         return ContactsToAdd;
+    }
+
+    /**
+     * @description Many of the Unit Tests that use the CreateMultipleTestContacts() method require that the
+     * LastName field have the same value for all Contacts. However, there are some where it's better for Parallel
+     * test executions to have them unique. This method will convert the contact's last names to unique values.
+     * @param contacts
+     * @return contacts
+     */
+    public static List<Contact> makeLastNamesUnique(List<Contact> contacts) {
+        for (integer i=0;i< contacts.size();i++) {
+            contacts[i].LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS + '.' + i;
+        }
+        return contacts;
     }
 
     public static List<Opportunity> OppsForContactList (List<Contact> Cons, id CampId, string Stage, date Close, double Amt, string rectype, string oppType) {
