@@ -33,7 +33,7 @@
 * @group Utilities
 * @description Tests for cascade delete of Contacts
 */
-@isTest
+@isTest(IsParallel=true)
 private class CON_CascadeDeleteLookups_TEST {
 
     /*********************************************************************************************************
@@ -79,19 +79,22 @@ private class CON_CascadeDeleteLookups_TEST {
     */
     static testMethod void testContactDeleteExceptionWithOverride(){
         //use a non-system account for the contact's account, so that the delete override doesn't redirect us to delete the account
-        Account conAccount = new Account(Name='ConAccount');
+        Account conAccount = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert conAccount;
 
-        Contact con = new Contact(LastName='foo', AccountId=conAccount.id);
+        Contact con = new Contact(
+                FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
+                LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+                AccountId=conAccount.id);
         insert con;
 
         //org account for opportunity attribution
-        Account org = new Account(Name='org');
+        Account org = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS+'ORG');
         insert org;
 
         Opportunity closedWonOpp = new Opportunity(
             Amount = 8,
-            Name = 'foo',
+            Name = 'foo-1',
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
             CloseDate = System.today(),
             Primary_Contact__c = con.id
@@ -101,7 +104,7 @@ private class CON_CascadeDeleteLookups_TEST {
         Opportunity orgOpp = new Opportunity(
             Amount = 8,
             AccountId = org.id,
-            Name = 'foo',
+            Name = 'foo-2',
             StageName = UTIL_UnitTestData_TEST.getClosedLostStage(),
             CloseDate = System.today(),
             Primary_Contact__c = con.id
@@ -129,11 +132,9 @@ private class CON_CascadeDeleteLookups_TEST {
     */
     static testMethod void testContactMergeNoCascade(){
 
-        Contact conWinner = new Contact(LastName='foo');
-        insert conWinner;
-
-        Contact conLoser = new Contact(LastName='foo');
-        insert conLoser;
+        Contact conWinner = new Contact(FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'1');
+        Contact conLoser = new Contact(FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'2');
+        insert new List<Contact>{ conWinner, conLoser} ;
 
         npe03__Recurring_Donation__c rd = new npe03__Recurring_Donation__c(
             Name = 'test',
@@ -159,11 +160,9 @@ private class CON_CascadeDeleteLookups_TEST {
     */
     static testMethod void testContactCascadeRelationshipWithoutOverride(){
 
-        Contact con1 = new Contact(LastName='foo1');
-        insert con1;
-
-        Contact con2 = new Contact(LastName='foo2');
-        insert con2;
+        Contact con1 = new Contact(FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'1');
+        Contact con2 = new Contact(FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'2');
+        insert new List<Contact>{ con1, con2} ;
 
         npe4__Relationship__c rel = new npe4__Relationship__c(
               npe4__contact__c = con1.id, 

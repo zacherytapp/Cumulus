@@ -53,7 +53,7 @@ private class CON_DoNotContact_TEST {
 
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.HH_ACCOUNT_PROCESSOR));    
         
-        Contact con = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS);
+        Contact con = new Contact(FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'1');
         insert con;
 
         list<Contact> queryCon = [SELECT Id, AccountId, HasOptedOutOfEmail, DoNotCall, npo02__Naming_Exclusions__c FROM Contact WHERE Id = :con.id];
@@ -91,7 +91,7 @@ private class CON_DoNotContact_TEST {
 
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.HH_ACCOUNT_PROCESSOR));    
         
-        Contact con = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS);
+        Contact con = new Contact(FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'2');
         insert con;
 
         list<Contact> queryCon = [SELECT Id, AccountId, Account.npe01__One2OneContact__c, HasOptedOutOfEmail, DoNotCall, npo02__Naming_Exclusions__c FROM Contact WHERE Id = :con.id];
@@ -100,7 +100,10 @@ private class CON_DoNotContact_TEST {
         system.assertEquals(queryCon[0].Account.npe01__One2OneContact__c, queryCon[0].id, 'Contact should be marked primary.');
         system.assert(!queryCon[0].HasOptedOutOfEmail, 'Contact should not be opted out of email.');
 
-        Contact con2 = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, AccountId = queryCon[0].AccountId);
+        Contact con2 = new Contact(
+                FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
+                LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'2A',
+                AccountId = queryCon[0].AccountId);
         insert con2;
 
         queryCon[0].Deceased__c = true;
@@ -127,7 +130,7 @@ private class CON_DoNotContact_TEST {
 
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.HH_ACCOUNT_PROCESSOR));
         
-        Contact con = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS);
+        Contact con = new Contact(FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'3');
         insert con;
 
         list<Contact> queryCon = [SELECT Id, HasOptedOutOfEmail, DoNotCall, npo02__Naming_Exclusions__c FROM Contact WHERE Id = :con.id];

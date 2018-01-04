@@ -213,9 +213,10 @@ public class UTIL_UnitTestData_TEST {
         List<Opportunity> OppsToAdd = new List<Opportunity> ();
         UTIL_Debug.debug('recordtypeintest: ' + rtid);
 
+        Integer i=0;
         for ( Contact thisCon : Cons ) {
             Opportunity newOpp = New Opportunity (
-                Name = 'Test Opp ' + thisCon.FirstName + thisCon.LastName,
+                Name = 'Test Opp ' + thisCon.FirstName + thisCon.LastName + (i++),
                 Amount = Amt,
                 CloseDate = Close,
                 StageName = Stage,
@@ -245,9 +246,10 @@ public class UTIL_UnitTestData_TEST {
         List<Opportunity> OppsToAdd = new List<Opportunity> ();
         UTIL_Debug.debug('recordtypeintest: ' + rtid);
 
+        Integer i=0;
         for (Account acc : listAcc) {
             Opportunity newOpp = New Opportunity (
-                Name = 'Test Opp ' + acc.Name,
+                Name = 'Test Opp ' + acc.Name + (i++),
                 AccountId = acc.Id,
                 Amount = Amt,
                 CloseDate = Close,
@@ -269,13 +271,14 @@ public class UTIL_UnitTestData_TEST {
         
         for (integer i=0;i<n;i++) {
             Account newAcct = New Account (
-                Name = 'Yet Another Org ' + i,
+                Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS + i,
                 npe01__SYSTEM_AccountType__c = strType
             );
             if (strType != null) {
-            	newAcct.npe01__SYSTEMIsIndividual__c = true;
-            	if (strType == CAO_Constants.BUCKET_ORGANIZATION_TYPE)
-            	   newAcct.name = CAO_Constants.BUCKET_ACCOUNT_NAME;
+                newAcct.npe01__SYSTEMIsIndividual__c = true;
+                if (strType == CAO_Constants.BUCKET_ORGANIZATION_TYPE) {
+                    newAcct.name = CAO_Constants.BUCKET_ACCOUNT_NAME;
+                }
             }
             AcctsToAdd.add (newAcct);
         }
