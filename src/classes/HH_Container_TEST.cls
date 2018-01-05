@@ -268,7 +268,7 @@ private class HH_Container_TEST {
         List<Contact> contacts = new List<Contact>{ 
             conA, 
             conO, 
-            new Contact(FirstName = 'Foo', LastName = 'Bar') 
+            new Contact(FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME, LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME)
         };
 
         Exception expectedException = null;

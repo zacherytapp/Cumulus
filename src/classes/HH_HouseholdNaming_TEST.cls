@@ -627,7 +627,7 @@ public class HH_HouseholdNaming_TEST {
     **********************************************************************************************************/  
     private static testMethod void testGetHouseholdContactsReturnsEmptyList() {
         // The private Contact should not be returned by the query
-        insert new Contact(LastName = 'foo', npe01__Private__c = true);
+        insert new Contact(LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME, npe01__Private__c = true);
         
         HH_HouseholdNaming hhNaming = new HH_HouseholdNaming();
 

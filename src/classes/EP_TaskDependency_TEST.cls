@@ -35,7 +35,7 @@
 * @description Tests for Task dependency resolution: when Tasks created by Engagement Plans are closed, their child
 * Tasks are activated, and their grandchildren may have the activity date updated, depending on the template setting.
 */
-@isTest
+@isTest(IsParallel=true)
 private with sharing class EP_TaskDependency_TEST {
 
     /*********************************************************************************************************
@@ -46,7 +46,7 @@ private with sharing class EP_TaskDependency_TEST {
     */
     static testMethod void testDependentPlan() {
 
-        Contact con = new Contact(LastName = 'foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(
@@ -162,7 +162,7 @@ private with sharing class EP_TaskDependency_TEST {
     */
     static testMethod void testDelayType() {
 
-        Contact con = new Contact(LastName = 'foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(
@@ -237,7 +237,7 @@ private with sharing class EP_TaskDependency_TEST {
     */
     static testMethod void testDeletedPlan() {
 
-        Contact con = new Contact(LastName = 'foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(
@@ -312,7 +312,7 @@ private with sharing class EP_TaskDependency_TEST {
     */
     static testMethod void testDeleteDependentTask() {
 
-        Contact con = new Contact(LastName = 'foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(

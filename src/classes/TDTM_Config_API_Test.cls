@@ -46,7 +46,7 @@ private class TDTM_Config_API_Test {
         TDTM_DefaultConfig.startTestDataInit();
         Test.startTest();
 
-        Contact con1 = new Contact(LastName='foo');
+        Contact con1 = UTIL_UnitTestData_TEST.getContact();
         insert con1;
         con1 = [SELECT AccountId FROM Contact WHERE Id = :con1.Id LIMIT 1];
         system.assertNotEquals(null, con1.AccountId, 'there should be an account id associated with this new contact');
@@ -59,7 +59,7 @@ private class TDTM_Config_API_Test {
             }
         }
 
-        Contact con2 = new Contact(LastName='foo');
+        Contact con2 = UTIL_UnitTestData_TEST.getContact();
         insert con2;
         con2 = [SELECT AccountId FROM Contact WHERE Id = :con2.Id LIMIT 1];
         system.assertEquals(null, con2.AccountId, 'there should NOT be an account id associated with this new contact');
@@ -81,7 +81,7 @@ private class TDTM_Config_API_Test {
         }
         insert handlers;
 
-        Contact con = new Contact(LastName='foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
         con = [SELECT AccountId FROM Contact WHERE Id = :con.Id LIMIT 1];
         system.assertEquals(null, con.AccountId, 'there should not be an account id associated with this new contact');

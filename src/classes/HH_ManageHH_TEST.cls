@@ -97,7 +97,7 @@ private class HH_ManageHH_TEST {
         Account acc = new Account(Name='some org account');
         insert acc;
         
-        Contact con = new Contact(Lastname='foo', AccountId=acc.Id);
+        Contact con = new Contact(Lastname=UTIL_UnitTestData_TEST.TEST_LASTNAME, AccountId=acc.Id);
         insert con;
         
         con = [select Id, Lastname, AccountId, npo02__Household__c from Contact];

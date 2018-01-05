@@ -151,17 +151,18 @@ public class UTIL_UnitTestData_TEST {
         
         return openTaskStatus;
     }
-    
+
+    private static Integer contactUniquenessCounter = 0;
     public static Contact getContact() {
     	return new Contact (
                 FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
-                LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME,
+                LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME + (contactUniquenessCounter++),
                 npe01__Private__c = false,
                 npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
                 npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
                 npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
-                npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE,
-                OtherCity = 'Seattle'
+                npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE/*,
+                OtherCity = 'Seattle'*/
             );
     }
 

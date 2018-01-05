@@ -66,13 +66,8 @@ public class CON_ContactMerge_TEST {
         
         //set up 3 contacts for the merge interface to work with
         Contact con = UTIL_UnitTestData_TEST.getContact();
-        
         Contact con2 = UTIL_UnitTestData_TEST.getContact();
-        con2.LastName = '2Contact_forTests_Merge';
-        
         Contact con3 = UTIL_UnitTestData_TEST.getContact();
-        con3.LastName = '3Contact_forTests_Merge';
-        
         insert new Contact[]{con, con2, con3};
         
         Test.setCurrentPageReference(new PageReference('Page.CON_ContactMerge'));  
@@ -166,10 +161,7 @@ public class CON_ContactMerge_TEST {
         
         //set up 2 contacts for the merge interface to work with
         Contact con = UTIL_UnitTestData_TEST.getContact();
-        
         Contact con2 = UTIL_UnitTestData_TEST.getContact();
-        con2.LastName = '2Contact_forTests_Merge';
-        
         insert new Contact[]{con, con2};
  
         Test.setCurrentPageReference(new PageReference('Page.CON_ContactMerge')); 
@@ -221,10 +213,7 @@ public class CON_ContactMerge_TEST {
         
         //set up 2 contacts for the merge interface to work with
         Contact con = UTIL_UnitTestData_TEST.getContact();
-        
         Contact con2 = UTIL_UnitTestData_TEST.getContact();
-        con2.LastName = '2Contact_forTests_Merge';
-        
         insert new Contact[]{con, con2};
         
         Test.startTest();
@@ -319,16 +308,9 @@ public class CON_ContactMerge_TEST {
         
         //set up 4 contacts for the merge interface to work with
         Contact con = UTIL_UnitTestData_TEST.getContact();
-        
         Contact con2 = UTIL_UnitTestData_TEST.getContact();
-        con2.LastName = '2Contact_forTests_Merge';
-        
         Contact con3 = UTIL_UnitTestData_TEST.getContact();
-        con3.LastName = '3Contact_forTests_Merge';
-        
         Contact con4 = UTIL_UnitTestData_TEST.getContact();
-        con4.LastName = '4Contact_forTests_Merge';
-        
         insert new Contact[]{con, con2, con3, con4};
         
         Test.setCurrentPageReference(new PageReference('Page.CON_ContactMerge'));     
@@ -373,10 +355,7 @@ public class CON_ContactMerge_TEST {
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
 
         Contact con = UTIL_UnitTestData_TEST.getContact();
-        
-		Contact con2 = UTIL_UnitTestData_TEST.getContact();
-		con2.LastName = '2Contact_forTests_Merge';
-		
+        Contact con2 = UTIL_UnitTestData_TEST.getContact();
         insert new Contact[]{con, con2};
         
         con = [Select id, accountId, FirstName, LastName, MailingStreet from Contact where Id = :con.id];
@@ -435,10 +414,7 @@ public class CON_ContactMerge_TEST {
 
         String newContactMailingStreet = '123 Elm St';
         Contact con = UTIL_UnitTestData_TEST.getContact();
-        
         Contact con2 = UTIL_UnitTestData_TEST.getContact();
-        con2.LastName = '2Contact_forTests_Merge';
-        
         insert new Contact[]{con, con2};
         
         con = [Select id, accountId, FirstName, LastName, MailingStreet from Contact where Id = :con.id];
@@ -461,7 +437,11 @@ public class CON_ContactMerge_TEST {
         controller.searchResults[0].selected = true;
         controller.searchResults[1].selected = true;
         
-        Opportunity o = new Opportunity(AccountId=con.accountId,Amount=500,Name='test',StageName='Closed Won',CloseDate=System.today());
+        Opportunity o = new Opportunity(AccountId=con.AccountId,
+                Amount=500,
+                Name=UTIL_UnitTestData_TEST.TEST_NAME,
+                StageName=UTIL_UnitTestData_TEST.getClosedWonStage(),
+                CloseDate=System.today());
         insert o;
         
         //select the second as winner
@@ -507,22 +487,14 @@ public class CON_ContactMerge_TEST {
     
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
         
-        Account acc = new Account(
-            Name = 'Test Account 1'
-        );
-        
-        Account acc2 = new Account(
-            Name = 'Test Account 2'
-        );
+        Account acc = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME+'1');
+        Account acc2 = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME+'2');
         insert new Account[]{acc, acc2};
 
         Contact con = UTIL_UnitTestData_TEST.getContact();
         con.AccountId = acc.Id;
-        
         Contact con2 = UTIL_UnitTestData_TEST.getContact();
-        con2.LastName = '2Contact_forTests_Merge';
         con2.AccountId = acc2.Id;
-        
         insert new Contact[]{con, con2};
         
         con = [Select id, accountId, FirstName, LastName, MailingStreet from Contact where Id = :con.id];
@@ -578,9 +550,7 @@ public class CON_ContactMerge_TEST {
         
         Contact con = UTIL_UnitTestData_TEST.getContact();
         con.npe01__Private__c = true;
-        
         Contact con2 = UTIL_UnitTestData_TEST.getContact();
-        con2.LastName = '2Contact_forTests_Merge';
         con2.npe01__Private__c = true;
         
         insert new Contact[]{con, con2};
@@ -634,10 +604,8 @@ public class CON_ContactMerge_TEST {
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.BUCKET_PROCESSOR));
         
         Contact con = UTIL_UnitTestData_TEST.getContact();
-        
         Contact con2 = UTIL_UnitTestData_TEST.getContact();
-        con2.LastName = '2Contact_forTests_Merge';
-        
+
         insert new Contact[]{con, con2};
         
         con = [Select id, accountId, FirstName, LastName, MailingStreet from Contact where Id = :con.id];
@@ -793,17 +761,12 @@ public class CON_ContactMerge_TEST {
         
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
         
-        Account acc = new Account(
-            Name = 'Test Account 1'
-        );
+        Account acc = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
         
         Contact con = UTIL_UnitTestData_TEST.getContact();
         con.AccountId = acc.Id;
-        
         Contact con2 = UTIL_UnitTestData_TEST.getContact();
-        con2.LastName = '2Contact_forTests_Merge';
-        
         insert new Contact[]{con, con2};
         
         con = [Select id, accountId, FirstName, LastName, MailingStreet from Contact where Id = :con.id];

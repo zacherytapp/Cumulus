@@ -68,11 +68,11 @@ private class ALLO_ManageAllocations_TEST {
         if (strTestOnly != '*' && strTestOnly != 'testOpp') return;
         setupSettings(null);
         
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
-        Opportunity opp = new Opportunity(Name='foo', Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
+        Opportunity opp = new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME, Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
         insert opp;
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name='foo');
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert gau;
 
         ALLO_ManageAllocations_CTRL ctrl = setUpController(opp.Id);
@@ -106,9 +106,9 @@ private class ALLO_ManageAllocations_TEST {
         if (strTestOnly != '*' && strTestOnly != 'testCam') return;
         setupSettings(null);
         
-        General_Accounting_Unit__c campaigngau = new General_Accounting_Unit__c(Name='foo');
+        General_Accounting_Unit__c campaigngau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert campaigngau;
-        Campaign cam = new Campaign(Name='Foo', IsActive=true);
+        Campaign cam = new Campaign(Name=UTIL_UnitTestData_TEST.TEST_NAME, IsActive=true);
         insert cam;
 
         list<Allocation__c> alloForInsert = new list<Allocation__c>();
@@ -147,12 +147,12 @@ private class ALLO_ManageAllocations_TEST {
         if (strTestOnly != '*' && strTestOnly != 'testRD') return;
         setupSettings(null);
         
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name = 'foo');
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert gau;
         npe03__Recurring_Donation__c rd = new npe03__Recurring_Donation__c(
-            Name = 'foo', 
+            Name=UTIL_UnitTestData_TEST.TEST_NAME, 
             npe03__Installment_Period__c = system.label.npe03.RecurringDonationInstallmentPeriodYearly, 
             npe03__Date_Established__c=date.newinstance(1984,01,29), 
             npe03__Organization__c = acc.id, 
@@ -318,9 +318,9 @@ private class ALLO_ManageAllocations_TEST {
         if (strTestOnly != '*' && strTestOnly != 'testUnsupportedObject') return;
         setupSettings(null);
 
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name = 'foo');
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert gau;
 
         ALLO_ManageAllocations_CTRL ctrl = setUpController(gau.Id);
@@ -343,11 +343,11 @@ private class ALLO_ManageAllocations_TEST {
         if (strTestOnly != '*' && strTestOnly != 'testUnsupportedObject') return;
         setupSettings(null);
 
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
-        Opportunity opp = new Opportunity(Name='foo', Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
+        Opportunity opp = new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME, Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
         insert opp;
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name = 'foo');
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert gau;
 
         ALLO_ManageAllocations_CTRL ctrl = setUpController(opp.Id);
@@ -370,11 +370,11 @@ private class ALLO_ManageAllocations_TEST {
         if (strTestOnly != '*' && strTestOnly != 'testUnsupportedObject') return;
         setupSettings(null);
 
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
-        Opportunity opp = new Opportunity(Name='foo', AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
+        Opportunity opp = new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
         insert opp;
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name = 'foo');
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert gau;
 
         ALLO_ManageAllocations_CTRL ctrl = setUpController(opp.Id);
@@ -395,14 +395,14 @@ private class ALLO_ManageAllocations_TEST {
     @isTest
     private static void testGetCurrencySymbolCallsUtilCurrency() {
         UTIL_Currency_TEST.UtilCurrencyMock mock = new UTIL_Currency_TEST.UtilCurrencyMock();
-        mock.getCurrencySymbolReturn = 'FOO';
+        mock.getCurrencySymbolReturn = 'XYZ';
         UTIL_Currency.instance = mock;
 
         ALLO_ManageAllocations_CTRL controller = new ALLO_ManageAllocations_CTRL();
         controller.parentId = UTIL_UnitTestData_TEST.MOCK_ACCOUNT_ID;
 
         System.assertEquals(
-            'FOO',
+            'XYZ',
             controller.getCurrencySymbol()
         );
 
@@ -419,10 +419,10 @@ private class ALLO_ManageAllocations_TEST {
     @isTest
     private static void testGetCurrencySymbolReturnsCachedSymbol() {
         ALLO_ManageAllocations_CTRL controller = new ALLO_ManageAllocations_CTRL();
-        controller.currencySymbol = 'FOO';
+        controller.currencySymbol = 'XYZ';
 
         System.assertEquals(
-            'FOO',
+            'XYZ',
             controller.getCurrencySymbol()
         );
     }

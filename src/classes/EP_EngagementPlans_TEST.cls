@@ -251,7 +251,7 @@ private with sharing class EP_EngagementPlans_TEST {
         Integer daysUntilWeekend = getDaysUntilWeekend(System.today());
         Id otherUserId = getOtherUserId();
         
-        Account acc = new Account(Name = 'foo', OwnerId = otherUserId);
+        Account acc = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME, OwnerId = otherUserId);
         insert acc;
 
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(

@@ -66,15 +66,15 @@ private with sharing class ALLO_Rollup_TEST {
         if (strTestOnly != '*' && strTestOnly != 'rollupBTN') return;
         setupSettings(null);
 
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
         
         list<Opportunity> oppsForInsert = new list<Opportunity>();
-        oppsForInsert.add(new Opportunity(Name='foo', Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage()));
-        oppsForInsert.add(new Opportunity(Name='foo', Amount = 8, AccountID=acc.id, CloseDate=system.today().addYears(-2), StageName=UTIL_UnitTestData_TEST.getClosedWonStage()));
+        oppsForInsert.add(new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME+'1', Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage()));
+        oppsForInsert.add(new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME+'2', Amount = 8, AccountID=acc.id, CloseDate=system.today().addYears(-2), StageName=UTIL_UnitTestData_TEST.getClosedWonStage()));
         insert oppsForInsert;
         
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name='foo');
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert gau;
 
         list<Allocation__c> alloForInsert = new list<Allocation__c>();
@@ -108,15 +108,15 @@ private with sharing class ALLO_Rollup_TEST {
         if (strTestOnly != '*' && strTestOnly != 'rollupBTN') return;
         setupSettings(new Allocations_Settings__c(Use_Fiscal_Year_for_Rollups__c=true));
 
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
         
         list<Opportunity> oppsForInsert = new list<Opportunity>();
-        oppsForInsert.add(new Opportunity(Name='foo', Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage()));
-        oppsForInsert.add(new Opportunity(Name='foo', Amount = 8, AccountID=acc.id, CloseDate=system.today().addYears(-2), StageName=UTIL_UnitTestData_TEST.getClosedWonStage()));
+        oppsForInsert.add(new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME+'1', Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage()));
+        oppsForInsert.add(new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME+'2', Amount = 8, AccountID=acc.id, CloseDate=system.today().addYears(-2), StageName=UTIL_UnitTestData_TEST.getClosedWonStage()));
         insert oppsForInsert;
         
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name='foo');
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert gau;
 
         list<Allocation__c> alloForInsert = new list<Allocation__c>();

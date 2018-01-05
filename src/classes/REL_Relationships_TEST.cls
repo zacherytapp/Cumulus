@@ -580,8 +580,7 @@ private class REL_Relationships_TEST {
         setupRelationshipTestData(new npe4__Relationship_Settings__c(npe4__Reciprocal_Method__c = 'List Setting'));
 
         list<Contact> conList = new list<Contact>{
-            new Contact(LastName='foo'),
-            new Contact(LastName='foo2')
+            UTIL_UnitTestData_TEST.getContact(), UTIL_UnitTestData_TEST.getContact()
         };
         insert conList;
 
@@ -610,8 +609,7 @@ private class REL_Relationships_TEST {
         setupRelationshipTestData(new npe4__Relationship_Settings__c(npe4__Reciprocal_Method__c = 'List Setting'));
 
         list<Contact> conList = new list<Contact>{
-            new Contact(LastName='foo'),
-            new Contact(LastName='foo2')
+            UTIL_UnitTestData_TEST.getContact(), UTIL_UnitTestData_TEST.getContact()
         };
         insert conList;
 
@@ -656,8 +654,8 @@ private class REL_Relationships_TEST {
         setupRelationshipTestData(new npe4__Relationship_Settings__c(npe4__Reciprocal_Method__c = 'List Setting', npe4__Gender_Field__c = 'Description'));
 
         list<Contact> conList = new list<Contact>{
-            new Contact(LastName='foo', Description='Female'),
-            new Contact(LastName='foo2', Description='Male')
+            new Contact(LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME+'1', Description='Female'),
+            new Contact(LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME+'2', Description='Male')
         };
         insert conList;
 
@@ -783,9 +781,9 @@ private class REL_Relationships_TEST {
         if (strTestOnly != '*' && strTestOnly != 'test2Rels1Transaction_v2') return;
         
          // Create three contacts
-        Contact mainClient = new Contact(FirstName='Main',LastName='AAAClient');
-        Contact friend = new Contact(FirstName='Test',LastName='AAAFriend');
-        Contact coworker = new Contact(FirstName='Test',LastName='AAACoworker');
+        Contact mainClient = UTIL_UnitTestData_TEST.getContact();
+        Contact friend = UTIL_UnitTestData_TEST.getContact();
+        Contact coworker = UTIL_UnitTestData_TEST.getContact();
         insert new Contact[] {mainClient, friend, coworker};
         
         // Create two relationships
@@ -823,10 +821,9 @@ private class REL_Relationships_TEST {
         //set running user to avoid dml issue            
         System.runAs(new User(id = UserInfo.getUserId())){ 
             //insert two contacts
-            c1 = new Contact(LastName = 'Testy');
-            insert c1;
-            c2 = new Contact(LastName = 'McTester');
-            insert c2;
+            c1 = UTIL_UnitTestData_TEST.getContact();
+            c2 = UTIL_UnitTestData_TEST.getContact();
+            insert new List<Contact>{c1,c2};
             //create a relationship between them
             npe4__Relationship__c rel = new npe4__Relationship__c(
                   npe4__contact__c = c1.id, 
@@ -848,8 +845,8 @@ private class REL_Relationships_TEST {
             
             //check that a base node (contact) and the related contact are in the node list
             system.assertEquals(2, nodeList.size());
-            system.assertEquals('Testy', nodeList[0].LastName);
-            system.assertEquals('McTester', nodeList[1].LastName);     
+            system.assertEquals(c1.LastName, nodeList[0].LastName);
+            system.assertEquals(c2.LastName, nodeList[1].LastName);
             List<String> sList = new List<String>();
             sList.add('01r80000000Gty5');     
             nodeList = REL_RelationshipsViewer_CTRL.getRelationships(c1.id, false, sList);
@@ -864,13 +861,8 @@ private class REL_Relationships_TEST {
     public static testMethod void testDeletingMutuallyReferentialRelationshipsDoesNotPreventDeleteOfReciprocals() {
         UTIL_CustomSettingsFacade.getRelationshipSettings().npe4__Reciprocal_Method__c = 'Value Inversion';
 
-        List<Contact> contacts = new List<Contact>{
-            new Contact(LastName='Smith'),
-            new Contact(LastName='Jones'),
-            new Contact(LastName='Lion'),
-            new Contact(LastName='Lamb')
-        };
 
+        List<Contact> contacts = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(4);
         insert contacts;
 
         npe4__Relationship__c rel1to2 = new npe4__Relationship__c(
@@ -1027,8 +1019,8 @@ private class REL_Relationships_TEST {
         setupRelationshipTestData(null);
 
         list<Contact> conList = new list<Contact>{
-                new Contact(LastName='foo', Description='Female'),
-                new Contact(LastName='foo2', Description='Male')
+                new Contact(LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME+'1', Description='Female'),
+                new Contact(LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME+'2', Description='Male')
         };
         insert conList;
 

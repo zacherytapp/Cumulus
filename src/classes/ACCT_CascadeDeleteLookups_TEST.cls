@@ -33,7 +33,7 @@
 * @group Utilities
 * @description Tests for cascade delete of Account
 */
-@isTest
+@isTest(IsParallel=true)
 private class ACCT_CascadeDeleteLookups_TEST {
 
     /*********************************************************************************************************
@@ -42,14 +42,14 @@ private class ACCT_CascadeDeleteLookups_TEST {
     * results.
     */
     static testMethod void testAccountCascadeGrandchild(){
-        Contact con = new Contact(LastName='foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         //select auto created hh account
         Account acc = [SELECT Id FROM Account WHERE Id IN (SELECT AccountId FROM Contact WHERE Id=:con.id)];
 
         npe03__Recurring_Donation__c rdCon = new npe03__Recurring_Donation__c(
-            Name = 'test',
+            Name = UTIL_UnitTestData_TEST.TEST_NAME+'1',
             npe03__Installments__c = 2,
             npe03__Amount__c = 1,
             npe03__Installment_Period__c = system.label.npe03.RecurringDonationInstallmentPeriodYearly,
@@ -60,7 +60,7 @@ private class ACCT_CascadeDeleteLookups_TEST {
         insert rdCon;
 
         npe03__Recurring_Donation__c rdAcc = new npe03__Recurring_Donation__c(
-            Name = 'test',
+            Name = UTIL_UnitTestData_TEST.TEST_NAME+'2',
             npe03__Installments__c = 2,
             npe03__Amount__c = 1,
             npe03__Installment_Period__c = system.label.npe03.RecurringDonationInstallmentPeriodYearly,
@@ -105,14 +105,14 @@ private class ACCT_CascadeDeleteLookups_TEST {
     */
     static testMethod void testAccountMergeNoCascade(){
 
-        Account accWinner = new Account(Name='foo');
+        Account accWinner = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME+'1');
         insert accWinner;
 
-        Account accLoser = new Account(Name='foo');
+        Account accLoser = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME+'2');
         insert accLoser;
 
         npe03__Recurring_Donation__c rd = new npe03__Recurring_Donation__c(
-            Name = 'test',
+            Name = UTIL_UnitTestData_TEST.TEST_NAME,
             npe03__Installments__c = 2,
             npe03__Amount__c = 1,
             npe03__Installment_Period__c = system.label.npe03.RecurringDonationInstallmentPeriodYearly,
@@ -134,10 +134,10 @@ private class ACCT_CascadeDeleteLookups_TEST {
     */
     static testMethod void testAccountCascadeRelationship(){
 
-        Contact con1 = new Contact(LastName='foo1');
+        Contact con1 = UTIL_UnitTestData_TEST.getContact();
         insert con1;
 
-        Contact con2 = new Contact(LastName='foo2');
+        Contact con2 = UTIL_UnitTestData_TEST.getContact();
         insert con2;
 
         npe4__Relationship__c rel = new npe4__Relationship__c(

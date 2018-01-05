@@ -53,7 +53,7 @@ private class CON_DoNotContact_TEST {
 
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.HH_ACCOUNT_PROCESSOR));    
         
-        Contact con = new Contact(FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME, LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'1');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         list<Contact> queryCon = [SELECT Id, AccountId, HasOptedOutOfEmail, DoNotCall, npo02__Naming_Exclusions__c FROM Contact WHERE Id = :con.id];
@@ -89,9 +89,9 @@ private class CON_DoNotContact_TEST {
     static testMethod void testDeceasedInHousehold() {
         if (strTestOnly != '*' && strTestOnly != 'testDeceasedInHousehold') return;
 
-        UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.HH_ACCOUNT_PROCESSOR));    
-        
-        Contact con = new Contact(FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME, LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'2');
+        UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.HH_ACCOUNT_PROCESSOR));
+
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         list<Contact> queryCon = [SELECT Id, AccountId, Account.npe01__One2OneContact__c, HasOptedOutOfEmail, DoNotCall, npo02__Naming_Exclusions__c FROM Contact WHERE Id = :con.id];
@@ -129,8 +129,8 @@ private class CON_DoNotContact_TEST {
         if (strTestOnly != '*' && strTestOnly != 'testDoNotContact') return;
 
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.HH_ACCOUNT_PROCESSOR));
-        
-        Contact con = new Contact(FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME, LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'3');
+
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         list<Contact> queryCon = [SELECT Id, HasOptedOutOfEmail, DoNotCall, npo02__Naming_Exclusions__c FROM Contact WHERE Id = :con.id];

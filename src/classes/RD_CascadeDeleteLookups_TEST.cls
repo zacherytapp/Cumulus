@@ -41,7 +41,7 @@ private class RD_CascadeDeleteLookups_TEST {
     * Then undeletes recurring donation, which undeletes opportunities and allocation. Verifies results.
     */
     static testMethod void testRDCascade(){
-        Contact con = new Contact(LastName='foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         npe03__Recurring_Donation__c rd = new npe03__Recurring_Donation__c(
@@ -90,7 +90,7 @@ private class RD_CascadeDeleteLookups_TEST {
     * exception is thrown.
     */
     static testMethod void testRDDeleteException(){
-        Contact con = new Contact(LastName='foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         npe03__Recurring_Donation__c rd = new npe03__Recurring_Donation__c(
