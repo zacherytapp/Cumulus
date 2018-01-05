@@ -33,7 +33,7 @@
 * @group Opportunity
 * @description Tests for OpportunityContactRoles
 */
-@isTest(IsParallel=true)
+@isTest/*(IsParallel=true)*/
 private class OPP_OpportunityContactRoles_TEST {
 
     /*********************************************************************************************************

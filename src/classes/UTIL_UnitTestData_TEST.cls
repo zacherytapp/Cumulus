@@ -36,10 +36,36 @@
 
 @isTest(isParallel=True)
 public class UTIL_UnitTestData_TEST { 
+
     /** @description A mock Account Id .*/
     public static final String MOCK_ACCOUNT_ID = Account.sObjectType.getDescribe().getKeyPrefix() + '000000000001AAA';
-    
-    static final String PROFILE_STANDARD_USER = 'Standard User';
+
+    /** @description Name of the Standard User profile shipped with Salesforce.com */
+    public static final String PROFILE_STANDARD_USER = 'Standard User';
+
+    /** @description An unique Name value to use in test code to create Accounts, Campaigns, Opportunities, etc. */
+    public static final string TEST_NAME = 'TEST_' + getUniqueString();
+
+    /** @description A contact's firstname to use in test code. */
+    public static final string TEST_FIRSTNAME = 'TEST_' + getUniqueString();
+
+    /** @description A contact's lastname to use in test code. */
+    public static final string TEST_LASTNAME = 'CONTACT_' + getUniqueString();
+
+    /** @description A contact's email to use in test code. */
+    public static final string TEST_EMAIL = 'junk' + getUniqueString() + '@test.net';
+
+    /** @description A contact's preferred email to use in test code. */
+    public static final string TEST_PREFERRED_EMAIL = 'Work';
+
+    /** @description A contact's phone number to use in test code. */
+    public static final string TEST_PHONE = '206-777-' + getUniqueString().right(4);
+
+    /** @description A contact's preferred phone to use in test code. */
+    public static final string TEST_PREFERRED_PHONE = 'Work';
+
+    /** @description The name to use for the Individual Bucket Account in test code. */
+    public static final string TEST_INDIVIDUAL_ACCOUNT_NAME = 'IndividualAccountNameForTests';
 
 // create data for use in unit tests
 // should not be referenced by production code
@@ -103,6 +129,13 @@ public class UTIL_UnitTestData_TEST {
         }
         
         return closedTaskStatus;
+    }
+
+    /**
+     * @description Generate a unique string to append to indexed fields to make them unique
+     */
+    public static String getUniqueString() {
+        return String.valueOf(Math.abs(Crypto.getRandomInteger()));
     }
 
     public static String getOpenTaskStatus(){
