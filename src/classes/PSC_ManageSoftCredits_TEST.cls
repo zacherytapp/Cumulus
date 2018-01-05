@@ -73,7 +73,9 @@ public with sharing class PSC_ManageSoftCredits_TEST {
         insert acc = new Account(name='some company');
         
         // create some Contacts in Household Accounts
-        insert listCon = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(cContact);
+        listCon = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(cContact);
+        listCon = UTIL_UnitTestData_TEST.makeLastNamesUnique(listCon);
+        insert listCon;
         listCon = [select Id, Firstname,Lastname, AccountId from Contact];
         system.assertEquals(cContact, listCon.size());
         
