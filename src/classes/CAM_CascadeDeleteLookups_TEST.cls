@@ -41,10 +41,10 @@ private class CAM_CascadeDeleteLookups_TEST {
     * Then undeletes the campaign, which undeletes the allocation. Verifies results.
     */
     static testMethod void testOppCascade(){
-        Campaign cam = new Campaign(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS, IsActive=true);
+        Campaign cam = new Campaign(Name=UTIL_UnitTestData_TEST.TEST_NAME, IsActive=true);
         insert cam;
 
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert gau;
         Allocation__c alloForInsert = new Allocation__c(Campaign__c=cam.id, Amount__c = 4, General_Accounting_Unit__c = gau.id);
         insert alloForInsert;

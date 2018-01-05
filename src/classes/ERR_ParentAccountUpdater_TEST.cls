@@ -33,7 +33,7 @@
 * @description test trigger handler on Contact to throw an exception for error handling tests
 * @group ErrorHandling
 */
-@isTest
+@isTest(IsParallel=true)
 public with sharing class ERR_ParentAccountUpdater_TEST extends TDTM_Runnable {
 
      public override DmlWrapper run(List<SObject> newlist, List<SObject> oldlist, 
@@ -43,7 +43,7 @@ public with sharing class ERR_ParentAccountUpdater_TEST extends TDTM_Runnable {
         
         for(SObject o : newList) {
             Contact c = (Contact)o;
-            c.Account.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
+            c.Account.Name = UTIL_UnitTestData_TEST.TEST_NAME;
             dmlWrapper.objectsToUpdate.add(c.Account);
         }
         

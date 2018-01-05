@@ -34,7 +34,7 @@
 * @group-content ../../ApexDocContent/Allocations.htm
 * @description Tests specific to Allocations trigger based functionality. 
 */
-@isTest
+@isTest(IsParallel=true)
 private with sharing class ALLO_Allocations_TEST {
     
     /*********************************************************************************************************
@@ -72,11 +72,11 @@ private with sharing class ALLO_Allocations_TEST {
         if (strTestOnly != '*' && strTestOnly != 'oppAmountChange') return;
         setupSettings(null);
 
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
-        Opportunity opp = new Opportunity(Name='foo', Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
+        Opportunity opp = new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME, Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
         insert opp;
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name='foo');
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert gau;
 
         //resetting these manually as a test is considered a single context for static variables
@@ -138,12 +138,12 @@ private with sharing class ALLO_Allocations_TEST {
 
         setupSettings(new Allocations_Settings__c(Default_Allocations_Enabled__c = true, Default__c = defaultGau.id));
 
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
-        Opportunity opp = new Opportunity(Name='foo', Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
+        Opportunity opp = new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME, Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
         insert opp;
 
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name='foo');
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert gau;
 
         list<Allocation__c> queryAllo = getAllocationsOrderByPercent();
@@ -181,11 +181,11 @@ private with sharing class ALLO_Allocations_TEST {
 
         setupSettings(new Allocations_Settings__c(Default_Allocations_Enabled__c = true, Default__c = defaultGau.id));
 
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
-        General_Accounting_Unit__c campaigngau = new General_Accounting_Unit__c(Name='foo');
+        General_Accounting_Unit__c campaigngau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert campaigngau;
-        Campaign cam = new Campaign(Name='Foo', IsActive=true);
+        Campaign cam = new Campaign(Name=UTIL_UnitTestData_TEST.TEST_NAME, IsActive=true);
         insert cam;
 
         list<Allocation__c> alloForInsert = new list<Allocation__c>();
@@ -300,12 +300,12 @@ private with sharing class ALLO_Allocations_TEST {
 
         setupSettings(new Allocations_Settings__c(Default_Allocations_Enabled__c = true, Default__c = defaultGau.id));
 
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name = 'foo');
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name = UTIL_UnitTestData_TEST.TEST_NAME);
         insert gau;
         npe03__Recurring_Donation__c rd = new npe03__Recurring_Donation__c(
-            Name = 'foo', 
+            Name = UTIL_UnitTestData_TEST.TEST_NAME, 
             npe03__Installment_Period__c = system.label.npe03.RecurringDonationInstallmentPeriodYearly, 
             npe03__Date_Established__c= system.today(),  
             npe03__Organization__c = acc.id, 
@@ -350,7 +350,7 @@ private with sharing class ALLO_Allocations_TEST {
         system.assertEquals(2,queryAllo.size(), 'Allocations for the closed/won opportunity should be unchanged.');
         system.assertEquals(50,queryAllo[1].Percent__c, 'The percentage based allocation should be unchanged.');
 
-        Opportunity opp = new Opportunity(Name='foo', npe03__Recurring_Donation__c = rd.id, Amount = 20, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getOpenStage());
+        Opportunity opp = new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME, npe03__Recurring_Donation__c = rd.id, Amount = 20, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getOpenStage());
         insert opp;
 
         queryAllo = getAllocationsOrderByAmount(opp.id);
@@ -389,11 +389,11 @@ private with sharing class ALLO_Allocations_TEST {
 
         setupSettings(new Allocations_Settings__c(Default_Allocations_Enabled__c = true, Default__c = defaultGau.id));
 
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
         General_Accounting_Unit__c campaigngau = new General_Accounting_Unit__c(Name='Campaign Allocation');
         insert campaigngau;
-        Campaign cam = new Campaign(Name='Foo', IsActive=true);
+        Campaign cam = new Campaign(Name=UTIL_UnitTestData_TEST.TEST_NAME, IsActive=true);
         insert cam;
 
         list<Allocation__c> alloForInsert = new list<Allocation__c>();
@@ -437,11 +437,11 @@ private with sharing class ALLO_Allocations_TEST {
         id rtid = UTIL_RecordTypes.GetRecordTypeId(Opportunity.sObjectType,rtname);
 
         setupSettings(new Allocations_Settings__c(Default_Allocations_Enabled__c = true, Default__c = defaultGau.id, Excluded_Opp_Types__c='foo;bar', Excluded_Opp_RecTypes__c=rtid));
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
 
         list<Opportunity> oppForInsert = new list<Opportunity>();
-        oppForInsert.add(new Opportunity(Name='excluded type', Type='foo', Amount = 10, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage()));
+        oppForInsert.add(new Opportunity(Name='excluded type', Type=UTIL_UnitTestData_TEST.TEST_NAME, Amount = 10, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage()));
         //only test the record type exclusion if one exists.
         if (rtid!=null)
             oppForInsert.add(new Opportunity(Name='excluded record type', RecordTypeId=rtid, Amount = 10, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage()));
@@ -466,10 +466,10 @@ private with sharing class ALLO_Allocations_TEST {
         insert defaultgau;
 
         setupSettings(new Allocations_Settings__c(Default_Allocations_Enabled__c = true, Default__c = defaultGau.id));
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
 
-        Opportunity opp = new Opportunity(Name='foo', Amount = null, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
+        Opportunity opp = new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME, Amount = null, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
         Test.startTest();
         insert opp;
         Test.stopTest();
@@ -501,7 +501,7 @@ private with sharing class ALLO_Allocations_TEST {
 
         setupSettings(null);
 
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
 
         list<General_Accounting_Unit__c> listGau = new list<General_Accounting_Unit__c>();
@@ -509,7 +509,7 @@ private with sharing class ALLO_Allocations_TEST {
         listGau.add(new General_Accounting_Unit__c(Name='Campaign Allocation 2'));
         insert listGau;
 
-        Campaign cam = new Campaign(Name='Foo', IsActive=true);
+        Campaign cam = new Campaign(Name=UTIL_UnitTestData_TEST.TEST_NAME, IsActive=true);
         insert cam;
 
         list<Allocation__c> listAllo = new list<Allocation__c>();
@@ -520,7 +520,7 @@ private with sharing class ALLO_Allocations_TEST {
         listGau[0].Active__c = false;
         update listGau[0];
 
-        Opportunity opp = new Opportunity(Name='foo', CampaignId=cam.id, Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
+        Opportunity opp = new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME, CampaignId=cam.id, Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
         Test.startTest();
         insert opp;
         Test.stopTest();
@@ -568,9 +568,9 @@ private with sharing class ALLO_Allocations_TEST {
         // disable the allocations trigger to prevent allocations from being created at all
         TDTM_ProcessControl.toggleTriggerState('Opportunity', 'ALLO_Allocations_TDTM', false);
 
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
-        Opportunity opp1 = new Opportunity(Name='foo', Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
+        Opportunity opp1 = new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME, Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
         Opportunity opp2 = new Opportunity(Name='foo2', Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
         insert opp1;
         insert opp2;

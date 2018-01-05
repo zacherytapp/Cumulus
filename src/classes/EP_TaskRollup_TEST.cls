@@ -33,7 +33,7 @@
 * @group Engagement Plans
 * @description Test Trigger Handler on Tasks
 */
-@isTest
+@isTest(IsParallel=true)
 public class EP_TaskRollup_TEST {
             
     /*******************************************************************************************************
@@ -44,7 +44,7 @@ public class EP_TaskRollup_TEST {
         insert templateTests;
         List<Engagement_Plan_Task__c> epTaskTests = UTIL_UnitTestData_TEST.createEPTasksForTemplates(1, templateTests);
         insert epTaskTests;
-        Contact contactTest = new Contact(LastName = 'Test');
+        Contact contactTest = UTIL_UnitTestData_TEST.getContact();
         insert contactTest;
         Engagement_Plan__c epToInsert = new Engagement_Plan__c(
             Engagement_Plan_Template__c = templateTests[0].Id,
@@ -69,7 +69,7 @@ public class EP_TaskRollup_TEST {
         insert templateTests;
         List<Engagement_Plan_Task__c> epTaskTests = UTIL_UnitTestData_TEST.createEPTasksForTemplates(10, templateTests);
         insert epTaskTests;
-        Contact contactTest = new Contact(LastName = 'Test');
+        Contact contactTest = UTIL_UnitTestData_TEST.getContact();
         insert contactTest;
         Engagement_Plan__c epToInsert = new Engagement_Plan__c(
             Engagement_Plan_Template__c = templateTests[0].Id,
@@ -102,7 +102,7 @@ public class EP_TaskRollup_TEST {
         insert templateTests;
         List<Engagement_Plan_Task__c> epTaskTests = UTIL_UnitTestData_TEST.createEPTasksForTemplates(10, templateTests);
         insert epTaskTests;
-        Contact contactTest = new Contact(LastName = 'Test');
+        Contact contactTest = UTIL_UnitTestData_TEST.getContact();
         insert contactTest;
         List<Engagement_Plan__c> epsToInsert = new List<Engagement_Plan__c>{
             new Engagement_Plan__c(
@@ -149,7 +149,7 @@ public class EP_TaskRollup_TEST {
         insert templateTests;
         List<Engagement_Plan_Task__c> epTaskTests = UTIL_UnitTestData_TEST.createEPTasksForTemplates(10, templateTests);
         insert epTaskTests;
-        Contact contactTest = new Contact(LastName = 'Test');
+        Contact contactTest = UTIL_UnitTestData_TEST.getContact();
         insert contactTest;
         Engagement_Plan__c epToInsert = new Engagement_Plan__c(
             Engagement_Plan_Template__c = templateTests[0].Id,
@@ -185,7 +185,7 @@ public class EP_TaskRollup_TEST {
         insert templateTests;
         List<Engagement_Plan_Task__c> epTaskTests = UTIL_UnitTestData_TEST.createEPTasksForTemplates(10, templateTests);
         insert epTaskTests;
-        Contact contactTest = new Contact(LastName = 'Test');
+        Contact contactTest = UTIL_UnitTestData_TEST.getContact();
         insert contactTest;
         Engagement_Plan__c epToInsert = new Engagement_Plan__c(
             Engagement_Plan_Template__c = templateTests[0].Id,
@@ -221,7 +221,7 @@ public class EP_TaskRollup_TEST {
         insert templateTests;
         List<Engagement_Plan_Task__c> epTaskTests = UTIL_UnitTestData_TEST.createEPTasksForTemplates(10, templateTests);
         insert epTaskTests;
-        Contact contactTest = new Contact(LastName = 'Test');
+        Contact contactTest = UTIL_UnitTestData_TEST.getContact();
         insert contactTest;
         Engagement_Plan__c epToInsert = new Engagement_Plan__c(
             Engagement_Plan_Template__c = templateTests[0].Id,

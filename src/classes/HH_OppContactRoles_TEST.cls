@@ -75,12 +75,12 @@ private class HH_OppContactRoles_TEST {
                 
         //create contact
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
         Contact[] createdContacts = [select AccountId,npo02__Household__c from Contact where id=:con.id];
@@ -88,23 +88,23 @@ private class HH_OppContactRoles_TEST {
         Id householdId = createdContacts[0].npo02__household__c;
         //create household member
         Contact con2 = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS,
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE,
             AccountId = (strProcessor == CAO_Constants.HH_ACCOUNT_PROCESSOR ? accountId : null),
             npo02__Household__c = householdId
         );
         insert con2;
         Contact con3 = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS,
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE,
             Deceased__c = true,
             AccountId = (strProcessor == CAO_Constants.HH_ACCOUNT_PROCESSOR ? accountId : null),
             npo02__Household__c = householdId
@@ -165,12 +165,12 @@ private class HH_OppContactRoles_TEST {
 
         //create contact
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
         Contact[] createdContacts = [select AccountId,npo02__Household__c from Contact where id=:con.id];
@@ -178,12 +178,12 @@ private class HH_OppContactRoles_TEST {
         Id householdId = createdContacts[0].npo02__household__c;
         //create household member
         Contact con2 = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS,
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE,
             AccountId = (strProcessor == CAO_Constants.HH_ACCOUNT_PROCESSOR ? accountId : null),
             npo02__Household__c = householdId
         );
@@ -233,12 +233,12 @@ private class HH_OppContactRoles_TEST {
         
         //create contact
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
         
@@ -247,12 +247,12 @@ private class HH_OppContactRoles_TEST {
         Id householdId = createdContacts[0].npo02__household__c;
         //create household member
         Contact con2 = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS,
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE,
             AccountId = null,
             npo02__Household__c = householdId
         );
@@ -305,12 +305,12 @@ private class HH_OppContactRoles_TEST {
         Id accountId = acct.Id;
 
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS,
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE,
             accountId = accountId
         );
         insert con;

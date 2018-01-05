@@ -35,7 +35,7 @@
  * @description Test class for TDTM_Runnable
  *
 ***/
-@isTest(IsParallel=true)
+@isTest/*(IsParallel=true)*/
 public with sharing class TDTM_Runnable_TEST {
 
     private static string strTestOnly = '*';
@@ -44,18 +44,18 @@ public with sharing class TDTM_Runnable_TEST {
     * @description This test verifies that the runFuture method of the TDTM_Runnable class works properly 
     **/
     public static testmethod void testAsync() {
-    	if (strTestOnly != '*' && strTestOnly != 'testAsync') return;
-    	
-    	insert new Trigger_Handler__c(Active__c = true, Asynchronous__c = true, 
+        if (strTestOnly != '*' && strTestOnly != 'testAsync') return;
+
+        insert new Trigger_Handler__c(Active__c = true, Asynchronous__c = true,
               Class__c = 'ERR_ParentAccountUpdater2_TEST', Load_Order__c = 1, Object__c = 'Contact', 
               Trigger_Action__c = 'AfterInsert;');
          
-        Account acc = new Account(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        Account acc = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
         
         Contact contact = new Contact(
-                FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-                LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+                FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+                LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME,
                 AccountId = acc.Id);
         
         Test.startTest(); 
@@ -65,8 +65,8 @@ public with sharing class TDTM_Runnable_TEST {
         contact = [select FirstName from Contact where Id = :contact.ID];
         acc = [select Name from Account where Id = :acc.Id];
         
-        System.assertEquals(CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, contact.FirstName); //To verify fields from record are available in future
-        System.assertEquals(CAO_Constants.ACCOUNT_NAME_FOR_TESTS, acc.Name);
+        System.assertEquals(UTIL_UnitTestData_TEST.TEST_FIRSTNAME, contact.FirstName); //To verify fields from record are available in future
+        System.assertEquals(UTIL_UnitTestData_TEST.TEST_NAME, acc.Name);
     }
     
     /*************************************************************************** 
@@ -75,29 +75,20 @@ public with sharing class TDTM_Runnable_TEST {
     * If you comment out the first line in the method groupSObjects of TDTM_Runnable this test fails.
     **/
     public static testmethod void nochunking() {
-    	if (strTestOnly != '*' && strTestOnly != 'nochunking') return;
-    	
-    	npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
+        if (strTestOnly != '*' && strTestOnly != 'nochunking') return;
+
+        npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.HH_ACCOUNT_PROCESSOR));
     
-    	List<Contact> contacts = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(200);
-		/*for(integer i = 0; i< 200; i++) {
-		    Contact contact = new contact(firstname='Test', lastname='Person' + i);
-		    contact.MailingStreet = 'multiple-address';
-		    contact.MailingCity = 'Cupertino';
-		    contact.MailingState = 'California';
-		    contact.MailingPostalCode = '95014';
-		    contact.MailingCountry = 'United States';
-		    contacts.add(contact);
-		}*/
-		
-		Test.startTest();
-		insert contacts;
-		Test.stopTest();
-		
-		Integer errors = [select count() from Error__c];
-		list<Error__c> listErr = [select Full_Message__c, Object_Type__c, Record_URL__c from Error__c];
-		system.debug('**** listErr: ' + listErr);
-		System.assertEquals(0, errors);
+        List<Contact> contacts = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(200);
+
+        Test.startTest();
+        insert contacts;
+        Test.stopTest();
+
+        Integer errors = [select count() from Error__c];
+        list<Error__c> listErr = [select Full_Message__c, Object_Type__c, Record_URL__c from Error__c];
+        system.debug('**** listErr: ' + listErr);
+        System.assertEquals(0, errors);
     }
 }

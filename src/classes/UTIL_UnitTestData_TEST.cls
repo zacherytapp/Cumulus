@@ -154,13 +154,13 @@ public class UTIL_UnitTestData_TEST {
     
     public static Contact getContact() {
     	return new Contact (
-                FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-                LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+                FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+                LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME,
                 npe01__Private__c = false,
-                npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-                npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-                npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-                npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS,
+                npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+                npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+                npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+                npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE,
                 OtherCity = 'Seattle'
             );
     }
@@ -177,13 +177,13 @@ public class UTIL_UnitTestData_TEST {
         
         for (integer i=0;i<n;i++) {
             Contact newCon = New Contact (
-                FirstName= CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS + '.' + i,
-                LastName= CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, // LastName needs to be the same for most of the test that use this
+                FirstName= UTIL_UnitTestData_TEST.TEST_FIRSTNAME + '.' + i,
+                LastName= UTIL_UnitTestData_TEST.TEST_LASTNAME, // LastName needs to be the same for most of the test that use this
                 npe01__Private__c=false,
-                npe01__WorkEmail__c = i + '.' + CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-                npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-                npe01__WorkPhone__c = i + '-' +CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-                npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS,
+                npe01__WorkEmail__c = i + '.' + UTIL_UnitTestData_TEST.TEST_EMAIL,
+                npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+                npe01__WorkPhone__c = i + '-' +UTIL_UnitTestData_TEST.TEST_PHONE,
+                npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE,
                 OtherCity = 'Seattle'
             );
             //since we're running rollup code on a manually created contacts in RLLP_OppRollup_TEST, we have to manually set currency field in multicurrency
@@ -209,7 +209,7 @@ public class UTIL_UnitTestData_TEST {
      */
     public static List<Contact> makeLastNamesUnique(List<Contact> contacts) {
         for (integer i=0;i< contacts.size();i++) {
-            contacts[i].LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS + '.' + i;
+            contacts[i].LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME + '.' + i;
         }
         return contacts;
     }
@@ -323,7 +323,7 @@ public class UTIL_UnitTestData_TEST {
         
         for (integer i=0;i<n;i++) {
             Account newAcct = New Account (
-                Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS + i,
+                Name = UTIL_UnitTestData_TEST.TEST_NAME + i,
                 npe01__SYSTEM_AccountType__c = strType
             );
             if (strType != null) {

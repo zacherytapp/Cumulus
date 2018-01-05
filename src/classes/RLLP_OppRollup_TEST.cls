@@ -168,13 +168,13 @@ public with sharing class RLLP_OppRollup_TEST {
 
         // create & insert contact(s)
         Contact c = new Contact( 
-            FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+            FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME,
             npe01__Private__c=false,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert c;
 
@@ -262,13 +262,13 @@ public with sharing class RLLP_OppRollup_TEST {
 
             // create & insert contact(s)
             Contact[] TestCons = new contact[]{ new contact(
-                FirstName= CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-                LastName= CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+                FirstName= UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+                LastName= UTIL_UnitTestData_TEST.TEST_LASTNAME,
                 npe01__Private__c=false,
-                npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-                npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-                npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-                npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+                npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+                npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+                npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+                npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
             ) };
 
             //since we're running rollup code on a manually created contact, we have to manually set currency field in multicurrency
@@ -360,13 +360,13 @@ public with sharing class RLLP_OppRollup_TEST {
 
             // create & insert contact(s)
             Contact[] TestCons = new contact[]{ new contact(
-                FirstName= CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-                LastName= CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+                FirstName= UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+                LastName= UTIL_UnitTestData_TEST.TEST_LASTNAME,
                 npe01__Private__c=false,
-                npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-                npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-                npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-                npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+                npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+                npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+                npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+                npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
             ) };
 
             //since we're running rollup code on a manually created contact, we have to manually set currency field in multicurrency
@@ -458,14 +458,14 @@ public with sharing class RLLP_OppRollup_TEST {
             insert testacct;
             // create & insert contact(s)
             Contact[] TestCons = new contact[]{ new contact(
-                FirstName= CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-                LastName= CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+                FirstName= UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+                LastName= UTIL_UnitTestData_TEST.TEST_LASTNAME,
                 npe01__Private__c=false,
                 AccountId = testacct.id,
-                npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-                npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-                npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-                npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+                npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+                npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+                npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+                npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
             ) };
 
             //since we're running rollup code on a manually created contact, we have to manually set currency field in multicurrency
@@ -554,13 +554,13 @@ public with sharing class RLLP_OppRollup_TEST {
 
             // create & insert contact(s)
             Contact[] TestCons = new contact[]{ new contact(
-                FirstName= CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-                LastName= CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+                FirstName= UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+                LastName= UTIL_UnitTestData_TEST.TEST_LASTNAME,
                 npe01__Private__c=false,
-                npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-                npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-                npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-                npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+                npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+                npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+                npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+                npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
             ) };
             insert TestCons;
 

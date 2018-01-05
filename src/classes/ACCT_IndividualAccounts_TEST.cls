@@ -69,16 +69,16 @@ private class ACCT_IndividualAccounts_TEST {
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
 
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
 
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
             npe01__Private__c=true,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         Test.startTest();
         insert con;
@@ -151,29 +151,29 @@ private class ACCT_IndividualAccounts_TEST {
             )
         );
 
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
 
         Contact con = new Contact(
             FirstName='Jack',
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
             Title = 'Doctor',
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         Test.startTest();
         insert con;
         Test.stopTest();
 
         Contact[] insertedContacts = [Select Account.npo02__Formal_Greeting__c, FirstName, LastName, AccountId  from Contact where id=:con.id];
-        system.assertEquals('Doctor Jack ' + CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, insertedContacts[0].Account.npo02__Formal_Greeting__c);
+        system.assertEquals('Doctor Jack ' + UTIL_UnitTestData_TEST.TEST_LASTNAME, insertedContacts[0].Account.npo02__Formal_Greeting__c);
 
         con.Title = 'Hard Worker';
         update con;
 
         Contact[] updatedContacts = [Select Account.npo02__Formal_Greeting__c, FirstName, LastName, AccountId  from Contact where id=:con.id];
-        system.assertEquals('Hard Worker Jack ' + CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, updatedContacts[0].Account.npo02__Formal_Greeting__c);
+        system.assertEquals('Hard Worker Jack ' + UTIL_UnitTestData_TEST.TEST_LASTNAME, updatedContacts[0].Account.npo02__Formal_Greeting__c);
     }
 
     
@@ -196,15 +196,15 @@ private class ACCT_IndividualAccounts_TEST {
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
         
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
 
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         Test.startTest();
         insert con;
@@ -259,15 +259,15 @@ private class ACCT_IndividualAccounts_TEST {
               Trigger_Action__c = 'AfterDelete'));
         insert handlers;
          
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
 
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         Test.startTest();
         insert con;
@@ -302,13 +302,13 @@ private class ACCT_IndividualAccounts_TEST {
         String newContactMailingStreet = '123 Elm St';
 
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
             MailingStreet = newContactMailingStreet,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
         
@@ -327,9 +327,9 @@ private class ACCT_IndividualAccounts_TEST {
         system.assertEquals(true,insertedcontacts[0].Account.npe01__SYSTEMIsIndividual__c );
         //the account should have been named correctly
         if (strProcessor == CAO_Constants.ONE_TO_ONE_PROCESSOR)
-            system.assertEquals(CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS + ' ' + CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,insertedcontacts[0].Account.Name);
+            system.assertEquals(UTIL_UnitTestData_TEST.TEST_FIRSTNAME + ' ' + UTIL_UnitTestData_TEST.TEST_LASTNAME,insertedcontacts[0].Account.Name);
         else if (strProcessor == CAO_Constants.HH_ACCOUNT_PROCESSOR)
-            system.assertEquals(CAO_Constants.CONTACT_LASTNAME_FOR_TESTS + ' Household',insertedcontacts[0].Account.Name);        
+            system.assertEquals(UTIL_UnitTestData_TEST.TEST_LASTNAME + ' Household',insertedcontacts[0].Account.Name);
         //relationship should be bi-directional
         system.assertEquals(insertedcontacts[0].id,insertedcontacts[0].Account.npe01__One2OneContact__c);
         //addresses should be sync'd
@@ -379,12 +379,12 @@ private class ACCT_IndividualAccounts_TEST {
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
         
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
         
@@ -429,13 +429,13 @@ private class ACCT_IndividualAccounts_TEST {
         String newContactMailingStreet = '123 Elm St';
 
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
             MailingStreet = newContactMailingStreet,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
 
@@ -499,15 +499,15 @@ private class ACCT_IndividualAccounts_TEST {
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
                 
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
 
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         Test.startTest();
         insert con;
@@ -541,15 +541,15 @@ private class ACCT_IndividualAccounts_TEST {
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
                
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
 
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
         
@@ -598,9 +598,9 @@ private class ACCT_IndividualAccounts_TEST {
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.BUCKET_PROCESSOR));
                
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
         
-        Account acct = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        Account acct = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acct;
         
         Account[] insertedAccount = [select npe01__SystemIsIndividual__c from Account where id = :acct.id];
@@ -609,13 +609,13 @@ private class ACCT_IndividualAccounts_TEST {
         system.assert(!insertedAccount[0].npe01__SystemIsIndividual__c);
 
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
             AccountId = acct.id,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
         
@@ -654,15 +654,15 @@ private class ACCT_IndividualAccounts_TEST {
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
         
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
 
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
         
@@ -701,15 +701,15 @@ private class ACCT_IndividualAccounts_TEST {
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
         
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
 
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
         
@@ -749,20 +749,20 @@ private class ACCT_IndividualAccounts_TEST {
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
                 
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
         
-        String acctName = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
+        String acctName = UTIL_UnitTestData_TEST.TEST_NAME;
         Account acct = new Account(Name=acctName);
         insert acct;
 
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
             AccountId = acct.id,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
         
@@ -804,9 +804,9 @@ private class ACCT_IndividualAccounts_TEST {
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
         
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
         
-        Account acct = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        Account acct = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acct;
         
         Account[] insertedAccount = [select npe01__SystemIsIndividual__c from Account where id = :acct.id];
@@ -815,13 +815,13 @@ private class ACCT_IndividualAccounts_TEST {
         system.assert(!insertedAccount[0].npe01__SystemIsIndividual__c);
 
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
             AccountId = acct.id,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
         
@@ -861,18 +861,18 @@ private class ACCT_IndividualAccounts_TEST {
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
         
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
         
         String newContactMailingStreet = '123 Elm St';
 
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
             MailingStreet = newContactMailingStreet,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
         Id contactId;
@@ -908,18 +908,18 @@ private class ACCT_IndividualAccounts_TEST {
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));        
         
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
               
         String newContactMailingStreet = '123 Elm St';
 
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
             MailingStreet = newContactMailingStreet,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
         Id contactId;
@@ -932,7 +932,7 @@ private class ACCT_IndividualAccounts_TEST {
        Opportunity opp = new Opportunity(
             Amount=500,
             AccountId=createdAccountId,
-            Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
+            Name=UTIL_UnitTestData_TEST.TEST_NAME,
             StageName='Closed/Won',
             CloseDate=System.today()
         );
@@ -967,24 +967,24 @@ private class ACCT_IndividualAccounts_TEST {
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));        
 
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
         
         Account orgAccount = new Account(
-            Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS
+            Name=UTIL_UnitTestData_TEST.TEST_NAME
         );
         insert orgAccount;
                
         String newContactMailingStreet = '123 Elm St';
 
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
             MailingStreet = newContactMailingStreet,
             AccountId=orgAccount.id,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
         
@@ -1023,21 +1023,21 @@ private class ACCT_IndividualAccounts_TEST {
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
         
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
         
         con = [select AccountId from Contact where id = :con.Id];
         Account newAcc = [select id,Name from Account where id = :con.AccountId limit 1];
         if (strProcessor == CAO_Constants.ONE_TO_ONE_PROCESSOR)
-            system.assertEquals(newAcc.Name, CAO_Constants.Contact_FIRSTNAME_FOR_TESTS + ' ' + CAO_Constants.Contact_LASTNAME_FOR_TESTS);
+            system.assertEquals(newAcc.Name, UTIL_UnitTestData_TEST.TEST_FIRSTNAME + ' ' + UTIL_UnitTestData_TEST.TEST_LASTNAME);
         else if (strProcessor == CAO_Constants.HH_ACCOUNT_PROCESSOR)            
-            system.assertEquals(newAcc.Name, CAO_Constants.Contact_LASTNAME_FOR_TESTS + ' Household');
+            system.assertEquals(newAcc.Name, UTIL_UnitTestData_TEST.TEST_LASTNAME + ' Household');
         
         //set name to null
         con.FirstName = null;
@@ -1048,9 +1048,9 @@ private class ACCT_IndividualAccounts_TEST {
         
         newAcc = [select id,Name from Account where id = :con.AccountId limit 1];
         if (strProcessor == CAO_Constants.ONE_TO_ONE_PROCESSOR)
-            system.assertEquals(newAcc.Name, CAO_Constants.Contact_LASTNAME_FOR_TESTS);
+            system.assertEquals(newAcc.Name, UTIL_UnitTestData_TEST.TEST_LASTNAME);
         else if (strProcessor == CAO_Constants.HH_ACCOUNT_PROCESSOR)            
-            system.assertEquals(newAcc.Name, CAO_Constants.Contact_LASTNAME_FOR_TESTS + ' Household');
+            system.assertEquals(newAcc.Name, UTIL_UnitTestData_TEST.TEST_LASTNAME + ' Household');
     }
 
     /*********************************************************************************************************
@@ -1073,19 +1073,19 @@ private class ACCT_IndividualAccounts_TEST {
         );
 
         Contact con = new Contact(
-            FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
 
         Contact insertedCon = [SELECT Account.Name, AccountId FROM Contact WHERE Id = :con.Id LIMIT 1];
         Id acctId = insertedCon.AccountId;
 
-        Contact con2 = new Contact(FirstName = 'Johnny', LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'2', AccountId = null);
+        Contact con2 = new Contact(FirstName = 'Johnny', LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'2', AccountId = null);
         con2.AccountId = acctId;
         insert con2;
 
@@ -1123,11 +1123,11 @@ private class ACCT_IndividualAccounts_TEST {
 
         Contact con = new Contact(
             FirstName = 'Johnny',
-            LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
 
@@ -1164,11 +1164,11 @@ private class ACCT_IndividualAccounts_TEST {
 
         Contact con = new Contact(
             FirstName = 'Johnny',
-            LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS,
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
 
@@ -1183,7 +1183,7 @@ private class ACCT_IndividualAccounts_TEST {
         Opportunity opp = new Opportunity(
             Amount = 500,
             AccountId = acctId,
-            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
+            Name = UTIL_UnitTestData_TEST.TEST_NAME,
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
             CloseDate = System.today(),
             Primary_Contact__c = othercon.id
@@ -1273,7 +1273,7 @@ private class ACCT_IndividualAccounts_TEST {
         );
 
         Contact con = new Contact(
-            LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS
+            LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME
         );
         insert con;
 
@@ -1290,7 +1290,7 @@ private class ACCT_IndividualAccounts_TEST {
         }
 
         Test.startTest();
-        con.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
+        con.FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME;
         con.OwnerId = secondUser[0].id;
         try {
             update con;
@@ -1311,7 +1311,7 @@ private class ACCT_IndividualAccounts_TEST {
         UTIL_UnitTestData_TEST.turnOffAutomaticHHNaming();
         UTIL_UnitTestData_TEST.setupInvalidHHNamingSettings();
 
-        Contact contact = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS);
+        Contact contact = new Contact(LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME);
         try {
             insert contact;
 
@@ -1320,14 +1320,14 @@ private class ACCT_IndividualAccounts_TEST {
         }
 
         try {
-            contact.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
+            contact.FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME;
             update contact;
 
         } catch (Exception e) {
             System.assert(false, 'Unexpected error on Contact update: ' + e.getMessage());
         }
 
-        System.assertEquals(CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, [SELECT FirstName FROM Contact WHERE Id = :contact.Id][0].FirstName, 'Contact update should succeed');
+        System.assertEquals(UTIL_UnitTestData_TEST.TEST_FIRSTNAME, [SELECT FirstName FROM Contact WHERE Id = :contact.Id][0].FirstName, 'Contact update should succeed');
     }
 
     /*********************************************************************************************************
@@ -1346,12 +1346,12 @@ private class ACCT_IndividualAccounts_TEST {
         System.assert(soql.contains('npe01__WorkEmail__c'));// the only field added from Household Naming fields
 
         Contact[] contacts = new Contact[]{
-            new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'1'),
-            new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'2')
+            new Contact(LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'1'),
+            new Contact(LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'2')
         };
         insert contacts;
 
-        insert new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'3');
+        insert new Contact(LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'3');
 
         // Verify the SOQL is correct and there is no duplicate field error raised
         Contact[] actualContacts;

@@ -76,46 +76,6 @@ public with sharing class CAO_Constants {
     public static final string HH_TYPE = 'Household';
 
     /*******************************************************************************************************
-    * @description A contact's firstname to use in test code.
-    */
-    public static final string ACCOUNT_NAME_FOR_TESTS = 'TEST_ACCOUNT_' + getUniqueString();
-
-    /*******************************************************************************************************
-    * @description A contact's firstname to use in test code.
-    */ 
-    public static final string CONTACT_FIRSTNAME_FOR_TESTS = 'test' + getUniqueString();
-
-    /*******************************************************************************************************
-    * @description A contact's lastname to use in test code.
-    */ 
-    public static final string CONTACT_LASTNAME_FOR_TESTS = 'Contact_forTests' + getUniqueString();
-
-    /*******************************************************************************************************
-    * @description A contact's email to use in test code.
-    */ 
-    public static final string CONTACT_EMAIL_FOR_TESTS = 'junk' + getUniqueString() + '@test.net';
-
-    /*******************************************************************************************************
-    * @description A contact's preferred email to use in test code.
-    */ 
-    public static final string CONTACT_PREFERRED_EMAIL_FOR_TESTS = 'Work';
-
-    /*******************************************************************************************************
-    * @description A contact's phone number to use in test code.
-    */ 
-    public static final string CONTACT_PHONE_FOR_TESTS = '206-777-' + getUniqueString().right(4);
-
-    /*******************************************************************************************************
-    * @description A contact's preferred phone to use in test code.
-    */ 
-    public static final string CONTACT_PREFERRED_PHONE_FOR_TESTS = 'Work';
-    
-    /*******************************************************************************************************
-    * @description The name to use for the Individual Bucket Account in test code.
-    */ 
-    public static final string INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS = 'IndividualAccountNameForTests';
-
-    /*******************************************************************************************************
     * @description Returns whether we are in the One-to-One Account Model
     * @return  boolean
     */ 
@@ -194,12 +154,5 @@ public with sharing class CAO_Constants {
         IndividualAccountName = accountName;
 
         return individualAccountForTests.id;
-    }
-
-    /**
-     * @description Generate a unique string to append to indexed fields to make them unique
-     */
-    public static String getUniqueString() {
-        return String.valueOf(Math.abs(Crypto.getRandomInteger()));
     }
 }

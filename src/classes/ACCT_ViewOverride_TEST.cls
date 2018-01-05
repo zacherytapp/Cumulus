@@ -47,13 +47,13 @@ private class ACCT_ViewOverride_TEST {
         
         String newContactMailingStreet = '123 Elm St';
         Contact con = new Contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
             MailingStreet = newContactMailingStreet,
-            npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-            npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-            npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-            npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+            npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+            npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+            npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+            npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
         );
         insert con;
         

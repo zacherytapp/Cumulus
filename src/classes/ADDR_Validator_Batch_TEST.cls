@@ -130,8 +130,8 @@ public with sharing class ADDR_Validator_Batch_TEST {
         List<Contact> contacts = new List<Contact>();
         for(integer i = 0; i< 200; i++) {
 	        Contact contact = new Contact(
-                    FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-                    LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS + i);
+                    FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+                    LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME + i);
 	        contact.MailingStreet = 'multiple-address';
 	        contact.MailingCity = 'Cupertino';
 	        contact.MailingState = 'California';

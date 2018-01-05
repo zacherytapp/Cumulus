@@ -34,7 +34,7 @@
 * @description tests specific to the Household Account model 
 */
 
-@isTest
+@isTest(IsParallel=true)
 private with sharing class ACCT_HHAccounts_TEST {
 
     /*********************************************************************************************************
@@ -674,7 +674,7 @@ private with sharing class ACCT_HHAccounts_TEST {
         insert listAccOne2One;
         system.assertNotEquals(null, listAccOne2One[0].Id);
  
-        ID bucketId = CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        ID bucketId = CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
         system.assertNotEquals(null, bucketId);
         
         // create our 1:1 and Bucket contacts
@@ -747,7 +747,7 @@ private with sharing class ACCT_HHAccounts_TEST {
         User u2 = UTIL_UnitTestData_TEST.CreateNewUserForTests('changeContactOnwerTest@bar.com');
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettings();
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
     
         list<Contact> listCon = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(7);
         system.assertEquals(null, listCon[0].AccountId); 
@@ -930,7 +930,7 @@ private with sharing class ACCT_HHAccounts_TEST {
         
         ID rtIdAccountHH = ACCT_IndividualAccounts_TDTM.rtIdForAccountModel(true);
         if (rtIdAccountHH != null) {
-            Account acc = new Account(name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS, RecordTypeId = rtIdAccountHH);
+            Account acc = new Account(name=UTIL_UnitTestData_TEST.TEST_NAME, RecordTypeId = rtIdAccountHH);
             insert acc;
             acc = [select Id, Name, RecordTypeId, npe01__SYSTEMISINDIVIDUAL__c, npe01__SYSTEM_AccountType__c 
                 from Account where Id = :acc.Id];
@@ -951,7 +951,7 @@ private with sharing class ACCT_HHAccounts_TEST {
         
         ID rtIdAccountHH = ACCT_IndividualAccounts_TDTM.rtIdForAccountModel(true);
         if (rtIdAccountHH != null) {
-            Account acc = new Account(name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+            Account acc = new Account(name=UTIL_UnitTestData_TEST.TEST_NAME);
             insert acc;
             acc = [select Id, Name, RecordTypeId, npe01__SYSTEMISINDIVIDUAL__c, npe01__SYSTEM_AccountType__c 
                 from Account where Id = :acc.Id];

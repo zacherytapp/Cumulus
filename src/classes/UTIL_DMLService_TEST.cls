@@ -45,7 +45,7 @@ public with sharing class UTIL_DMLService_TEST {
     private static final String ERROR_STATUS_CODE_DUPLICATES_DETECTED = 'DUPLICATES_DETECTED';
 
     private static List<Contact> createTestData(Integer numContacts) {
-        Account acct = new Account(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        Account acct = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME);
         insert acct;
 
         List<Contact> contacts = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(2);
@@ -93,7 +93,7 @@ public with sharing class UTIL_DMLService_TEST {
     private static testMethod void testRecordsInsertWithDefaults() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordsInsertWithDefaults') return;
         
-        Account acct = new Account(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        Account acct = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME);
         insert acct;
 
         List<Contact> contacts = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(2);
@@ -430,7 +430,7 @@ public with sharing class UTIL_DMLService_TEST {
     private static testMethod void testRecordUpsertWithDefaults() {
         if (strTestOnly != '*' && strTestOnly != 'testRecordUpsertWithDefaults') return;
 
-        Account acct = new Account(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        Account acct = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME);
 
         Test.startTest();
         UTIL_DMLService.upsertRecord(acct);
@@ -559,12 +559,12 @@ public with sharing class UTIL_DMLService_TEST {
         Error_Settings__c errorSettings = UTIL_CustomSettingsFacade.getErrorSettings();
         UTIL_DMLService.insertRecord(errorSettings);
 
-        Account acct = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS, BillingCity='San Francisco');
+        Account acct = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME, BillingCity='San Francisco');
         UTIL_DMLService.insertRecord(acct);
         List<Account> retrievedAccts = [SELECT Id, Name FROM Account];
-        System.assertEquals(CAO_Constants.ACCOUNT_NAME_FOR_TESTS, retrievedAccts[0].Name);
+        System.assertEquals(UTIL_UnitTestData_TEST.TEST_NAME, retrievedAccts[0].Name);
 
-        Account dupeAcct = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS, BillingCity='San Francisco');
+        Account dupeAcct = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME, BillingCity='San Francisco');
         Database.SaveResult sr = UTIL_DMLService.insertRecord(dupeAcct, false); // AllOrNone flag set to false to check if the Duplicate Rule's Action is set to Block. 
         if (!sr.isSuccess()) {
             for (Database.Error duplicateError : sr.getErrors()) {
@@ -587,17 +587,17 @@ public with sharing class UTIL_DMLService_TEST {
         retrievedAccts = [SELECT Id, Name FROM Account];
         System.assertEquals(NUMBER_OF_RECORDS_TWO, retrievedAccts.size());
 
-        Account dupeAcctUpdate = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS + ' Update', BillingCity='San Francisco');
+        Account dupeAcctUpdate = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME + ' Update', BillingCity='San Francisco');
         UTIL_DMLService.insertRecord(dupeAcctUpdate);
         retrievedAccts = [SELECT Id, Name FROM Account];
         System.assertEquals(NUMBER_OF_RECORDS_THREE, retrievedAccts.size());
 
-        dupeAcctUpdate.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
+        dupeAcctUpdate.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         UTIL_DMLService.updateRecord(dupeAcctUpdate);
 
         retrievedAccts = [SELECT Id, Name FROM Account];
         for(Account eachAcct : retrievedAccts) {
-            System.assertEquals(CAO_Constants.ACCOUNT_NAME_FOR_TESTS, eachAcct.Name);
+            System.assertEquals(UTIL_UnitTestData_TEST.TEST_NAME, eachAcct.Name);
         }
     }
 

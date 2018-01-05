@@ -67,7 +67,7 @@ private class LD_LeadConvertOverride_TEST {
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
 
         Test.setCurrentPageReference(new PageReference('Page.LD_LeadConvertOverride'));
         string companyName = 'Self';
@@ -119,7 +119,7 @@ private class LD_LeadConvertOverride_TEST {
         } else if (CAO_Constants.isHHAccountModel()) {
             system.assertEquals(convertedContacts[0].lastname + ' Household', convertedContacts[0].Account.Name);
         } else if (CAO_Constants.isBucketModel()) {
-            system.assertEquals(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS, convertedContacts[0].Account.Name);
+            system.assertEquals(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME, convertedContacts[0].Account.Name);
         }
         
         // make sure no affilations created
@@ -152,20 +152,20 @@ private class LD_LeadConvertOverride_TEST {
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
 
         Test.setCurrentPageReference(new PageReference('Page.LD_LeadConvertOverride'));
 
         // create a contact to merge into
         contact c = new contact(
-            FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-            LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS
+            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME
         );
         insert c;
 
         Lead l = new Lead();
-        l.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
-        l.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
+        l.FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME;
+        l.LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME;
         l.Company = 'self';
         insert l;
 
@@ -195,8 +195,8 @@ private class LD_LeadConvertOverride_TEST {
         }
         Test.stopTest();
 
-        Contact[] convertedContacts = [select id, firstname, lastname,Account.npe01__Systemisindividual__c from Contact where lastname = :CAO_Constants.CONTACT_LASTNAME_FOR_TESTS];
-        lead[] unconvertedLeads = [select id, firstname, lastname from lead where lastname = :CAO_Constants.CONTACT_LASTNAME_FOR_TESTS and isconverted = false];
+        Contact[] convertedContacts = [select id, firstname, lastname,Account.npe01__Systemisindividual__c from Contact where lastname = :UTIL_UnitTestData_TEST.TEST_LASTNAME];
+        lead[] unconvertedLeads = [select id, firstname, lastname from lead where lastname = :UTIL_UnitTestData_TEST.TEST_LASTNAME and isconverted = false];
         //no lead still unconverted
         system.assertEquals(0,unconvertedLeads.size());
         //one contact should have been created
@@ -234,14 +234,14 @@ private class LD_LeadConvertOverride_TEST {
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
 
         Test.setCurrentPageReference(new PageReference('Page.LD_LeadConvertOverride'));
 
         string companyName = 'Junky company for tests';
         Lead l = new Lead();
-        l.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
-        l.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
+        l.FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME;
+        l.LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME;
         l.Company = companyName;
         l.Status = 'Open';
         insert l;
@@ -267,8 +267,8 @@ private class LD_LeadConvertOverride_TEST {
         }
         Test.stopTest();
 
-        Contact[] convertedContacts = [select id, firstname, lastname, Account.npe01__Systemisindividual__c, Account.Name from Contact where lastname = :CAO_Constants.CONTACT_LASTNAME_FOR_TESTS];
-        lead[] unconvertedLeads = [select id, firstname, lastname from lead where lastname = :CAO_Constants.CONTACT_LASTNAME_FOR_TESTS and isconverted = false];
+        Contact[] convertedContacts = [select id, firstname, lastname, Account.npe01__Systemisindividual__c, Account.Name from Contact where lastname = :UTIL_UnitTestData_TEST.TEST_LASTNAME];
+        lead[] unconvertedLeads = [select id, firstname, lastname from lead where lastname = :UTIL_UnitTestData_TEST.TEST_LASTNAME and isconverted = false];
         //no lead still unconverted
         system.assertEquals(0,unconvertedLeads.size());
         //one contact should have been created
@@ -307,7 +307,7 @@ private class LD_LeadConvertOverride_TEST {
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
 
         Test.setCurrentPageReference(new PageReference('Page.LD_LeadConvertOverride'));
 
@@ -318,8 +318,8 @@ private class LD_LeadConvertOverride_TEST {
         insert acc;
 
         Lead l = new Lead();
-        l.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
-        l.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
+        l.FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME;
+        l.LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME;
         l.Company = companyName;
         l.Status = 'Open';
         insert l;
@@ -344,8 +344,8 @@ private class LD_LeadConvertOverride_TEST {
         }
         Test.stopTest();
 
-        Contact[] convertedContacts = [select id, firstname, lastname, Account.npe01__Systemisindividual__c, Account.Name from Contact where lastname = :CAO_Constants.CONTACT_LASTNAME_FOR_TESTS];
-        lead[] unconvertedLeads = [select id, firstname, lastname from lead where lastname = :CAO_Constants.CONTACT_LASTNAME_FOR_TESTS and isconverted = false];
+        Contact[] convertedContacts = [select id, firstname, lastname, Account.npe01__Systemisindividual__c, Account.Name from Contact where lastname = :UTIL_UnitTestData_TEST.TEST_LASTNAME];
+        lead[] unconvertedLeads = [select id, firstname, lastname from lead where lastname = :UTIL_UnitTestData_TEST.TEST_LASTNAME and isconverted = false];
         //no lead still unconverted
         system.assertEquals(0,unconvertedLeads.size());
         //one contact should have been created
@@ -385,7 +385,7 @@ private class LD_LeadConvertOverride_TEST {
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
 
         Test.setCurrentPageReference(new PageReference('Page.LD_LeadConvertOverride'));
 
@@ -396,8 +396,8 @@ private class LD_LeadConvertOverride_TEST {
         insert acc;
 
         Lead l = new Lead();
-        l.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
-        l.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
+        l.FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME;
+        l.LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME;
         l.Company = companyName;
         l.Status = 'Open';
         insert l;
@@ -423,8 +423,8 @@ private class LD_LeadConvertOverride_TEST {
         }
         Test.stopTest();
 
-        Contact[] convertedContacts = [select id, firstname, lastname, Account.npe01__Systemisindividual__c, Account.Name from Contact where lastname = :CAO_Constants.CONTACT_LASTNAME_FOR_TESTS];
-        lead[] unconvertedLeads = [select id, firstname, lastname from lead where lastname = :CAO_Constants.CONTACT_LASTNAME_FOR_TESTS and isconverted = false];
+        Contact[] convertedContacts = [select id, firstname, lastname, Account.npe01__Systemisindividual__c, Account.Name from Contact where lastname = :UTIL_UnitTestData_TEST.TEST_LASTNAME];
+        lead[] unconvertedLeads = [select id, firstname, lastname from lead where lastname = :UTIL_UnitTestData_TEST.TEST_LASTNAME and isconverted = false];
         //no lead still unconverted
         system.assertEquals(0,unconvertedLeads.size());
         //one contact should have been created
@@ -457,7 +457,7 @@ private class LD_LeadConvertOverride_TEST {
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
 
         npo02__Households_Settings__c householdSettingsForTests = UTIL_CustomSettingsFacade.getHouseholdsSettingsForTests(
             new npo02__Households_Settings__c (npo02__Household_Rules__c = HH_Households.ALL_INDIVIDUALS_PROCESSOR));
@@ -466,8 +466,8 @@ private class LD_LeadConvertOverride_TEST {
 
         string companyName = 'Self';
         Lead l = new Lead();
-        l.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
-        l.LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS;
+        l.FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME;
+        l.LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME;
         l.Company = companyName;
         insert l;
 
@@ -497,8 +497,8 @@ private class LD_LeadConvertOverride_TEST {
         }
         Test.stopTest();
 
-        Contact[] convertedContacts = [select id, firstname, lastname, npo02__Household__c, Account.npe01__Systemisindividual__c from Contact where lastname = :CAO_Constants.CONTACT_LASTNAME_FOR_TESTS];
-        lead[] unconvertedLeads = [select id, firstname, lastname from lead where lastname = :CAO_Constants.CONTACT_LASTNAME_FOR_TESTS and isconverted = false];
+        Contact[] convertedContacts = [select id, firstname, lastname, npo02__Household__c, Account.npe01__Systemisindividual__c from Contact where lastname = :UTIL_UnitTestData_TEST.TEST_LASTNAME];
+        lead[] unconvertedLeads = [select id, firstname, lastname from lead where lastname = :UTIL_UnitTestData_TEST.TEST_LASTNAME and isconverted = false];
         //no lead still unconverted
         system.assertEquals(0,unconvertedLeads.size());
         //one contact should have been created
@@ -543,7 +543,7 @@ private class LD_LeadConvertOverride_TEST {
     public static void newNativeLeadConversion_Test(string strProcessor) {
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
-        //CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        //CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
 
         Contact con = new Contact();
         con.Firstname = 'Test';
@@ -678,7 +678,7 @@ private class LD_LeadConvertOverride_TEST {
         } else if (CAO_Constants.isHHAccountModel()) {
             system.assertEquals(convertedContacts[0].lastname + ' Household', convertedContacts[0].Account.Name);
         } else if (CAO_Constants.isBucketModel()) {
-            system.assertEquals(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS, convertedContacts[0].Account.Name);
+            system.assertEquals(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME, convertedContacts[0].Account.Name);
         }
         
         // make sure no affilations created
@@ -720,7 +720,7 @@ private class LD_LeadConvertOverride_TEST {
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
         
         Test.setCurrentPageReference(new PageReference('Page.LD_LeadConvertOverride'));
         string companyName = 'Self';
@@ -773,7 +773,7 @@ private class LD_LeadConvertOverride_TEST {
         } else if (CAO_Constants.isHHAccountModel()) {
             system.assertEquals(convertedContacts[0].lastname + ' Household', convertedContacts[0].Account.Name);
         } else if (CAO_Constants.isBucketModel()) {
-            system.assertEquals(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS, convertedContacts[0].Account.Name);
+            system.assertEquals(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME, convertedContacts[0].Account.Name);
         }
         
         // verify Opp 
@@ -816,7 +816,7 @@ private class LD_LeadConvertOverride_TEST {
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
         
         // create an existing contact
         Contact con = new Contact();
@@ -878,7 +878,7 @@ private class LD_LeadConvertOverride_TEST {
         } else if (CAO_Constants.isHHAccountModel()) {
             system.assertEquals(convertedContacts[0].lastname + ' Household', convertedContacts[0].Account.Name);
         } else if (CAO_Constants.isBucketModel()) {
-            system.assertEquals(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS, convertedContacts[0].Account.Name);
+            system.assertEquals(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME, convertedContacts[0].Account.Name);
         }
         
         // verify Opp 
@@ -922,7 +922,7 @@ private class LD_LeadConvertOverride_TEST {
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = strProcessor));
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME);
         
         Test.setCurrentPageReference(new PageReference('Page.LD_LeadConvertOverride'));
         string companyName = 'Super Co';
@@ -980,7 +980,7 @@ private class LD_LeadConvertOverride_TEST {
         } else if (CAO_Constants.isHHAccountModel()) {
             system.assertEquals(convertedContacts[0].lastname + ' Household', convertedContacts[0].Account.Name);
         } else if (CAO_Constants.isBucketModel()) {
-            system.assertEquals(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS, convertedContacts[0].Account.Name);
+            system.assertEquals(UTIL_UnitTestData_TEST.TEST_INDIVIDUAL_ACCOUNT_NAME, convertedContacts[0].Account.Name);
         }
         
         // verify Opp Affiliation

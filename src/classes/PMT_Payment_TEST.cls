@@ -59,7 +59,7 @@ private class PMT_Payment_TEST {
     @TestSetup
     static void test_createTestData() {
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_And_Orgs_Settings__c (npe01__Payments_Enabled__c= true));
-        Account acc = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
     }
 

@@ -66,7 +66,7 @@ public with sharing class MTCH_FindGifts_TEST {
         Date today = System.today();
         
         // create a matching gift company
-        insert accMG = new Account(name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS, Matching_Gift_Percent__c = matchingGiftPercent);
+        insert accMG = new Account(name=UTIL_UnitTestData_TEST.TEST_NAME, Matching_Gift_Percent__c = matchingGiftPercent);
         
         // create some Contacts in Household Accounts
         listCon = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(cItem);

@@ -38,7 +38,7 @@ private class OPP_MatchingDonationsBTN_TEST {
 
     static testmethod void TestMatchingDonationPage()
     {
-        Account testaccount = new Account(name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        Account testaccount = new Account(name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert testaccount;
 
         Contact testcontact = UTIL_UnitTestData_TEST.getContact();
@@ -49,7 +49,7 @@ private class OPP_MatchingDonationsBTN_TEST {
                 AccountId = testaccount.Id,
                 Closedate = System.today(),
                 Amount = 100,
-                Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
+                Name=UTIL_UnitTestData_TEST.TEST_NAME,
                 StageName = UTIL_UnitTestData_TEST.getClosedWonStage());
         insert testoppty;
         

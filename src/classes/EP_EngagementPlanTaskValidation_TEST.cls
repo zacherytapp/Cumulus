@@ -33,7 +33,7 @@
 * @group Engagement Plans
 * @description Test Trigger Handler on Engagement Plan Tasks 
 */
-@isTest
+@isTest(IsParallel=true)
 public class EP_EngagementPlanTaskValidation_TEST {
             
     /*******************************************************************************************************

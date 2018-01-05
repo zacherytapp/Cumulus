@@ -53,7 +53,7 @@ private class CON_DoNotContact_TEST {
 
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.HH_ACCOUNT_PROCESSOR));    
         
-        Contact con = new Contact(FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'1');
+        Contact con = new Contact(FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME, LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'1');
         insert con;
 
         list<Contact> queryCon = [SELECT Id, AccountId, HasOptedOutOfEmail, DoNotCall, npo02__Naming_Exclusions__c FROM Contact WHERE Id = :con.id];
@@ -71,7 +71,7 @@ private class CON_DoNotContact_TEST {
         system.assertEquals(null, queryCon[0].npo02__Naming_Exclusions__c, 'Naming Exclusions field should be null.');
         system.assert(queryCon[0].HasOptedOutOfEmail, 'Contact should be opted out of email.');
         system.assert(queryCon[0].DoNotCall, 'Contact should be opted out of email.');
-        system.assert(queryCon[0].Account.Name.contains(CAO_Constants.CONTACT_LASTNAME_FOR_TESTS), 'Household name should contain the contact last name.');
+        system.assert(queryCon[0].Account.Name.contains(UTIL_UnitTestData_TEST.TEST_LASTNAME), 'Household name should contain the contact last name.');
 
         queryCon[0].Deceased__c = false;
         update queryCon[0];
@@ -91,7 +91,7 @@ private class CON_DoNotContact_TEST {
 
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.HH_ACCOUNT_PROCESSOR));    
         
-        Contact con = new Contact(FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'2');
+        Contact con = new Contact(FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME, LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'2');
         insert con;
 
         list<Contact> queryCon = [SELECT Id, AccountId, Account.npe01__One2OneContact__c, HasOptedOutOfEmail, DoNotCall, npo02__Naming_Exclusions__c FROM Contact WHERE Id = :con.id];
@@ -101,8 +101,8 @@ private class CON_DoNotContact_TEST {
         system.assert(!queryCon[0].HasOptedOutOfEmail, 'Contact should not be opted out of email.');
 
         Contact con2 = new Contact(
-                FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-                LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'2A',
+                FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+                LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'2A',
                 AccountId = queryCon[0].AccountId);
         insert con2;
 
@@ -118,7 +118,7 @@ private class CON_DoNotContact_TEST {
         system.assert(queryCon[0].Exclude_from_Household_Name__c, 'Exclude from HH Name field should be set.');
         system.assert(queryCon[0].HasOptedOutOfEmail, 'Contact should be opted out of email.');
         system.assert(queryCon[0].DoNotCall, 'Contact should be opted out of email.');
-        system.assert(queryCon[0].Account.Name.contains(CAO_Constants.CONTACT_LASTNAME_FOR_TESTS), 'Household name should contain the contact last name.');
+        system.assert(queryCon[0].Account.Name.contains(UTIL_UnitTestData_TEST.TEST_LASTNAME), 'Household name should contain the contact last name.');
     }
 
     /*******************************************************************************************************
@@ -130,7 +130,7 @@ private class CON_DoNotContact_TEST {
 
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.HH_ACCOUNT_PROCESSOR));
         
-        Contact con = new Contact(FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'3');
+        Contact con = new Contact(FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME, LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'3');
         insert con;
 
         list<Contact> queryCon = [SELECT Id, HasOptedOutOfEmail, DoNotCall, npo02__Naming_Exclusions__c FROM Contact WHERE Id = :con.id];

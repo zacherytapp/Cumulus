@@ -33,7 +33,7 @@
 * @group Opportunity
 * @description Test class for the Opportunity Primary Contact lookup.
 */
-@isTest(isParallel=True)
+@isTest/*(isParallel=True)*/
 public with sharing class OPP_PrimaryContact_TEST {
 
     /*********************************************************************************************************
@@ -52,7 +52,7 @@ public with sharing class OPP_PrimaryContact_TEST {
         insert conList;
 
         Opportunity opp = new Opportunity(
-            Name = 'foo',
+            Name = UTIL_UnitTestData_TEST.TEST_NAME,
             Primary_Contact__c = conList[0].id,
             CloseDate = system.today(),
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
@@ -91,7 +91,7 @@ public with sharing class OPP_PrimaryContact_TEST {
         insert conList;
 
         Opportunity opp = new Opportunity(
-            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
+            Name = UTIL_UnitTestData_TEST.TEST_NAME,
             Primary_Contact__c = conList[0].id,
             CloseDate = system.today(),
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
@@ -151,7 +151,7 @@ public with sharing class OPP_PrimaryContact_TEST {
         insert conList;
         
         Opportunity opp = new Opportunity(
-            Name = 'foo',
+            Name = UTIL_UnitTestData_TEST.TEST_NAME,
             Primary_Contact__c = conList[0].id,
             CloseDate = system.today(),
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
@@ -162,7 +162,7 @@ public with sharing class OPP_PrimaryContact_TEST {
         OpportunityContactRole secondaryOCR = new OpportunityContactRole(
             ContactId = conList[1].Id,
             OpportunityId = opp.Id,
-            Role = 'foo'
+            Role = 'Donor'
         );
         insert secondaryOCR;
 

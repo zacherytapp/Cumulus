@@ -34,7 +34,7 @@
 * @group-content ../../ApexDocContent/EngagementPlans.htm
 * @description Tests for Manage Engagement Plan Template UI.
 */
-@isTest
+@isTest(IsParallel=true)
 private with sharing class EP_ManageEPTemplate_CTRL_TEST {
 
     /*********************************************************************************************************
@@ -42,7 +42,7 @@ private with sharing class EP_ManageEPTemplate_CTRL_TEST {
     * verifies results.
     */
     static testMethod void testDependentPlan() {
-        Contact con = new Contact(LastName = 'foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         Engagement_Plan_Template__c template = createTemplate();
@@ -104,7 +104,7 @@ private with sharing class EP_ManageEPTemplate_CTRL_TEST {
     * everything was cloned correctly.
     */
     static testMethod void testClone() {
-        Contact con = new Contact(LastName = 'foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         Engagement_Plan_Template__c template = createTemplate();
@@ -324,7 +324,7 @@ private with sharing class EP_ManageEPTemplate_CTRL_TEST {
      */
     private static Engagement_Plan_Template__c createTemplate() {
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(
-            Name = 'Template',
+            Name = 'Template'+UTIL_UnitTestData_TEST.getUniqueString(),
             Skip_Weekends__c = false,
             Default_Assignee__c = EP_EngagementPlans_UTIL.BLANK_ASSIGNMENT_USER_CREATING
         );

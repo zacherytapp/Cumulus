@@ -231,13 +231,13 @@ public with sharing class RLLP_OppRollup_TEST2 {
 
             // create & insert contact
             Contact Con1 = new contact(
-                FirstName= CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-                LastName= CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+                FirstName= UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+                LastName= UTIL_UnitTestData_TEST.TEST_LASTNAME,
                 npe01__Private__c=false,
-                npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-                npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-                npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-                npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS
+                npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+                npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+                npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+                npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
             );
             insert Con1;
 
@@ -245,13 +245,13 @@ public with sharing class RLLP_OppRollup_TEST2 {
 
             // create & insert second household member
             Contact Con2 = new contact(
-                FirstName= CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS+'second',
-                LastName= CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+                FirstName= UTIL_UnitTestData_TEST.TEST_FIRSTNAME+'second',
+                LastName= UTIL_UnitTestData_TEST.TEST_LASTNAME,
                 npe01__Private__c=false,
-                npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-                npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-                npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-                npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS,
+                npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+                npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+                npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+                npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE,
                 npo02__household__c = con.npo02__household__c,
                 AccountId = (strProcessor == CAO_Constants.HH_ACCOUNT_PROCESSOR ? con.AccountId : null)
             );
@@ -276,7 +276,7 @@ public with sharing class RLLP_OppRollup_TEST2 {
 
             Contact c = [SELECT Id,npo02__Total_Household_Gifts__c,npo02__OppAmountThisYearHH__c,npo02__OppAmountLastYearHH__c,
                             npo02__LastCloseDateHH__c, npo02__Best_Gift_Year__c, npo02__Best_Gift_Year_Total__c, npo02__Household__r.npo02__Best_Gift_Year__c, npo02__Household__r.npo02__Best_Gift_Year_Total__c
-                FROM Contact WHERE LastName=:CAO_Constants.CONTACT_LASTNAME_FOR_TESTS AND FirstName=:CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS+'second' LIMIT 1];
+                FROM Contact WHERE LastName=:UTIL_UnitTestData_TEST.TEST_LASTNAME AND FirstName=:UTIL_UnitTestData_TEST.TEST_FIRSTNAME+'second' LIMIT 1];
             System.assertEquals (375,c.npo02__Total_Household_Gifts__c);
             System.assertEquals (100,c.npo02__OppAmountThisYearHH__c);
             System.assertEquals (0,c.npo02__OppAmountLastYearHH__c);
@@ -421,13 +421,13 @@ public with sharing class RLLP_OppRollup_TEST2 {
 
         //create & insert second household member
         Contact Con = new contact(
-                FirstName= CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-                LastName= CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+                FirstName= UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+                LastName= UTIL_UnitTestData_TEST.TEST_LASTNAME,
                 npe01__Private__c=false,
-                npe01__WorkEmail__c = CAO_Constants.CONTACT_EMAIL_FOR_TESTS, 
-                npe01__Preferred_Email__c = CAO_Constants.CONTACT_PREFERRED_EMAIL_FOR_TESTS,
-                npe01__WorkPhone__c = CAO_Constants.CONTACT_PHONE_FOR_TESTS,
-                npe01__PreferredPhone__c = CAO_Constants.CONTACT_PREFERRED_PHONE_FOR_TESTS                
+                npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
+                npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
+                npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
+                npe01__PreferredPhone__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_PHONE
             );
             insert Con;
 

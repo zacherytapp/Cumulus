@@ -54,7 +54,7 @@ public with sharing class CONV_Account_Conversion_CTRL_TEST {
         system.assertEquals(1, [select count() from npo02__Household__c where Name = :HHName]);
 
         //add an oppty to the Contact as well
-        Opportunity o = new Opportunity(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS, Amount = 1000, StageName = UTIL_UnitTestData_TEST.getClosedWonStage(), CloseDate = system.today(), Primary_Contact__c = c.Id);
+        Opportunity o = new Opportunity(Name = UTIL_UnitTestData_TEST.TEST_NAME, Amount = 1000, StageName = UTIL_UnitTestData_TEST.getClosedWonStage(), CloseDate = system.today(), Primary_Contact__c = c.Id);
         insert o;
         system.assertEquals(1, [select count() from OpportunityContactRole where isPrimary = true and ContactId = :c.Id]);
 
@@ -106,7 +106,7 @@ public with sharing class CONV_Account_Conversion_CTRL_TEST {
         c.OwnerId = u.Id;
         insert c;
 
-        Account a = new Account(OwnerId = u.Id, Name= CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        Account a = new Account(OwnerId = u.Id, Name= UTIL_UnitTestData_TEST.TEST_NAME);
         insert a;
 
         Task t = new Task(WhatId = a.Id, OwnerId = u.Id, Status = 'Completed', Subject = 'Other');
@@ -117,7 +117,7 @@ public with sharing class CONV_Account_Conversion_CTRL_TEST {
         system.assertEquals(u.Id, [select OwnerId from Task where Id = :t.Id].OwnerId);
 
         //add an oppty to the Contact as well
-        Opportunity o = new Opportunity(OwnerId = u.Id, Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS, Amount = 1000, StageName = UTIL_UnitTestData_TEST.getClosedWonStage(), CloseDate = system.today(), Primary_Contact__c = c.Id);
+        Opportunity o = new Opportunity(OwnerId = u.Id, Name=UTIL_UnitTestData_TEST.TEST_NAME, Amount = 1000, StageName = UTIL_UnitTestData_TEST.getClosedWonStage(), CloseDate = system.today(), Primary_Contact__c = c.Id);
         insert o;
         system.assertEquals(1, [select count() from OpportunityContactRole where isPrimary = true and ContactId = :c.Id]);
 

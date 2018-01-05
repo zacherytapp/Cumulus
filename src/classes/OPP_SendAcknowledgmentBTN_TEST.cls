@@ -114,7 +114,7 @@ public with sharing class OPP_SendAcknowledgmentBTN_TEST {
                 Primary_Contact__c = contact.Id,
                 CloseDate = today,
                 Amount = 100,
-                Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
+                Name = UTIL_UnitTestData_TEST.TEST_NAME,
                 StageName = closedWonStage, Acknowledgment_Status__c = TO_BE_ACKNOWLEDGED_STATUS
             ));
         }

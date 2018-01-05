@@ -106,9 +106,9 @@ public class ALLO_Multicurrency_TEST {
         Campaign cam = new Campaign(Name='foo', IsActive=true);
         insert cam;
 
-        Account acc = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
-        General_Accounting_Unit__c campaigngau = new General_Accounting_Unit__c(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        General_Accounting_Unit__c campaigngau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert campaigngau;
 
         Allocation__c amountAllo = new Allocation__c(Campaign__c=cam.id, Amount__c = 5, General_Accounting_Unit__c = campaigngau.id);
@@ -123,7 +123,7 @@ public class ALLO_Multicurrency_TEST {
         queryAllo = database.query('SELECT Id, CurrencyIsoCode FROM Allocation__c');
         system.assertEquals(nonDefaultCurrencyType.get('IsoCode'), queryAllo[0].get('CurrencyIsoCode'), 'Allocation should have an updated non-default currency type.');
 
-        Opportunity opp = new Opportunity(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS, Amount = 10, AccountID=acc.id, CampaignId=cam.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
+        Opportunity opp = new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME, Amount = 10, AccountID=acc.id, CampaignId=cam.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
         insert opp;
 
         decimal convertedAmount = ALLO_Multicurrency_TDTM.convertCurrency((string)nonDefaultCurrencyType.get('IsoCode'), (string)defaultCurrencyType.get('IsoCode'), 5);
@@ -165,7 +165,7 @@ public class ALLO_Multicurrency_TEST {
 
         setupSettings(null);
 
-        Account acc = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
         
         list<Opportunity> oppsForInsert = new list<Opportunity>();
@@ -236,7 +236,7 @@ public class ALLO_Multicurrency_TEST {
         //  Turn off the allocation triggers so it doesn't create a default
         TDTM_ProcessControl.setRecursionFlag(TDTM_ProcessControl.flag.ALLOC, true);
 
-        Account acc = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
         Opportunity opp = new Opportunity(Name='foo789', Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
         opp.put('CurrencyIsoCode', nonDefaultCurrencyType.get('IsoCode'));

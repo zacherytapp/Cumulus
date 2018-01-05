@@ -34,7 +34,7 @@
 * @group-content ../../ApexDocContent/EngagementPlans.htm
 * @description Tests for Engagement Plan insert, validation, and Task creation.
 */
-@isTest
+@isTest(IsParallel=true)
 private with sharing class EP_EngagementPlans_TEST {
 
     /*********************************************************************************************************
@@ -46,7 +46,7 @@ private with sharing class EP_EngagementPlans_TEST {
 
         Id otherUserId = getOtherUserId();
 
-        Contact con = new Contact(LastName = 'foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(
@@ -121,7 +121,7 @@ private with sharing class EP_EngagementPlans_TEST {
 
         Integer daysUntilWeekend = getDaysUntilWeekend(System.today());
         
-        Contact con = new Contact(LastName = 'foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(
@@ -185,7 +185,7 @@ private with sharing class EP_EngagementPlans_TEST {
 
         Integer daysUntilWeekend = getDaysUntilWeekend(System.today());
         
-        Contact con = new Contact(LastName = 'foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(
@@ -315,9 +315,10 @@ private with sharing class EP_EngagementPlans_TEST {
     */
     static testMethod void testPlanWithTwoLookups() {
 
-        Account acc = new Account(Name='foo');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
-        Contact con = new Contact(LastName='foo', AccountId = acc.id);
+        Contact con = UTIL_UnitTestData_TEST.getContact();
+        con.AccountId = acc.Id;
         insert con;
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(Name = 'Template');
         insert template;
@@ -346,10 +347,9 @@ private with sharing class EP_EngagementPlans_TEST {
     */
     static testMethod void testPlanUpdate() {
 
-        Account acc = new Account(Name='foo');
-        insert acc;
-        Account acc2 = new Account(Name='foo2');
-        insert acc2;
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME+'1');
+        Account acc2 = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME+'2');
+        insert new List<Account>{acc,acc2};
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(Name = 'Template');
         insert template;
 

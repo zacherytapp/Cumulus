@@ -1342,9 +1342,9 @@ public class ADDR_Addresses_TEST {
         Integer contactSize = 1;
         createHHTestData(hhSize, contactSize);
 
-        Account account = new Account(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        Account account = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME);
         insert account;
-        Contact contact = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, AccountId = account.Id);
+        Contact contact = new Contact(LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME, AccountId = account.Id);
         insert contact;
 
         Test.startTest();
@@ -1404,7 +1404,7 @@ public class ADDR_Addresses_TEST {
 
         Test.startTest();
 
-        Contact contact = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, AccountId = listAccT[0].Id);
+        Contact contact = new Contact(LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME, AccountId = listAccT[0].Id);
         populateContactAddress(contact, listAddrT[0]);
         insert contact;
 
@@ -1825,7 +1825,7 @@ public class ADDR_Addresses_TEST {
     static testMethod void ContactRepository_getContactsShouldReturnEmptyListWhenAccountHasNoContacts() {
         if (strTestOnly != '*' && strTestOnly != 'ContactRepository_getContactsShouldReturnEmptyListWhenAccountHasNoContacts') return;
 
-        Account account = new Account(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        Account account = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME);
         insert account;
 
         ADDR_Addresses_TDTM.ContactRepository contactRepo = new ADDR_Addresses_TDTM.ContactRepository(new Set<Id>{ account.Id });

@@ -34,7 +34,7 @@
 * @description Class that generates mock HTTP responses for address validation/
 * normalization tests.
 */
-@isTest
+@isTest(IsParallel=true)
 public with sharing class ADDR_MockHttpRespGenerator_TEST implements HttpCalloutMock {
   
     public HTTPResponse respond(HTTPRequest req) {

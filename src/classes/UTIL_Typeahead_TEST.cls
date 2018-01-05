@@ -37,7 +37,7 @@
 public with sharing class UTIL_Typeahead_TEST {
 
     private static testMethod void testQuery() {
-		String acctNameBase = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
+		String acctNameBase = UTIL_UnitTestData_TEST.TEST_NAME;
 	    list<Account> aa = new list<Account>{
 	      new Account(Name=acctNameBase + '1'),
 	      new Account(Name=acctNameBase + '2', BillingCity='Test City'),

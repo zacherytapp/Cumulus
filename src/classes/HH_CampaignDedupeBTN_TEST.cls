@@ -59,13 +59,13 @@ private class HH_CampaignDedupeBTN_TEST {
             
     // create test data
     Account acct = new Account (
-      Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS
+      Name=UTIL_UnitTestData_TEST.TEST_NAME
     );
     insert acct;
     
     Contact con = new Contact (
         FirstName='Kevin',
-        LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'1',
+        LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME+'1',
         AccountId = acct.id,
         npo02__TotalOppAmount__c = 100
     );
@@ -75,7 +75,7 @@ private class HH_CampaignDedupeBTN_TEST {
     UTIL_Debug.debug('HHID IS===================' + hhid);
     Contact con2 = new Contact (
         FirstName = 'Amy',
-        LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'2',
+        LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME+'2',
         AccountId = acct.id,
         npo02__household__c = hhid
     );

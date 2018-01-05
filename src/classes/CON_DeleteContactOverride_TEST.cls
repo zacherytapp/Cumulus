@@ -61,14 +61,14 @@ private class CON_DeleteContactOverride_TEST {
     @isTest static void deleteWithOtherMembers() {
         if (strTestOnly != '*' && strTestOnly != 'deleteWithOtherMembers') return;
         
-        Contact con = new Contact(LastName='foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         list<Contact> queryCon = getContactList(con.Id);
         system.assertNotEquals(null, queryCon[0].AccountId, 'The contact should have an auto-created household.');
         system.assert(queryCon[0].Account.npe01__SYSTEMIsIndividual__c, 'The household should have the system flag set.');
 
-        Contact con2 = new Contact(LastName='foo', FirstName='Mr.', AccountId=querycon[0].AccountId);
+        Contact con2 = new Contact(LastName=UTIL_UnitTestData_TEST.TEST_NAME, FirstName='Mr.', AccountId=querycon[0].AccountId);
         insert con2;
 
         test.startTest();
@@ -100,7 +100,7 @@ private class CON_DeleteContactOverride_TEST {
                 npe01__Account_Processor__c = CAO_Constants.ONE_TO_ONE_PROCESSOR
             )
         );
-        Contact con = new Contact(LastName='foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
         
         list<Contact> queryCon = getContactList(con.Id);
@@ -131,7 +131,7 @@ private class CON_DeleteContactOverride_TEST {
     @isTest static void deleteAloneInHousehold() {
         if (strTestOnly != '*' && strTestOnly != 'deleteAloneInHousehold') return;
 
-        Contact con = new Contact(LastName='foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
         
         list<Contact> queryCon = getContactList(con.Id);
@@ -168,7 +168,7 @@ private class CON_DeleteContactOverride_TEST {
     private static testMethod void testNavigationParametersAreSetInConstructor() {
         if (strTestOnly != '*' && strTestOnly != 'testNavigationParametersAreSetInConstructor') return;
 
-        Contact con = new Contact(LastName = 'foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         Test.setCurrentPage(Page.CON_DeleteContactOverride); 
@@ -198,7 +198,7 @@ private class CON_DeleteContactOverride_TEST {
     private static testMethod void testRetUrlIsContactHomeIfNotProvided() {
         if (strTestOnly != '*' && strTestOnly != 'testRetUrlIsContactHomeIfNotProvided') return;
 
-        Contact con = new Contact(LastName = 'foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
    
         CON_DeleteContactOverride_CTRL ctrl = new CON_DeleteContactOverride_CTRL(new ApexPages.StandardController(con));
@@ -222,7 +222,7 @@ private class CON_DeleteContactOverride_TEST {
     private static testMethod void testRetUrlForClassicAndLex() {
         if (strTestOnly != '*' && strTestOnly != 'testRetUrlForClassicAndLex') return;
 
-        Contact con = new Contact(LastName = 'foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
    
         CON_DeleteContactOverride_CTRL ctrl = new CON_DeleteContactOverride_CTRL(new ApexPages.StandardController(con));
@@ -251,7 +251,7 @@ private class CON_DeleteContactOverride_TEST {
     private static testMethod void testOnCancel() {
         if (strTestOnly != '*' && strTestOnly != 'testOnCancel') return;
 
-        Contact con = new Contact(LastName = 'foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
    
         CON_DeleteContactOverride_CTRL ctrl = new CON_DeleteContactOverride_CTRL(new ApexPages.StandardController(con));
@@ -292,7 +292,7 @@ private class CON_DeleteContactOverride_TEST {
     private static testMethod void testDeleteContactAndLeaveEmptyAccount() {
         if (strTestOnly != '*' && strTestOnly != 'testDeleteContactAndLeaveEmptyAccount') return;
 
-        Contact con = new Contact(LastName = 'foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
         
         CON_DeleteContactOverride_CTRL ctrl = new CON_DeleteContactOverride_CTRL(new ApexPages.StandardController(con));

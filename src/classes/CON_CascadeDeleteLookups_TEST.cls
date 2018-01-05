@@ -41,11 +41,11 @@ private class CON_CascadeDeleteLookups_TEST {
     * allocation. Verifies results.
     */
     static testMethod void testContactCascadeWithoutOverride(){
-        Contact con = new Contact(LastName='foo');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         npe03__Recurring_Donation__c rd = new npe03__Recurring_Donation__c(
-            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
+            Name = UTIL_UnitTestData_TEST.TEST_NAME,
             npe03__Installments__c = 2,
             npe03__Amount__c = 1,
             npe03__Installment_Period__c = system.label.npe03.RecurringDonationInstallmentPeriodYearly,
@@ -79,17 +79,15 @@ private class CON_CascadeDeleteLookups_TEST {
     */
     static testMethod void testContactDeleteExceptionWithOverride(){
         //use a non-system account for the contact's account, so that the delete override doesn't redirect us to delete the account
-        Account conAccount = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
+        Account conAccount = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert conAccount;
 
-        Contact con = new Contact(
-                FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
-                LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
-                AccountId=conAccount.id);
+        Contact con = UTIL_UnitTestData_TEST.getContact();
+        con.AccountId = conAccount.Id;
         insert con;
 
         //org account for opportunity attribution
-        Account org = new Account(Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS+'ORG');
+        Account org = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME+'ORG');
         insert org;
 
         Opportunity closedWonOpp = new Opportunity(
@@ -132,12 +130,12 @@ private class CON_CascadeDeleteLookups_TEST {
     */
     static testMethod void testContactMergeNoCascade(){
 
-        Contact conWinner = new Contact(FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'1');
-        Contact conLoser = new Contact(FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'2');
+        Contact conWinner = new Contact(FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME, LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'1');
+        Contact conLoser = new Contact(FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME, LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'2');
         insert new List<Contact>{ conWinner, conLoser} ;
 
         npe03__Recurring_Donation__c rd = new npe03__Recurring_Donation__c(
-            Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS,
+            Name = UTIL_UnitTestData_TEST.TEST_NAME,
             npe03__Installments__c = 2,
             npe03__Amount__c = 1,
             npe03__Installment_Period__c = system.label.npe03.RecurringDonationInstallmentPeriodYearly,
@@ -160,8 +158,8 @@ private class CON_CascadeDeleteLookups_TEST {
     */
     static testMethod void testContactCascadeRelationshipWithoutOverride(){
 
-        Contact con1 = new Contact(FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'1');
-        Contact con2 = new Contact(FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS, LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS+'2');
+        Contact con1 = new Contact(FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME, LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'3');
+        Contact con2 = new Contact(FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME, LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'4');
         insert new List<Contact>{ con1, con2} ;
 
         npe4__Relationship__c rel = new npe4__Relationship__c(

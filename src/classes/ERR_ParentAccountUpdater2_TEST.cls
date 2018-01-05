@@ -33,7 +33,7 @@
 * @description test trigger handler on Contact to throw an exception for error handling tests
 * @group ErrorHandling
 */
-@isTest
+@isTest(IsParallel=true)
 public with sharing class ERR_ParentAccountUpdater2_TEST extends TDTM_Runnable {
 	
     public override DmlWrapper run(List<SObject> newlist, List<SObject> oldlist, 
@@ -49,14 +49,14 @@ public with sharing class ERR_ParentAccountUpdater2_TEST extends TDTM_Runnable {
 	        
 	        for(SObject o : contactsWithParentId) {
 	        	Contact contact = (Contact)o;
-	        	contact.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
+	        	contact.FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME;
 	        	dmlWrapper.objectsToUpdate.add(contact);
 	        	parentAccIds.add(contact.AccountId);
 	        }
 
 	        List<Account> parentAccs = [select Id, Name from Account where Id in :parentAccIds];
 	        for(Account acc : parentAccs) {
-	            acc.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
+	            acc.Name = UTIL_UnitTestData_TEST.TEST_NAME;
 	            dmlWrapper.objectsToUpdate.add(acc);
 	        }
         //If we are not in a future setting the name of the parent account does not throw a null pointer exception.	
@@ -64,8 +64,8 @@ public with sharing class ERR_ParentAccountUpdater2_TEST extends TDTM_Runnable {
         	List<Contact> contactsWithParentInfo = [select Account.Id, Account.Name from Contact where Id in :newList];
         	for(SObject o : contactsWithParentInfo) {
         		Contact contact = (Contact)o;
-        		contact.FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS;
-        		contact.Account.Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS;
+        		contact.FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME;
+        		contact.Account.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         		dmlWrapper.objectsToUpdate.add(contact.Account);
         	}
         }
