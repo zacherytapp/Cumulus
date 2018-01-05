@@ -33,7 +33,7 @@
 * @group Address Management
 * @description Class that generates mock HTTP responses for Google Geo API 
 */
-@isTest
+@isTest(IsParallel=true)
 public with sharing class ADDR_MockGoogleGeoAPIResponse_TEST implements HttpCalloutMock {
 
     public HTTPResponse respond(HTTPRequest req) {

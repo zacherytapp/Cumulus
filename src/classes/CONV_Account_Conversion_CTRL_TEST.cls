@@ -45,14 +45,16 @@ public with sharing class CONV_Account_Conversion_CTRL_TEST {
         //set account model to 1:1 for the test and enable household creation
         CONV_Account_Conversion_BATCH_TEST.setPreHHAccountModel(true);
 
-        Contact c = new Contact(LastName = 'Contact', FirstName = 'Test');
+        Contact c = UTIL_UnitTestData_TEST.getContact();
+        String contactName = c.FirstName + ' ' + c.LastName;
         insert c;
-        system.assertEquals(1, [select count() from Account where Name = 'Test Contact' and npe01__One2OneContact__c = :c.id]);
-        String HHName = 'Contact ' + system.label.npo02.DefaultHouseholdName;
+        system.assertEquals(1, [SELECT count() from Account
+            WHERE Name = :contactName and npe01__One2OneContact__c = :c.id]);
+        String HHName = c.LastName + ' ' + system.label.npo02.DefaultHouseholdName;
         system.assertEquals(1, [select count() from npo02__Household__c where Name = :HHName]);
 
         //add an oppty to the Contact as well
-        Opportunity o = new Opportunity(Name = 'Test Oppty', Amount = 1000, StageName = UTIL_UnitTestData_TEST.getClosedWonStage(), CloseDate = system.today(), Primary_Contact__c = c.Id);
+        Opportunity o = new Opportunity(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS, Amount = 1000, StageName = UTIL_UnitTestData_TEST.getClosedWonStage(), CloseDate = system.today(), Primary_Contact__c = c.Id);
         insert o;
         system.assertEquals(1, [select count() from OpportunityContactRole where isPrimary = true and ContactId = :c.Id]);
 
@@ -100,10 +102,11 @@ public with sharing class CONV_Account_Conversion_CTRL_TEST {
                             EmailEncodingKey = 'ISO-8859-1');
         insert u;
 
-        Contact c = new Contact(LastName = 'Contact', FirstName = 'Test', OwnerId = u.Id);
+        Contact c = UTIL_UnitTestData_TEST.getContact();
+        c.OwnerId = u.Id;
         insert c;
 
-        Account a = new Account(OwnerId = u.Id, Name= 'Test Account');
+        Account a = new Account(OwnerId = u.Id, Name= CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert a;
 
         Task t = new Task(WhatId = a.Id, OwnerId = u.Id, Status = 'Completed', Subject = 'Other');
@@ -114,7 +117,7 @@ public with sharing class CONV_Account_Conversion_CTRL_TEST {
         system.assertEquals(u.Id, [select OwnerId from Task where Id = :t.Id].OwnerId);
 
         //add an oppty to the Contact as well
-        Opportunity o = new Opportunity(OwnerId = u.Id, Name = 'Test Oppty', Amount = 1000, StageName = UTIL_UnitTestData_TEST.getClosedWonStage(), CloseDate = system.today(), Primary_Contact__c = c.Id);
+        Opportunity o = new Opportunity(OwnerId = u.Id, Name=CAO_Constants.ACCOUNT_NAME_FOR_TESTS, Amount = 1000, StageName = UTIL_UnitTestData_TEST.getClosedWonStage(), CloseDate = system.today(), Primary_Contact__c = c.Id);
         insert o;
         system.assertEquals(1, [select count() from OpportunityContactRole where isPrimary = true and ContactId = :c.Id]);
 

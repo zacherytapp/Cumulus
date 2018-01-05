@@ -64,7 +64,7 @@ public with sharing class ADDR_Validator_Batch_TEST {
     	createDefaultSettings();
         
         //create contact 
-        Contact contact = new contact(firstname='Test', lastname='Person');
+        Contact contact = UTIL_UnitTestData_TEST.getContact();
         contact.MailingStreet = 'single-address';
         contact.MailingCity = 'Cupertino';
         contact.MailingState = 'California';
@@ -129,7 +129,9 @@ public with sharing class ADDR_Validator_Batch_TEST {
         //create contacts
         List<Contact> contacts = new List<Contact>();
         for(integer i = 0; i< 200; i++) {
-	        Contact contact = new contact(firstname='Test', lastname='Person' + i);
+	        Contact contact = new Contact(
+                    FirstName=CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
+                    LastName=CAO_Constants.CONTACT_LASTNAME_FOR_TESTS + i);
 	        contact.MailingStreet = 'multiple-address';
 	        contact.MailingCity = 'Cupertino';
 	        contact.MailingState = 'California';
@@ -184,7 +186,7 @@ public with sharing class ADDR_Validator_Batch_TEST {
         TDTM_DefaultConfig.startTestDataInit();
         createDefaultSettings();
         
-        Contact contact = new contact(firstname='Test', lastname='Person'); 
+        Contact contact = UTIL_UnitTestData_TEST.getContact();
         contact.MailingPostalCode = '90210';
         contact.MailingCity = 'single-zip';
         insert contact;
@@ -230,14 +232,18 @@ public with sharing class ADDR_Validator_Batch_TEST {
     	createDefaultSettings();
     	
     	//create contacts 
-        Contact addressContact = new contact(firstname='Test', lastname='Person');
+        Contact addressContact = UTIL_UnitTestData_TEST.getContact();
         addressContact.MailingStreet = 'single-address';
         addressContact.MailingCity = 'Cupertino';
         addressContact.MailingState = 'California';
         addressContact.MailingPostalCode = '95014'; 
         addressContact.MailingCountry = 'United States';
         
-        Contact zipContact = new contact(firstname='Test', lastname='Person'); 
+        Contact zipContact = UTIL_UnitTestData_TEST.getContact();
+        zipContact.LastName = zipContact.LastName + 'ZIP';
+        zipContact.MailingStreet = null;
+        zipContact.MailingState = null;
+        zipContact.MailingCountry = null;
         zipContact.MailingCity = 'single-zip';
         zipContact.MailingPostalCode = '90210';
         

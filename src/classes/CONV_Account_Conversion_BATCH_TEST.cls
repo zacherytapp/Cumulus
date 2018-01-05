@@ -33,7 +33,7 @@
 * @group Account Model Converter
 * @description Tests the batch job for the Account Model converter
 */
-@isTest
+@isTest(IsParallel=true)
 public with sharing class CONV_Account_Conversion_BATCH_TEST {
 
     /*******************************************************************************************************
@@ -51,21 +51,24 @@ public with sharing class CONV_Account_Conversion_BATCH_TEST {
 
         List<Contact> cons = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(150);
         insert cons;
-        system.assertEquals(150, [select count() from Account where npe01__One2OneContact__c IN :cons]);
+        system.assertEquals(150, [SELECT Count() FROM Account WHERE npe01__One2OneContact__c IN :cons]);
 
         String HHName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS + ' ' + system.label.npo02.DefaultHouseholdName;
-        List<npo02__Household__c> hhlist = [select id from npo02__Household__c where Name = :HHName];
+        List<npo02__Household__c> hhlist = [SELECT Id FROM npo02__Household__c WHERE Name = :HHName];
         system.assertEquals(150, hhlist.size());
 
         //add a second contact to a random household
-        Contact c = new Contact(FirstName = 'Second', LastName = 'HouseholdMember', npo02__Household__c = hhlist[14].Id);
+        Contact c = new Contact(
+                FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
+                LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS,
+                npo02__Household__c = hhlist[14].Id);
         insert c;
 
         //add opptys to the Contacts as well
         List<Opportunity> opps = UTIL_UnitTestData_TEST.OppsForContactList(cons, null, UTIL_UnitTestData_TEST.getClosedWonStage(), system.today(), 100, null, '');
         //Opportunity o = new Opportunity(Name = 'Test Oppty', Amount = 1000, StageName = UTIL_UnitTestData_TEST.getClosedWonStage(), CloseDate = system.today(), Primary_Contact__c = c.Id);
         insert opps;
-        system.assertEquals(150, [select count() from OpportunityContactRole where isPrimary = true and ContactId IN :cons]);
+        system.assertEquals(150, [SELECT count() FROM OpportunityContactRole WHERE isPrimary = true AND ContactId IN :cons]);
 
         Task t = new Task(WhatId = c.npo02__Household__c, Subject = 'TestTask', Status = 'Open');
         insert t;
@@ -113,20 +116,20 @@ public with sharing class CONV_Account_Conversion_BATCH_TEST {
         //setup bucket model and test account creation
         CONV_Account_Conversion_BATCH_TEST.setPreHHAccountModel(false);
 
-        Contact c = new Contact(LastName = 'Contact', FirstName = 'Test');
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         insert c;
         Id indID = [select id from Account where Name = 'Individual'].id;
 
         system.assertEquals(indID, CAO_Constants.GetIndividualAccountId());
 
-        String HHName = 'Contact ' + system.label.npo02.DefaultHouseholdName;
+        String HHName = c.LastName + ' ' + system.label.npo02.DefaultHouseholdName;
         system.assertEquals(1, [select count() from npo02__Household__c where Name = :HHName]);
 
         //add an oppty to the Contact as well
-        Opportunity o = new Opportunity(Name = 'Test Oppty', Amount = 1000, StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
+        Opportunity o = new Opportunity(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS, Amount = 1000, StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
                                         AccountId = indID, CloseDate = system.today(), Primary_Contact__c = c.Id);
         insert o;
-        system.assertEquals('Individual', [select Account.Name from Opportunity where Name = 'Test Oppty'].Account.Name);
+        system.assertEquals('Individual', [select Account.Name from Opportunity where Name = :CAO_Constants.ACCOUNT_NAME_FOR_TESTS].Account.Name);
         system.assertEquals(1, [select count() from OpportunityContactRole where isPrimary = true and ContactId = :c.Id]);
 
 /*
@@ -169,7 +172,7 @@ public with sharing class CONV_Account_Conversion_BATCH_TEST {
         //setup individual model and test account creation
         CONV_Account_Conversion_BATCH_TEST.setPreHHAccountModel(false);
 
-        Contact c = new Contact(LastName = 'Contact', FirstName = 'Test',
+        Contact c = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
                                 MailingStreet = '123 Main St.', MailingCity = 'San Francisco',
                                 MailingPostalCode = '94105', MailingState = 'California', MailingCountry = 'United States');
         insert c;
@@ -177,7 +180,7 @@ public with sharing class CONV_Account_Conversion_BATCH_TEST {
 
         system.assertEquals(indID, CAO_Constants.GetIndividualAccountId());
 
-        String HHName = 'Contact ' + system.label.npo02.DefaultHouseholdName;
+        String HHName = c.LastName + ' ' + system.label.npo02.DefaultHouseholdName;
         system.assertEquals(1, [select count() from npo02__Household__c where Name = :HHName]);
         npo02__Household__c hh = [select Id, npo02__MailingStreet__c from npo02__Household__c where Name =: HHName];
         system.assertEquals(c.MailingStreet, hh.npo02__MailingStreet__c);
@@ -218,17 +221,19 @@ public with sharing class CONV_Account_Conversion_BATCH_TEST {
         //setup individual model and test account creation
         CONV_Account_Conversion_BATCH_TEST.setPreHHAccountModel(true);
 
-        Contact c = new Contact(LastName = 'Contact', FirstName = 'Test',
+        Contact c = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
                                 MailingStreet = '123 Main St.', MailingCity = 'San Francisco',
                                 MailingPostalCode = '94105', MailingState = 'California', MailingCountry = 'United States');
         insert c;
+        String contactName = c.FirstName + ' ' + c.LastName;
 
-        c = [select Account.Name, AccountId, npo02__Household__c, npo02__Household__r.npo02__MailingStreet__c, LastName, Id, MailingStreet, Account.BillingStreet from Contact where Id = :c.Id];
+        c = [select Id, FirstName, LastName, Account.Name, AccountId, npo02__Household__c, npo02__Household__r.npo02__MailingStreet__c,
+                MailingStreet, Account.BillingStreet from Contact where Id = :c.Id];
 
-        system.assertEquals(c.Account.Name, 'Test Contact');
+        system.assertEquals(c.Account.Name, contactName);
         system.assertEquals('123 Main St.', c.MailingStreet);
 
-        Contact c2 = new Contact(LastName = 'Contact', FirstName = 'Test2',
+        Contact c2 = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS + '2',
                                 MailingStreet = '1 1st Avenue', MailingCity = 'Baltimore',
                                 MailingPostalCode = '21230', MailingState = 'Maryland', MailingCountry = 'United States', npo02__TotalOppAmount__c = 100.00,
                                 npo02__Household__c = c.npo02__Household__c);
@@ -261,19 +266,21 @@ public with sharing class CONV_Account_Conversion_BATCH_TEST {
         Test.StopTest();
 
         //get the newly created Household
-        String HHName =  'Contact ' + System.label.npo02.DefaultHouseholdName;
+        String HHName =  c.LastName + ' ' + System.label.npo02.DefaultHouseholdName;
         Account newHHAccount = [select npo02__TotalOppAmount__c, npe01__One2OneContact__c, Number_of_Household_Members__c, BillingStreet, BillingCity, Id from Account where Name = :HHName];
         system.assertNotEquals(null, newHHAccount);
         system.assertEquals(2, newHHAccount.Number_of_Household_Members__c);
         system.assertEquals(c2.MailingStreet, newHHAccount.BillingStreet);
         system.assertEquals(c2.Id, newHHAccount.npe01__One2OneContact__c);
         system.assertEquals(2, [select count() from Address__c]);
-        c2 = [select id, is_Address_Override__c, Current_Address__c, Account.BillingStreet, MailingStreet from Contact where Id = :c2.Id and FirstName = 'Test2'];
+        c2 = [select id, is_Address_Override__c, Current_Address__c, Account.BillingStreet, MailingStreet
+                FROM Contact where Id = :c2.Id and FirstName = :c2.FirstName];
         system.assertEquals('1 1st Avenue', c2.Account.BillingStreet);
         system.assertEquals('1 1st Avenue', c2.MailingStreet);
         system.assertEquals(false, c2.is_Address_Override__c);
         system.assertNotEquals(null, c2.Current_Address__c);
-        c = [select id, is_Address_Override__c, Current_Address__c, Account.BillingStreet, MailingStreet from Contact where Id = :c.Id and FirstName = 'Test'];
+        c = [select id, is_Address_Override__c, Current_Address__c, Account.BillingStreet, MailingStreet
+                FROM Contact where Id = :c.Id and FirstName = :c.FirstName];
         system.assertEquals('1 1st Avenue', c.Account.BillingStreet);
         system.assertEquals('123 Main St.', c.MailingStreet);
         system.assertEquals(true, c.is_Address_Override__c);
@@ -292,17 +299,18 @@ public with sharing class CONV_Account_Conversion_BATCH_TEST {
         npe01__Contacts_And_Orgs_Settings__c contactsSettings = UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_And_Orgs_Settings__c(Household_Account_Addresses_Disabled__c=true, npe01__Account_Processor__c = CAO_Constants.ONE_TO_ONE_PROCESSOR));
         npo02__Households_Settings__c householdSettingsForTests = UTIL_CustomSettingsFacade.getHouseholdsSettingsForTests(new npo02__Households_Settings__c (npo02__Household_Rules__c = HH_Households.ALL_PROCESSOR, npo02__Enable_Opp_Rollup_Triggers__c = true));
 
-        Contact c = new Contact(LastName = 'Contact', FirstName = 'Test',
+        Contact c = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
                                 MailingStreet = '123 Main St.', MailingCity = 'San Francisco',
                                 MailingPostalCode = '94105', MailingState = 'California', MailingCountry = 'United States');
         insert c;
 
-        c = [select Account.Name, AccountId, npo02__Household__c, npo02__Household__r.npo02__MailingStreet__c, LastName, Id, MailingStreet, Account.BillingStreet from Contact where Id = :c.Id];
+        c = [select Id, FirstName, LastName, Account.Name, AccountId, npo02__Household__c, npo02__Household__r.npo02__MailingStreet__c,
+                MailingStreet, Account.BillingStreet from Contact where Id = :c.Id];
 
-        system.assertEquals(c.Account.Name, 'Test Contact');
+        system.assertEquals(c.Account.Name, CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS + ' ' + CAO_Constants.CONTACT_LASTNAME_FOR_TESTS);
         system.assertEquals('123 Main St.', c.MailingStreet);
 
-        Contact c2 = new Contact(LastName = 'Contact', FirstName = 'Test2',
+        Contact c2 = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS+'2',
                                 MailingStreet = '1 1st Avenue', MailingCity = 'Baltimore',
                                 MailingPostalCode = '21230', MailingState = 'Maryland', MailingCountry = 'United States', npo02__TotalOppAmount__c = 100.00,
                                 npo02__Household__c = c.npo02__Household__c);
@@ -335,19 +343,21 @@ public with sharing class CONV_Account_Conversion_BATCH_TEST {
         Test.StopTest();
 
         //get the newly created Household
-        String HHName =  'Contact ' + System.label.npo02.DefaultHouseholdName;
+        String HHName =  c.LastName + ' ' + System.label.npo02.DefaultHouseholdName;
         Account newHHAccount = [select npo02__TotalOppAmount__c, npe01__One2OneContact__c, Number_of_Household_Members__c, BillingStreet, BillingCity, Id from Account where Name = :HHName];
         system.assertNotEquals(null, newHHAccount);
         system.assertEquals(2, newHHAccount.Number_of_Household_Members__c);
         //system.assertEquals(null, newHHAccount.BillingStreet, 'The contact addresses shouldn\'t be copied over during the conversion.');
         system.assertEquals(c2.Id, newHHAccount.npe01__One2OneContact__c);
         system.assertEquals(0, [select count() from Address__c], 'No address objects should be created.');
-        c2 = [select id, is_Address_Override__c, Current_Address__c, Account.BillingStreet, MailingStreet from Contact where Id = :c2.Id and FirstName = 'Test2'];
+        c2 = [select id, is_Address_Override__c, Current_Address__c, Account.BillingStreet, MailingStreet
+            FROM Contact where Id = :c2.Id and FirstName = :c2.FirstName];
         system.assertEquals(null, c2.Account.BillingStreet);
         system.assertEquals('1 1st Avenue', c2.MailingStreet);
         system.assertEquals(false, c2.is_Address_Override__c);
         system.assertEquals(null, c2.Current_Address__c);
-        c = [select id, is_Address_Override__c, Current_Address__c, Account.BillingStreet, MailingStreet from Contact where Id = :c.Id and FirstName = 'Test'];
+        c = [select id, is_Address_Override__c, Current_Address__c, Account.BillingStreet, MailingStreet
+                FROM Contact where Id = :c.Id and FirstName = :c.FirstName];
         system.assertEquals(null, c.Account.BillingStreet);
         system.assertEquals('123 Main St.', c.MailingStreet);
         system.assertEquals(false, c.is_Address_Override__c);
@@ -366,12 +376,12 @@ public with sharing class CONV_Account_Conversion_BATCH_TEST {
         //setup individual model and test account creation
         CONV_Account_Conversion_BATCH_TEST.setPreHHAccountModel(false);
 
-        Contact c = new Contact(LastName = 'Contact', FirstName = 'Test',
+        Contact c = new Contact(LastName = CAO_Constants.CONTACT_LASTNAME_FOR_TESTS, FirstName = CAO_Constants.CONTACT_FIRSTNAME_FOR_TESTS,
                                 MailingStreet = '123 Main St.', MailingCity = 'San Francisco',
                                 MailingPostalCode = '94105', MailingState = 'California', MailingCountry = 'United States');
         insert c;
 
-        Account a = new Account(Name = 'NonIndividualAccount');
+        Account a = new Account(Name = CAO_Constants.ACCOUNT_NAME_FOR_TESTS);
         insert a;
 
         c.AccountId = a.Id;
@@ -381,7 +391,7 @@ public with sharing class CONV_Account_Conversion_BATCH_TEST {
         npe5__Affiliation__c aff = [select npe5__Status__c, npe5__Primary__c, npe5__Organization__c, npe5__Contact__c from npe5__Affiliation__c limit 1];
         system.assertEquals('Current', aff.npe5__Status__c);
 
-        system.assertEquals('NonIndividualAccount', [select Account.Name from Contact where Id = :c.Id].Account.Name);
+        system.assertEquals(CAO_Constants.ACCOUNT_NAME_FOR_TESTS, [select Account.Name from Contact where Id = :c.Id].Account.Name);
 
         //set the HH Account model before entering the batch
         CONV_Account_Conversion_BATCH_TEST.setHHAccountModel();
