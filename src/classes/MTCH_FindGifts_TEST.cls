@@ -41,13 +41,13 @@ public with sharing class MTCH_FindGifts_TEST {
     
     /*******************************************************************************************************
     * @description test data for all tests
-    */ 
+    */
+    public static integer cItem = 8;    // number of contacts to Create
+    public static Opportunity oppMG;
     private static Account accMG;
-    private static integer cItem = 8;
     private static list<Contact> listCon;
     private static list<Opportunity> listOpp;
-    private static Opportunity oppMG;
-        
+
     /*******************************************************************************************************
     * @description Initialize test data, create Matching Gift as Closed Won and set gift percent to 100
     * @return void
