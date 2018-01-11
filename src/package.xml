@@ -334,6 +334,8 @@
         <members>UTIL_UnitTestData_TEST</members>
         <members>UTIL_Version_API</members>
         <members>UTIL_iSoqlListViewConsumer</members>
+        <members>NPSP_TEMP_FieldHistory_SVC</members>
+        <members>NPSP_TEMP_FieldHistory_TEST</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -444,6 +446,8 @@
         <members>TDTM_Relationship</members>
         <members>TDTM_Task</members>
         <members>TDTM_User</members>
+        <members>NPSP_TEMP_FieldHistoryAccount_Trigger</members>
+        <members>NPSP_TEMP_FieldHistoryContact_Trigger</members>
         <name>ApexTrigger</name>
     </types>
     <types>
@@ -804,6 +808,14 @@
         <members>Level__c.Previous_Level_Field__c</members>
         <members>Level__c.Source_Field__c</members>
         <members>Level__c.Target__c</members>
+        <members>NPSP_Field_History__c.Account__c</members>
+        <members>NPSP_Field_History__c.Contact__c</members>
+        <members>NPSP_Field_History__c.Date_Time__c</members>
+        <members>NPSP_Field_History__c.Field_API_Name__c</members>
+        <members>NPSP_Field_History__c.New_Value__c</members>
+        <members>NPSP_Field_History__c.Old_Value__c</members>
+        <members>NPSP_Field_History__c.Object_Name__c</members>
+        <members>NPSP_Field_History__c.Record_Id__c</members>
         <members>Opportunity.Acknowledgment_Date__c</members>
         <members>Opportunity.Acknowledgment_Status__c</members>
         <members>Opportunity.Ask_Date__c</members>
@@ -1723,6 +1735,7 @@
         <members>Relationship_Sync_Excluded_Fields__c</members>
         <members>Schedulable__c</members>
         <members>Trigger_Handler__c</members>
+        <members>NPSP_Field_History__c</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -1980,6 +1993,7 @@
         <members>Level__c</members>
         <members>NPSP_Resources</members>
         <members>NPSP_Settings</members>
+        <members>NPSP_Field_History__c</members>
         <members>npe01__OppPayment__c</members>
         <members>npe4__Relationship__c</members>
         <members>npe5__Affiliation__c</members>
@@ -2040,6 +2054,7 @@
         <members>Partial_Soft_Credit__c-Partial Soft Credit Layout</members>
         <members>Schedulable__c-Schedulable Layout</members>
         <members>Trigger_Handler__c-Trigger Handler Layout</members>
+        <members>NPSP_Field_History__c-Field History Layout</members>
         <name>Layout</name>
     </types>
     <types>
