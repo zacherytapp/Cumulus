@@ -208,8 +208,8 @@ private class ALLO_ManageAllocations_TEST {
 
         setupSettings(null);
 
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name = 'gau');
-        Campaign campaign = new Campaign(Name = 'TestCampaign', IsActive = true);        
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name = UTIL_UnitTestData_TEST.TEST_NAME);
+        Campaign campaign = new Campaign(Name = UTIL_UnitTestData_TEST.TEST_NAME, IsActive = true);
         insert new sObject[] { gau, campaign };
 
         Allocation__c[] allocations = new Allocation__c[]{
@@ -265,8 +265,8 @@ private class ALLO_ManageAllocations_TEST {
 
         setupSettings(null);
 
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name = 'gau');
-        Campaign campaign = new Campaign(Name = 'TestCampaign', IsActive = true);        
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name = UTIL_UnitTestData_TEST.TEST_NAME);
+        Campaign campaign = new Campaign(Name = UTIL_UnitTestData_TEST.TEST_NAME, IsActive = true);
         insert new sObject[] { gau, campaign };
 
         Allocation__c[] allocations = new Allocation__c[]{

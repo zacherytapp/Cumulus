@@ -42,7 +42,7 @@ private class HH_ManageHH_TEST {
     */
     public static testMethod void testExistingHHAccount() { 
         
-        Account hh = new Account(Name = 'test_hh', npe01__SYSTEM_AccountType__c = CAO_Constants.HH_ACCOUNT_TYPE);
+        Account hh = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME, npe01__SYSTEM_AccountType__c = CAO_Constants.HH_ACCOUNT_TYPE);
         insert hh;
         
         Test.startTest();
@@ -68,7 +68,7 @@ private class HH_ManageHH_TEST {
     */
     public static testMethod void testExistingHHObject() { 
         
-        npo02__Household__c hh = new npo02__Household__c(Name = 'test_hh');
+        npo02__Household__c hh = new npo02__Household__c(Name = UTIL_UnitTestData_TEST.TEST_NAME);
         insert hh;
         
         Test.startTest();
@@ -94,7 +94,7 @@ private class HH_ManageHH_TEST {
     */
     public static testMethod void testNewHHObject() { 
         
-        Account acc = new Account(Name='some org account');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
         
         Contact con = new Contact(Lastname=UTIL_UnitTestData_TEST.TEST_LASTNAME, AccountId=acc.Id);

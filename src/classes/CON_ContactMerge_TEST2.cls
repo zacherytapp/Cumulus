@@ -66,17 +66,17 @@ private class CON_ContactMerge_TEST2 {
         con.MailingCity = 'Seattle';
         
         Contact con2 = UTIL_UnitTestData_TEST.getContact();
-        con2.LastName = '2Contact_forTests_Merge';
+        con2.LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'2';
         con2.MailingStreet = '678 90th St';
         con2.MailingCity = 'Bellevue';
         
         Contact con3 = UTIL_UnitTestData_TEST.getContact();
-        con3.LastName = '3Contact_forTests_Merge';
+        con3.LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'3';
         con3.MailingStreet = '999 88th St';
         con3.MailingCity = 'Redmond';
         
         //insert new Contact[]{con, con2, con3};
-        // insert our contacts seperately, to ensure they get different Lastmodified times.
+        // insert our contacts separately, to ensure they get different Lastmodified times.
         insert con;
         insert con2;
         insert con3;
@@ -173,7 +173,7 @@ private class CON_ContactMerge_TEST2 {
         Id conAccountId = [select accountId from Contact where id=:con.id].accountId;
         
         Contact con2 = UTIL_UnitTestData_TEST.getContact();
-        con2.LastName = '2Contact_forTests_Merge';
+        con2.LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'2';
         con2.AccountId = conAccountId;
         
         insert con2;
@@ -293,7 +293,7 @@ private class CON_ContactMerge_TEST2 {
         Contact con = UTIL_UnitTestData_TEST.getContact();
         
         Contact con2 = UTIL_UnitTestData_TEST.getContact();
-        con2.LastName = '2Contact_forTests_Merge';
+        con2.LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME+'2';
         
         insert new Contact[] {con, con2};
         
@@ -474,13 +474,13 @@ private class CON_ContactMerge_TEST2 {
         Account pa1 = new Account();
         
         pa1.put('FirstName', 'Fred');
-        pa1.put('LastName', 'Smith');
+        pa1.put('LastName', UTIL_UnitTestData_TEST.TEST_LASTNAME+'1');
         pa1.RecordType = personAccountRecordType;
         insert pa1;
                 
         Account pa2 = new Account();
         pa2.put('FirstName', 'Freddy');
-        pa2.put('LastName', 'Smith');
+        pa2.put('LastName', UTIL_UnitTestData_TEST.TEST_LASTNAME+'1');
         pa2.RecordType = personAccountRecordType;
         insert pa2;
 
@@ -658,12 +658,12 @@ private class CON_ContactMerge_TEST2 {
         }
     
         // create our losing account and contacts
-        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeLoser, 1, cConLoser, 1);
+        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeLoser, 1, cConLoser, 2);
         Account accLoser = UTIL_UnitTestData_TEST.listAccT[0];
         list<Contact> listConAll = UTIL_UnitTestData_TEST.listConT; 
         
         // create our winning account and contacts
-        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeWinner, 1, cConWinner, 3);
+        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeWinner, 1, cConWinner, 4);
         Account accWinner = UTIL_UnitTestData_TEST.listAccT[0];
         listConAll.addAll(UTIL_UnitTestData_TEST.listConT);        
         

@@ -62,11 +62,11 @@ private class PMT_PaymentWizard_TEST {
         
         // create test data
         Account acct = new Account (
-            Name='Test Account'
+            Name=UTIL_UnitTestData_TEST.TEST_NAME
         );
         insert acct;
         Opportunity opp1 = new Opportunity (
-            Name='Test Opp',
+            Name=UTIL_UnitTestData_TEST.TEST_NAME,
             AccountId = acct.id,
             Amount = 150,
             closedate = date.newInstance(2001,12,12),
@@ -135,11 +135,11 @@ private class PMT_PaymentWizard_TEST {
         
         // create test data
         Account acct = new Account (
-            Name='Test Account'
+            Name=UTIL_UnitTestData_TEST.TEST_NAME
         );
         insert acct;
         Opportunity opp = new Opportunity (
-            Name='Test Opp',
+            Name=UTIL_UnitTestData_TEST.TEST_NAME,
             AccountId = acct.id,
             Amount = 1300,
             closedate = system.today(),
@@ -204,11 +204,11 @@ private class PMT_PaymentWizard_TEST {
                
         // create test data
         Account acct = new Account (
-            Name='Test Account'
+            Name=UTIL_UnitTestData_TEST.TEST_NAME
         );
         insert acct;
         Opportunity opp = new Opportunity (
-            Name='Test Opp',
+            Name=UTIL_UnitTestData_TEST.TEST_NAME,
             AccountId = acct.id,
             Amount = 400.01,
             closedate = date.newInstance(2001,12,12),
@@ -260,11 +260,11 @@ private class PMT_PaymentWizard_TEST {
         
         // create test data
         Account acct = new Account (
-            Name='Test Account'
+            Name=UTIL_UnitTestData_TEST.TEST_NAME
         );
         insert acct;
         Opportunity opp = new Opportunity (
-            Name='Test Opp',
+            Name=UTIL_UnitTestData_TEST.TEST_NAME,
             AccountId = acct.id,
             Amount = 400,
             closedate = date.newInstance(2001,12,12),
@@ -353,11 +353,11 @@ private class PMT_PaymentWizard_TEST {
         
         // create test data
         Account acct = new Account (
-            Name='Test Account'
+            Name=UTIL_UnitTestData_TEST.TEST_NAME
         );
         insert acct;
         Opportunity opp1 = new Opportunity (
-            Name='Test Opp',
+            Name=UTIL_UnitTestData_TEST.TEST_NAME,
             AccountId = acct.id,
             Amount = 150,
             closedate = date.newInstance(2001,12,12),
@@ -435,11 +435,11 @@ private class PMT_PaymentWizard_TEST {
         
         // create test data
         Account acct = new Account (
-            Name='Test Account'
+            Name=UTIL_UnitTestData_TEST.TEST_NAME
         );
         insert acct;
         Opportunity opp = new Opportunity (
-            Name='Test Opp',
+            Name=UTIL_UnitTestData_TEST.TEST_NAME,
             AccountId = acct.id,
             Amount = 1300,
             closedate = system.today(),

@@ -33,7 +33,7 @@
 * @group Recurring Donations
 * @description Test code for larger data volumes.
 */
-@isTest
+@isTest(IsParallel=true)
 public class RD_BulkTests_TEST {
 
     /*******************************************************************************************************
@@ -49,13 +49,13 @@ public class RD_BulkTests_TEST {
         List<npe03__Recurring_Donation__c> recurringDonations = new List<npe03__Recurring_Donation__c>();
         
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         insert a;
         
         for(Integer i=0;i<contactCount;i++){
             Contact c = new Contact();
-            c.FirstName = 'test';
-            c.LastName = 'contact';
+            c.FirstName = UTIL_UnitTestData_TEST.TEST_NAME;
+            c.LastName = UTIL_UnitTestData_TEST.TEST_NAME+i;
             c.AccountId = a.Id;
             contacts.add(c);
         }
@@ -63,7 +63,7 @@ public class RD_BulkTests_TEST {
         
         for(Integer i=0;i<recurringDonationCount;i++){
             npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-            r1.Name = 'test';
+            r1.Name = UTIL_UnitTestData_TEST.TEST_NAME;
             r1.npe03__Installments__c = opportunityCount;
             r1.npe03__Contact__c = contacts[i].Id;
             r1.npe03__Amount__c = 100;

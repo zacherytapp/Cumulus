@@ -34,7 +34,7 @@
 * @description tests specific to the HH_NameSpec custom household naming class 
 */
 
-@isTest
+@isTest(IsParallel=true)
 private with sharing class HH_NameSpec_TEST {
 
     /*********************************************************************************************************
@@ -905,7 +905,7 @@ private with sharing class HH_NameSpec_TEST {
         if (strTestOnly != '*' && strTestOnly != 'TwoContactSameLastnameAccountReference') return;
         
         Account acc = new Account(
-            Name = 'TestAcc',
+            Name = UTIL_UnitTestData_TEST.TEST_NAME,
             BillingCity = 'Seattle'
         );
         
@@ -963,7 +963,7 @@ private with sharing class HH_NameSpec_TEST {
     static testMethod void OneContactXReferences() {
         if (strTestOnly != '*' && strTestOnly != 'OneContactXReferences') return;
         
-        Account acc = new Account(Name='MyEmployer');
+        Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
 
         Contact[] listCon = new Contact[] {
@@ -984,7 +984,7 @@ private with sharing class HH_NameSpec_TEST {
         
         // verify we handle multiple cross object references
         hns.Formal_Greeting_Format__c = '{!Account.npe01__One2OneContact__r.Primary_Affiliation__r.Name}';
-        system.assertEquals('MyEmployer', ns.getExampleName(hns, 'Formal_Greeting_Format__c', listCon));
+        system.assertEquals(acc.Name, ns.getExampleName(hns, 'Formal_Greeting_Format__c', listCon));
         
         // verify we handle multiple cross object references that encounter null lookups
         listCon[0].Primary_Affiliation__c = null;

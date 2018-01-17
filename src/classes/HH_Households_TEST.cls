@@ -164,29 +164,29 @@ public class HH_Households_TEST {
         turnOffAutomaticHHNamingForAllHouseholdProcessor();
         UTIL_UnitTestData_TEST.setupInvalidHHNamingSettings();
         
-        Contact contact = new Contact(FirstName = 'John', LastName = 'Smith');
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         try {
-            insert contact;
+            insert c;
         } catch (Exception e) {
             System.assert(false, 'Unexpected error on Contact insert: ' + e.getMessage());
         }
   
-        npo02__Household__c hh = getHouseholdForContact(contact.id);
+        npo02__Household__c hh = getHouseholdForContact(c.id);
     
-        System.assertEquals('Smith ' + system.label.npo02.DefaultHouseholdName, hh.Name, 'Household Name should be default household name');
+        System.assertEquals(c.LastName + ' ' + system.label.npo02.DefaultHouseholdName, hh.Name, 'Household Name should be default household name');
         System.assertEquals(null, hh.npo02__Formal_Greeting__c, 'Formal Greeting should not be populated');
         System.assertEquals(null, hh.npo02__Informal_Greeting__c, 'Informal Greeting should not be populated');
 
-        contact.LastName = 'Smith Jones';
+        c.LastName = UTIL_UnitTestData_TEST.TEST_NAME;
         Test.startTest();
         try {
-            update contact;
+            update c;
         } catch (Exception e) {
             System.assert(false, 'Unexpected error on Contact update: ' + e.getMessage());
         }
         Test.stopTest();
 
-        System.assertEquals('Smith Jones', [SELECT LastName FROM Contact WHERE Id = :contact.Id][0].LastName, 'Household Name should be the same as Contact LastName');
+        System.assertEquals(UTIL_UnitTestData_TEST.TEST_NAME, [SELECT LastName FROM Contact WHERE Id = :c.Id][0].LastName, 'Household Name should be the same as Contact LastName');
     }  
     
     /*********************************************************************************************************
@@ -347,7 +347,7 @@ public class HH_Households_TEST {
         npo02__Households_Settings__c householdSettingsForTests = UTIL_CustomSettingsFacade.getHouseholdsSettingsForTests(new npo02__Households_Settings__c (npo02__Household_Rules__c = HH_Households.ALL_PROCESSOR));
         
         Account acct = new Account(
-            Name = 'Test Organization 888'
+            Name = UTIL_UnitTestData_TEST.TEST_NAME
         );
         insert acct;
         
@@ -496,8 +496,8 @@ public class HH_Households_TEST {
         
         String lastname = 'SmithForTest99';
         Contact con = new Contact(
-            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
-            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME,
             npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
             npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
             npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
@@ -509,8 +509,8 @@ public class HH_Households_TEST {
         Id firstHouseholdId = createdContacts[0].npo02__household__c;
         
         Contact con2 = new Contact(
-            FirstName='test again',
-            LastName=lastname,
+            FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME + '99',
             npo02__Household__c = firstHouseholdId
         );
         insert con2;
@@ -533,8 +533,8 @@ public class HH_Households_TEST {
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.ONE_TO_ONE_PROCESSOR));
          
         Contact c1 = new Contact(
-            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
-            LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME,
+            FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME + '1',
             npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
             npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
             npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
@@ -542,8 +542,8 @@ public class HH_Households_TEST {
         );          
 
         Contact c2 = new Contact(
-            FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
-            LastName='c2test',
+            FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+            LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME + '2',
             npe01__WorkEmail__c = UTIL_UnitTestData_TEST.TEST_EMAIL,
             npe01__Preferred_Email__c = UTIL_UnitTestData_TEST.TEST_PREFERRED_EMAIL,
             npe01__WorkPhone__c = UTIL_UnitTestData_TEST.TEST_PHONE,
@@ -567,7 +567,7 @@ public class HH_Households_TEST {
         //get c1s household
         npo02__Household__c hh1 = [select Name, Number_Of_Household_Members__c from npo02__Household__c where id = :c1t.npo02__household__c];
         //assert the naming worked as c2t was moved into the c1 households
-        system.assert(hh1.Name.contains('c2test')); 
+        system.assert(hh1.Name.contains(c2.LastName));
         system.assertEquals(2, hh1.Number_Of_Household_Members__c);
         
         //the second household should be deleted
@@ -593,7 +593,7 @@ public class HH_Households_TEST {
         
         id rtid = UTIL_RecordTypes.GetRecordTypeId (Opportunity.sObjectType,UTIL_RecordTypes.getRecordTypeNameForGiftsTests(Opportunity.sObjectType));
         Opportunity newOpp = New Opportunity (
-                Name = 'Test Opp ',
+                Name = UTIL_UnitTestData_TEST.TEST_NAME,
                 Amount = 100,
                 CloseDate = system.today(),
                 StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
@@ -628,14 +628,14 @@ public class HH_Households_TEST {
         String state = 'Washington';
         String zip = '88777';
         String country = 'United States';
-        String lastname = 'SmithForTest99';
+        String lastname = UTIL_UnitTestData_TEST.TEST_LASTNAME + '99';
         
         List<Contact> cons = new List<contact>();
         Integer conCount = 200;
         for(Integer i=0;i<conCount;i++){
             Contact con = new Contact(
-                FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
-                LastName=lastname,
+                FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
+                LastName = lastname,
                 MailingStreet = street,
                 MailingCity = city,
                 MailingState = state,
@@ -656,8 +656,8 @@ public class HH_Households_TEST {
         
         for(Contact myContact : createdContacts){
             Opportunity opp = new Opportunity(
-                Name='opp1',
-                closeDate=System.today(),
+                Name=UTIL_UnitTestData_TEST.TEST_NAME,
+                CloseDate=System.today(),
                 StageName='closed won',
                 AccountId= myContact.AccountId
             );
@@ -695,7 +695,10 @@ public class HH_Households_TEST {
     */
     static testMethod void testHouseholdExclusion() {
 
-        Contact con = new Contact(LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME, Exclude_from_Household_Name__c=true, Exclude_from_Household_Formal_Greeting__c=true);
+        Contact con = new Contact(
+                LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME,
+                Exclude_from_Household_Name__c=true,
+                Exclude_from_Household_Formal_Greeting__c=true);
         insert con;
 
         list<Contact> queryCon = [SELECT Id, npo02__Naming_Exclusions__c FROM Contact WHERE Id = :con.id];

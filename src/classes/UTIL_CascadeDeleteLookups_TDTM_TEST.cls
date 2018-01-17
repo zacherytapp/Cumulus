@@ -42,8 +42,8 @@ private class UTIL_CascadeDeleteLookups_TDTM_TEST {
     ***************************************************************************************************************************/   
     private static testMethod void testGetPlainTextChildRecords() {
         List<Account> testAccounts = new List<Account>{
-            new Account(name='TEST_ACCOUNT_1'),
-            new Account(name='TEST_ACCOUNT_2')
+            new Account(name=UTIL_UnitTestData_TEST.TEST_NAME+'1'),
+            new Account(name=UTIL_UnitTestData_TEST.TEST_NAME+'2')
         };
         insert testAccounts;
 
@@ -66,8 +66,8 @@ private class UTIL_CascadeDeleteLookups_TDTM_TEST {
     ***************************************************************************************************************************/   
     private static testMethod void testGetHTMLTextChildRecords() {
         List<Account> testAccounts = new List<Account>{
-            new Account(name='TEST_ACCOUNT_1'),
-            new Account(name='TEST_ACCOUNT_2')
+                new Account(name=UTIL_UnitTestData_TEST.TEST_NAME+'1'),
+                new Account(name=UTIL_UnitTestData_TEST.TEST_NAME+'2')
         };
         insert testAccounts;
 

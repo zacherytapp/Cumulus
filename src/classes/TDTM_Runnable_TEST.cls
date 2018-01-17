@@ -77,6 +77,7 @@ public with sharing class TDTM_Runnable_TEST {
     public static testmethod void nochunking() {
         if (strTestOnly != '*' && strTestOnly != 'nochunking') return;
 
+        UTIL_Debug.disableDebugLogging();     // Override debug logging for this test because it's an expensive operation
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.HH_ACCOUNT_PROCESSOR));
     

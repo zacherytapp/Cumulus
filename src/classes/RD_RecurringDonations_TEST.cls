@@ -70,7 +70,7 @@ public class RD_RecurringDonations_TEST {
         insert cfm;
 
         npe03__Recurring_Donation__c r0 = new npe03__Recurring_Donation__c();
-        r0.Name = 'test';
+        r0.Name = UTIL_UnitTestData_TEST.TEST_NAME+'1';
         r0.npe03__Installments__c = 3;
         r0.npe03__Amount__c = 100;
         r0.npe03__Installment_Period__c = system.label.npe03.RecurringDonationInstallmentPeriodYearly;
@@ -86,7 +86,7 @@ public class RD_RecurringDonations_TEST {
         
 
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME+'1';
         r1.npe03__Installments__c = 2;
         r1.npe03__Contact__c = c.Id;
         r1.npe03__Amount__c = 100;
@@ -124,7 +124,7 @@ public class RD_RecurringDonations_TEST {
         insert c;       
 
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME+'1';
         r1.npe03__Installments__c = 2;
         r1.npe03__Contact__c = c.Id;
         r1.npe03__Amount__c = 100;
@@ -159,7 +159,7 @@ public class RD_RecurringDonations_TEST {
         insert c;       
 
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME+'1';
         r1.npe03__Installments__c = 2;
         r1.npe03__Contact__c = c.Id;
         r1.npe03__Amount__c = 100;
@@ -194,13 +194,13 @@ public class RD_RecurringDonations_TEST {
         insert c;       
 
         Campaign camp = new Campaign();
-        camp.Name = 'test campaign';
+        camp.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         insert camp;
         
         Id campaignId = camp.id;
 
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME+'1';
         r1.npe03__Installments__c = 2;
         r1.npe03__Contact__c = c.Id;
         r1.npe03__Amount__c = 100;
@@ -232,7 +232,7 @@ public class RD_RecurringDonations_TEST {
         insert a;
         
         npe03__Recurring_Donation__c r2 = new npe03__Recurring_Donation__c();
-        r2.Name = 'test';
+        r2.Name = UTIL_UnitTestData_TEST.TEST_NAME+'1';
         r2.npe03__Installments__c = 3;
         r2.npe03__Organization__c = a.Id;
         r2.npe03__Amount__c = 100;
@@ -292,7 +292,7 @@ public class RD_RecurringDonations_TEST {
 
         Test.startTest();
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME+'1';
         r1.npe03__Installments__c = 2;
         r1.npe03__Contact__c = c.Id;
         r1.npe03__Open_Ended_Status__c = 'None'; 
@@ -417,7 +417,7 @@ public class RD_RecurringDonations_TEST {
         c.AccountId = a.Id;
         insert c;       
         
-        Campaign camp = new Campaign(name = 'Campaign', isActive = true);
+        Campaign camp = new Campaign(name = UTIL_UnitTestData_TEST.TEST_NAME, isActive = true);
         insert camp;
         
         list<npe03__Recurring_Donation__c> rdlist = new list<npe03__Recurring_Donation__c>();

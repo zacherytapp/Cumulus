@@ -50,7 +50,7 @@ public with sharing class UTIL_Describe_TEST {
         s = UTIL_Describe.getObjectLabel('Contact');
         system.assertEquals (s, res.getLabel());
 
-        account a = new account(name='Test');
+        account a = new account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert a;
         system.assert(UTIL_Describe.isObjectIdThisType(a.id, 'Account'));
         

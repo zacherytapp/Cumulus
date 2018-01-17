@@ -112,7 +112,7 @@ private class HH_OppContactRoles_TEST {
         insert con3;
         //create opportunity
         Opportunity o = new Opportunity(
-            Name='test oppty',
+            Name=UTIL_UnitTestData_TEST.TEST_NAME,
             CloseDate=date.newInstance(2001,12,12),
             StageName=UTIL_UnitTestData_TEST.getClosedWonStage(),
             Amount=100,
@@ -190,7 +190,7 @@ private class HH_OppContactRoles_TEST {
         insert con2;
         //create opportunity
         Opportunity o = new Opportunity(
-            Name='test oppty',
+            Name=UTIL_UnitTestData_TEST.TEST_NAME,
             CloseDate=date.newInstance(2001,12,12),
             StageName=UTIL_UnitTestData_TEST.getClosedWonStage(),
             Amount=100,
@@ -259,7 +259,7 @@ private class HH_OppContactRoles_TEST {
         insert con2;
         //create opportunity
         Opportunity o = new Opportunity(
-            Name='test oppty',
+            Name=UTIL_UnitTestData_TEST.TEST_NAME,
             CloseDate=date.newInstance(2001,12,12),
             StageName=UTIL_UnitTestData_TEST.getClosedWonStage(),
             Amount=100,
@@ -298,9 +298,7 @@ private class HH_OppContactRoles_TEST {
                 npo02__Household_Rules__c = HH_Households.ALL_PROCESSOR, npo02__Household_Contact_Roles_On__c = true));
         
         //create contact
-        Account acct = new Account(
-            Name = 'fake account'
-        );
+        Account acct = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME);
         insert acct;
         Id accountId = acct.Id;
 
@@ -320,7 +318,7 @@ private class HH_OppContactRoles_TEST {
         
         //create opportunity
         Opportunity o = new Opportunity(
-            Name='test oppty',
+            Name=UTIL_UnitTestData_TEST.TEST_NAME,
             CloseDate=date.newInstance(2001,12,12),
             StageName=UTIL_UnitTestData_TEST.getClosedWonStage(),
             Amount=100,
@@ -346,7 +344,7 @@ private class HH_OppContactRoles_TEST {
                 npo02__Household_Contact_Roles_On__c = true,
                 npo02__Household_Member_Contact_Role__c = 'Household Member'));
        
-        npo02__Household__c hh = new npo02__Household__c(Name ='hh');
+        npo02__Household__c hh = new npo02__Household__c(Name =UTIL_UnitTestData_TEST.TEST_NAME);
         insert hh;
         Contact con1= new Contact(LastName='test1',npo02__Household__c = hh.id);
         Contact con2= new Contact(LastName='test2');
@@ -355,13 +353,13 @@ private class HH_OppContactRoles_TEST {
 
         Test.startTest();
         Opportunity o1 = new Opportunity(
-            Name = 'o1',
+            Name = UTIL_UnitTestData_TEST.TEST_NAME+'1',
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
             CloseDate = System.today(),
             Primary_Contact__c = (string)con1.id);
         insert o1;
         Opportunity o2 = new Opportunity(
-            Name = 'o2',
+            Name = UTIL_UnitTestData_TEST.TEST_NAME+'1',
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
             CloseDate = System.today(),
             Primary_Contact__c = (string)con2.id);
@@ -520,22 +518,22 @@ private class HH_OppContactRoles_TEST {
                 npo02__Household_Contact_Roles_On__c = true,
                 npo02__Household_Member_Contact_Role__c='Household Member'));
 
-        UTIL_UnitTestData_TEST.createAccountContactTestData(CAO_Constants.HH_ACCOUNT_TYPE, 1, 1, 1);
+        UTIL_UnitTestData_TEST.createAccountContactTestData(CAO_Constants.HH_ACCOUNT_TYPE, 1, 1, 6);
         Account acct = UTIL_UnitTestData_TEST.listAccT[0];
         Contact con = UTIL_UnitTestData_TEST.listConT[0];        
         con.Deceased__c = true;  
         update con;
-                
+
         //create opportunity
         Opportunity o = new Opportunity(
-            Name='test oppty',
+            Name=UTIL_UnitTestData_TEST.TEST_NAME,
             CloseDate=date.newInstance(2001,12,12),
             StageName=UTIL_UnitTestData_TEST.getClosedWonStage(),
             Amount=100,
             AccountId=acct.Id,
             Primary_Contact__c = con.Id
         );
-        
+
         Test.startTest();
         insert o;
         Test.stopTest();
@@ -609,12 +607,12 @@ private class HH_OppContactRoles_TEST {
                 npo02__Household_Member_Contact_Role__c='Donor'));
 
         // create our source account and contacts
-        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeSrc, 1, 2, 1);
+        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeSrc, 1, 2, 8);
         Account accSrc = UTIL_UnitTestData_TEST.listAccT[0];
         list<Contact> listConSrc = UTIL_UnitTestData_TEST.listConT;        
         
         // create our destination account and contacts
-        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeDst, 1, 2, 3);
+        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeDst, 1, 2, 9);
         Account accDst = UTIL_UnitTestData_TEST.listAccT[0];
         list<Contact> listConDst = UTIL_UnitTestData_TEST.listConT;        
         

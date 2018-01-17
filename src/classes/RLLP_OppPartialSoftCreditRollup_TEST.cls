@@ -140,14 +140,18 @@ private class RLLP_OppPartialSoftCreditRollup_TEST {
     static testmethod void testDuplicateOCRSoftCredits() {
       if (strTestOnly != '*' && strTestOnly != 'testDuplicateOCRSoftCredits') return;
       
-      Contact con = new Contact(lastname='Testy');
+      Contact con = UTIL_UnitTestData_TEST.getContact();
       insert con;
       con = [select Id, lastname, AccountId from Contact];
       
       list<Opportunity> listOpp = new list<Opportunity>();
       String stage = UTIL_UnitTestData_TEST.getClosedWonStage();
       Date dt = system.Today();
-      listOpp.add(new Opportunity(name='03', CloseDate=dt, Amount=100, Primary_Contact__c=con.Id, StageName=stage));
+      listOpp.add(new Opportunity(
+              Name=UTIL_UnitTestData_TEST.TEST_NAME,
+              CloseDate=dt, Amount=100,
+              Primary_Contact__c=con.Id,
+              StageName=stage));
       insert listOpp;
 
       // primary OCR's automatically created
@@ -224,8 +228,8 @@ private class RLLP_OppPartialSoftCreditRollup_TEST {
         npo02__Households_Settings__c hs = UTIL_CustomSettingsFacade.getHouseholdsSettings(); 
         hs.npo02__Rollup_N_Day_Value__c = 366;
         UTIL_CustomSettingsFacade.getHouseholdsSettingsForTests(hs);
-        
-        Contact con = new Contact(lastname='Testy');
+
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
         con = [select Id, lastname, AccountId from Contact];
         
@@ -356,7 +360,11 @@ private class RLLP_OppPartialSoftCreditRollup_TEST {
             //make half our opps of non-default currency
             string isoCode = math.mod(i,2)==0 ? (string)defaultCurrencyType.get('IsoCode') : (string)nonDefaultCurrencyType.get('IsoCode');
 
-            Opportunity opp = new Opportunity(Name = 'foo', Amount = 10, Primary_Contact__c = con.id, CloseDate = system.Today(), StageName = UTIL_UnitTestData_TEST.getClosedWonStage());
+            Opportunity opp = new Opportunity(Name = UTIL_UnitTestData_TEST.TEST_NAME,
+                    Amount = 10,
+                    Primary_Contact__c = con.id,
+                    CloseDate = system.Today(),
+                    StageName = UTIL_UnitTestData_TEST.getClosedWonStage());
             opp.put('CurrencyIsoCode', isoCode);
             listOpp.add(opp);
         } 

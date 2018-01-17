@@ -145,7 +145,7 @@ public class ERR_Handler_TEST {
         
         setupWithChatterNotifications();
         
-        Contact contact1 = new Contact(FirstName = 'test', LastName = 'testerson1', Title = 'VP1');
+        Contact contact1 = UTIL_UnitTestData_TEST.getContact();
         insert contact1;
                 
         npe4__Relationship__c[] relationships = new npe4__Relationship__c[]{

@@ -317,12 +317,13 @@ public with sharing class BDI_DataImport_TEST {
         list<Contact> listConExisting = [select Id, Firstname, Lastname, Name, AccountId, Account.npe01__SYSTEM_AccountType__c from Contact];
         system.assertEquals(1, listConExisting.size());
         system.assertEquals(CAO_Constants.ONE_TO_ONE_ORGANIZATION_TYPE, listConExisting[0].Account.npe01__SYSTEM_AccountType__c);
-        system.assertEquals('TestFirstname00 TestLastname00', listConExisting[0].Name);
+        String existingContactName = listConExisting[0].Name;
+//        system.assertEquals('TestFirstname00 TestLastname00', listConExisting[0].Name);
         listConExisting[0].email = 'foo@bar.com';
         update listConExisting;
         
         list<DataImport__c> listDI = new list<DataImport__c>();
-        listDI.add(newDI('TestFirstname00', 'TestLastname00', 'c2', 'C2'));
+        listDI.add(newDI(listConExisting[0].FirstName, listConExisting[0].LastName, 'c2', 'C2'));
         listDI[0].Contact1_Personal_Email__c = 'foo@bar.com';
         listDI[0].Home_City__c = 'Seattle';
         insert listDI;
@@ -336,7 +337,7 @@ public with sharing class BDI_DataImport_TEST {
         // verify expected results
         list<Contact> listCon = [select Id, Name from Contact order by Lastname];
         system.assertEquals(1, listCon.size());
-        system.assertEquals('TestFirstname00 TestLastname00', listCon[0].Name);
+        system.assertEquals(existingContactName, listCon[0].Name);
         
         listDI = [select Contact1Imported__c, Contact1ImportStatus__c, HouseholdAccountImported__c, 
             Contact2Imported__c, Contact2ImportStatus__c from DataImport__c];

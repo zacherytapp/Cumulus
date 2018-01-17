@@ -101,61 +101,46 @@ public with sharing class ADDR_Validator_Batch_TEST {
         System.assertEquals('CA', av[0].MailingState__c);
         System.assertEquals('95014-2083', av[0].MailingPostalCode__c);
         System.assertEquals(true, av[0].Verified__c);
-        
-        /*
-        //check verified data got pushed to contact 
-        contact = [select id, MailingStreet, MailingCity, MailingPostalCode, MailingState
-                         from contact where id = :contact.id];
-        System.assertEquals('1 Infinite Loop', contact.MailingStreet);
-        System.assertEquals('Cupertino', contact.MailingCity);
-        System.assertEquals('95014-2083', contact.MailingPostalCode);
-        System.assertEquals('CA', contact.MailingState);
-        
-        //check verified data got pushed to account
-        Account account = [select id, BillingStreet, BillingCity, BillingPostalCode, BillingState
-                         from Account where id = :accountId];
-        System.assertEquals('1 Infinite Loop', account.BillingStreet);
-        System.assertEquals('Cupertino', account.BillingCity);
-        System.assertEquals('95014-2083', account.BillingPostalCode);
-        System.assertEquals('CA', account.BillingState);*/
     }
     
     public static testmethod void multipleValidAddresses() {
-    	if (strTestOnly != '*' && strTestOnly != 'multipleValidAddresses') return;
+        if (strTestOnly != '*' && strTestOnly != 'multipleValidAddresses') return;
 
+        UTIL_Debug.disableDebugLogging();     // Override debug logging for this test because it's an expensive operation
         TDTM_DefaultConfig.startTestDataInit();
-    	createDefaultSettings();
+        createDefaultSettings();
+
+        Integer contactCnt = 100;   // minimum value based on the mock response size
         
         //create contacts
         List<Contact> contacts = new List<Contact>();
-        for(integer i = 0; i< 200; i++) {
-	        Contact contact = new Contact(
-                    FirstName=UTIL_UnitTestData_TEST.TEST_FIRSTNAME,
-                    LastName=UTIL_UnitTestData_TEST.TEST_LASTNAME + i);
-	        contact.MailingStreet = 'multiple-address';
-	        contact.MailingCity = 'Cupertino';
-	        contact.MailingState = 'California';
-	        contact.MailingPostalCode = '95014';
-	        contact.MailingCountry = 'United States';
-	        contacts.add(contact);
+        for(integer i = 0; i< contactCnt; i++) {
+            contacts.add(new Contact(
+                FirstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME + i,
+                LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME + i,
+                MailingStreet = 'multiple-address',
+                MailingCity = 'Cupertino',
+                MailingState = 'California',
+                MailingPostalCode = '95014',
+                MailingCountry = 'United States'
+            ));
         }
         insert contacts;
 
         //check households got created for contacts
-        List<Id> AccountIDs = new List<Id>();
+        List<Id> accountIDs = new List<Id>();
         List<Contact> contactsWithAccId = [select Account.Id from Contact where Id IN :contacts];
-        System.assertEquals(200, contactsWithAccId.size());
-        for(Contact c : contactsWithAccId) {    
-	        Id accountId = c.Account.Id;
-	        System.assertNotEquals(null, accountId);
-	        AccountIDs.add(accountId);
+        System.assertEquals(contactCnt, contactsWithAccId.size());
+        for (Contact c : contactsWithAccId) {
+            System.assertNotEquals(null, c.Account.Id);
+            accountIDs.add(c.Account.Id);
         }
         
         //check address records got created for households, but have not yet been verified
-        List<Address__c> addresses = [select Verified__c from Address__c where Household_Account__c IN :AccountIDs];
-        System.assertEquals(200, addresses.size());
+        List<Address__c> addresses = [select Verified__c from Address__c where Household_Account__c IN :accountIDs];
+        System.assertEquals(contactCnt, addresses.size());
         for(Address__c addr : addresses) {
-        	System.assertEquals(false, addr.Verified__c);
+            System.assertEquals(false, addr.Verified__c);
         }
         
         //run batch address verification
@@ -167,16 +152,13 @@ public with sharing class ADDR_Validator_Batch_TEST {
         
         //check address records were verified
         addresses = [select MailingStreet__c, MailingState__c, MailingPostalCode__c, Verified__c 
-                    from Address__c where Household_Account__c IN :AccountIDs];
-        System.assertEquals(200, addresses.size());
-        Integer i = 1;
+                    from Address__c where Household_Account__c IN :accountIDs];
+        System.assertEquals(contactCnt, addresses.size());
         for(Address__c addr : addresses) {
-        	UTIL_Debug.debug(LoggingLevel.WARN, '****Asserting address record #' + i);
-	        System.assertEquals('1 Infinite Loop', addr.MailingStreet__c);
-	        System.assertEquals('CA', addr.MailingState__c);
-	        System.assertEquals('95014-2083', addr.MailingPostalCode__c);
-	        System.assertEquals(true, addr.Verified__c);
-	        i++;
+            System.assertEquals('1 Infinite Loop', addr.MailingStreet__c);
+            System.assertEquals('CA', addr.MailingState__c);
+            System.assertEquals('95014-2083', addr.MailingPostalCode__c);
+            System.assertEquals(true, addr.Verified__c);
         }
     }
     
@@ -230,7 +212,7 @@ public with sharing class ADDR_Validator_Batch_TEST {
 
         TDTM_DefaultConfig.startTestDataInit();
     	createDefaultSettings();
-    	
+
     	//create contacts 
         Contact addressContact = UTIL_UnitTestData_TEST.getContact();
         addressContact.MailingStreet = 'single-address';

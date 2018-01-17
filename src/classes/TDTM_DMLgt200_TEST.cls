@@ -62,7 +62,7 @@ private class TDTM_DMLgt200_TEST {
         npe5__Affiliations_Settings__c affiliationsSettingsForTests = UTIL_CustomSettingsFacade.getAffiliationsSettingsForTests(
                 new npe5__Affiliations_Settings__c(npe5__Automatic_Affiliation_Creation_Turned_On__c = true));
 
-        Account orgAcct = new Account(Name='TestOrganization');
+        Account orgAcct = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert orgAcct;
 
         Test.startTest();
@@ -113,7 +113,7 @@ private class TDTM_DMLgt200_TEST {
         npe5__Affiliations_Settings__c affiliationsSettingsForTests = UTIL_CustomSettingsFacade.getAffiliationsSettingsForTests(
                 new npe5__Affiliations_Settings__c(npe5__Automatic_Affiliation_Creation_Turned_On__c = true));
 
-        Account orgAcct = new Account(Name='TestOrganization');
+        Account orgAcct = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert orgAcct;
 
         Test.startTest();
@@ -212,7 +212,7 @@ private class TDTM_DMLgt200_TEST {
             new Allocations_Settings__c(Default_Allocations_Enabled__c = true, Default__c = defaultGau.Id)
         );
 
-        Campaign camp = new Campaign(Name = 'UNITTEST', IsActive = True);
+        Campaign camp = new Campaign(Name = UTIL_UnitTestData_TEST.TEST_NAME, IsActive = True);
         insert camp;
 
         Allocation__c campAlloc = new Allocation__c(
@@ -231,7 +231,7 @@ private class TDTM_DMLgt200_TEST {
 
         for (Integer n = 0; n < insertCnt; n++) {
             opps.add(new Opportunity(
-                Name = 'MASS INSERT TEST ' + n,
+                Name = UTIL_UnitTestData_TEST.TEST_NAME + n,
                 Primary_Contact__c = c.Id,
                 CampaignId = camp.Id,
                 CloseDate = closeDate,
@@ -293,7 +293,7 @@ private class TDTM_DMLgt200_TEST {
         List<npe03__Recurring_Donation__c> rds = new List<npe03__Recurring_Donation__c>();
         for (Integer n=0; n<insertCnt; n++) {
             rds.add(new npe03__Recurring_Donation__c(
-                    Name = 'MASS INSERT TEST ' + n,
+                    Name = UTIL_UnitTestData_TEST.TEST_NAME + n,
                     npe03__Installments__c = 2,
                     npe03__Contact__c = c.Id,
                     npe03__Amount__c = 100,

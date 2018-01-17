@@ -103,7 +103,7 @@ public class ALLO_Multicurrency_TEST {
 
         setupSettings(null);
 
-        Campaign cam = new Campaign(Name='foo', IsActive=true);
+        Campaign cam = new Campaign(Name=UTIL_UnitTestData_TEST.TEST_NAME, IsActive=true);
         insert cam;
 
         Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
@@ -169,12 +169,12 @@ public class ALLO_Multicurrency_TEST {
         insert acc;
         
         list<Opportunity> oppsForInsert = new list<Opportunity>();
-        oppsForInsert.add(new Opportunity(Name='foo123', Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage()));
-        oppsForInsert.add(new Opportunity(Name='foo456', Amount = 8, AccountID=acc.id, CloseDate=system.today().addYears(-2), StageName=UTIL_UnitTestData_TEST.getClosedWonStage()));
+        oppsForInsert.add(new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME+'1', Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage()));
+        oppsForInsert.add(new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME+'2', Amount = 8, AccountID=acc.id, CloseDate=system.today().addYears(-2), StageName=UTIL_UnitTestData_TEST.getClosedWonStage()));
         oppsForInsert[1].put('CurrencyIsoCode', nonDefaultCurrencyType.get('IsoCode'));
         insert oppsForInsert;
         
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name='foo');
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert gau;
 
         list<Allocation__c> alloForInsert = new list<Allocation__c>();
@@ -238,7 +238,7 @@ public class ALLO_Multicurrency_TEST {
 
         Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acc;
-        Opportunity opp = new Opportunity(Name='foo789', Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
+        Opportunity opp = new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME+'1', Amount = 8, AccountID=acc.id, CloseDate=system.today(), StageName=UTIL_UnitTestData_TEST.getClosedWonStage());
         opp.put('CurrencyIsoCode', nonDefaultCurrencyType.get('IsoCode'));
         insert opp;
         TDTM_ProcessControl.setRecursionFlag(TDTM_ProcessControl.flag.ALLOC, false);

@@ -78,7 +78,7 @@ private with sharing class ACCT_AccountMerge_TEST {
         setAccountModelForTest(CAO_Constants.HH_ACCOUNT_PROCESSOR);
         
         // create our source account and contacts
-        UTIL_UnitTestData_TEST.createAccountContactTestData(CAO_Constants.HH_ACCOUNT_TYPE, 2, 2, 1);        
+        UTIL_UnitTestData_TEST.createAccountContactTestData(CAO_Constants.HH_ACCOUNT_TYPE, 2, 2, 10);
 
         // this creates some test opps
         list<Opportunity> listOpp = UTIL_UnitTestData_TEST.OppsForContactList(UTIL_UnitTestData_TEST.listConT, null, 
@@ -407,12 +407,12 @@ private with sharing class ACCT_AccountMerge_TEST {
     static void testNamesAndOppsMerge(string accTypeLoser, string accTypeWinner) {
     
         // create our source account and contacts
-        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeLoser, 1, 2, 1);
+        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeLoser, 1, 2, 13);
         Account accLoser = UTIL_UnitTestData_TEST.listAccT[0];
         list<Contact> listConAll = UTIL_UnitTestData_TEST.listConT; 
         
         // create our destination account and contacts
-        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeWinner, 1, 2, 3);
+        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeWinner, 1, 2, 14);
         Account accWinner = UTIL_UnitTestData_TEST.listAccT[0];
         listConAll.addAll(UTIL_UnitTestData_TEST.listConT);        
         

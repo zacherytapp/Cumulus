@@ -212,7 +212,7 @@ public with sharing class STG_PanelRDCustomInstallment_CTRL extends STG_Panel {
         Savepoint sp = Database.setSavepoint();
             
         // create a test account and test opportunity
-        Account acc = new Account(name='test account');
+        Account acc = new Account(name=UTIL_UnitTestData_TEST.TEST_NAME);
         try {
             insert acc;
         } catch (exception ex) {
@@ -223,7 +223,7 @@ public with sharing class STG_PanelRDCustomInstallment_CTRL extends STG_Panel {
         testOpp.AccountID = acc.id;
         testOpp.Amount = 100;
         testOpp.CloseDate = system.today();
-        testOpp.Name = 'TestOpp';        
+        testOpp.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         testOpp.StageName = strPledged;        
         
         database.saveresult[] sr = database.insert(new list<Opportunity>{testopp}, false);

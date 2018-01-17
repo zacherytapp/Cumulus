@@ -117,7 +117,7 @@ private with sharing class ACCT_HHAccounts_TEST {
         
         // lastname permutations
         system.assertEqualS(listCon[0].LastName, listCon[1].LastName);
-        listCon[3].LastName = 'DifferentLastName';
+        listCon[3].LastName = UTIL_UnitTestData_TEST.TEST_NAME;
         system.assertNotEquals(listCon[2].LastName, listCon[3].LastName);
         
         Test.startTest();      
@@ -200,7 +200,7 @@ private with sharing class ACCT_HHAccounts_TEST {
         
         // lastname permutations
         system.assertEqualS(listCon[0].LastName, listCon[1].LastName);
-        listCon[3].LastName = 'DifferentLastName';
+        listCon[3].LastName = UTIL_UnitTestData_TEST.TEST_NAME;
         system.assertNotEquals(listCon[2].LastName, listCon[3].LastName);
         
         // first insert 3 of the contacts and let them hook up to their accounts.
@@ -343,7 +343,7 @@ private with sharing class ACCT_HHAccounts_TEST {
         
         // lastname permutations
         system.assertEqualS(listCon[0].LastName, listCon[1].LastName);
-        listCon[3].LastName = 'DifferentLastName';
+        listCon[3].LastName = UTIL_UnitTestData_TEST.TEST_NAME;
         system.assertNotEquals(listCon[2].LastName, listCon[3].LastName);
 
         // Force the primary contact on each to ensure proper naming order
@@ -434,7 +434,7 @@ private with sharing class ACCT_HHAccounts_TEST {
         
         // lastname permutations
         system.assertEqualS(listCon[0].LastName, listCon[1].LastName);
-        listCon[3].LastName = 'DifferentLastName';
+        listCon[3].LastName = UTIL_UnitTestData_TEST.TEST_NAME;
         system.assertNotEquals(listCon[2].LastName, listCon[3].LastName);
         
         // now split the HH's
@@ -529,7 +529,7 @@ private with sharing class ACCT_HHAccounts_TEST {
         
         // lastname permutations
         system.assertEqualS(listCon[0].LastName, listCon[1].LastName);
-        listCon[3].LastName = 'DifferentLastName';
+        listCon[3].LastName = UTIL_UnitTestData_TEST.TEST_NAME;
         system.assertNotEquals(listCon[2].LastName, listCon[3].LastName);
         
         // create the list of Contacts to delete
@@ -598,7 +598,7 @@ private with sharing class ACCT_HHAccounts_TEST {
         
         // lastname permutations
         system.assertEqualS(listCon[0].LastName, listCon[1].LastName);
-        listCon[3].LastName = 'DifferentLastName';
+        listCon[3].LastName = UTIL_UnitTestData_TEST.TEST_NAME;
         system.assertNotEquals(listCon[2].LastName, listCon[3].LastName);
         
         // create the list of Contacts to delete

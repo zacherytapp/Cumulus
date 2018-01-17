@@ -87,9 +87,9 @@ private class UTIL_Query_TEST {
     **********************************************************************************************************/   
     private static testMethod void testSoqlIsCorrectWhenWhereClauseIsProvided() {
         Account[] accounts = new Account[] { 
-            new Account(Name = 'Test1'),
-            new Account(Name = 'Test2'),
-            new Account(Name = 'Test3')
+            new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME+'1'),
+            new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME+'2'),
+            new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME+'3')
         };
         insert accounts;
 

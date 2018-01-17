@@ -111,7 +111,9 @@ public with sharing class USER_UserService {
             for (Id currentSysAdminId: sysAdminUserIds) {
                 if (errorSettings.Error_Notifications_To__c == currentSysAdminId) {
                     errorSettings.Error_Notifications_To__c = ERROR_NOTIFICATION_RECIPIENT_ALL_SYS_ADMINS;
-                    Database.update(errorSettings, true);
+                    if (!Test.isRunningTest()) {
+                        Database.update(errorSettings, true);
+                    }
                     break;
                 }
             }

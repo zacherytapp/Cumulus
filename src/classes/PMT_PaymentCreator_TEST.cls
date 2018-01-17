@@ -33,7 +33,7 @@
 * @group Payments
 * @description tests for the PaymentCreator class 
 */
-@isTest
+@isTest(IsParallel=true)
 private with sharing class PMT_PaymentCreator_TEST {
 
     /*********************************************************************************************************
@@ -59,13 +59,11 @@ private with sharing class PMT_PaymentCreator_TEST {
             new npe01__Contacts_And_Orgs_Settings__c (npe01__Payments_Enabled__c= true));
         
         // create test data
-        Account acct = new Account (
-            Name='Test Account'
-        );
+        Account acct = new Account (Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acct;
         list<Opportunity> testOppList = new list<Opportunity>();
         Opportunity opp1 = new Opportunity (
-            Name='Test Opp',
+            Name=UTIL_UnitTestData_TEST.TEST_NAME + '1',
             AccountId = acct.id,
             Amount = 150,
             CloseDate = date.today(), 
@@ -73,7 +71,7 @@ private with sharing class PMT_PaymentCreator_TEST {
         );
         testOppList.add(opp1);
         Opportunity opp2 = new Opportunity (
-            Name='Test Opp_noAmount',
+            Name=UTIL_UnitTestData_TEST.TEST_NAME + '2',
             AccountId = acct.id,
         //    Amount = 150, for this test case the amount should be NULL   BUG #1285
             CloseDate = date.today(), 
@@ -144,13 +142,11 @@ private with sharing class PMT_PaymentCreator_TEST {
             new npe01__Contacts_And_Orgs_Settings__c (npe01__Payments_Enabled__c= true));
         
         // create test data
-        Account acct = new Account (
-            Name='Test Account'
-        );
+        Account acct = new Account (Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acct;
 
         Opportunity opp = new Opportunity (
-            Name='Test Opp',
+            Name=UTIL_UnitTestData_TEST.TEST_NAME,
             AccountId = acct.id,
             CloseDate = date.today(), 
             Amount = 1,
@@ -187,6 +183,7 @@ private with sharing class PMT_PaymentCreator_TEST {
         List<Opportunity> testOpportunities = new List<Opportunity>();
         for (Integer i = 0; i < testOpportunitiesCount; i++) {
             testOpportunities.add(new Opportunity(
+                Name = UTIL_UnitTestData_TEST.TEST_NAME+i,
                 Amount = null,
                 StageName = UTIL_UnitTestData_TEST.getClosedWonStage()
             ));
@@ -229,6 +226,7 @@ private with sharing class PMT_PaymentCreator_TEST {
         List<Opportunity> testOpportunities = new List<Opportunity>();
         for (Integer i = 0; i < testOpportunitiesCount; i++) {
             testOpportunities.add(new Opportunity(
+                Name = UTIL_UnitTestData_TEST.TEST_NAME+i,
                 Amount = 0,
                 StageName = UTIL_UnitTestData_TEST.getClosedWonStage()
             ));
@@ -271,6 +269,7 @@ private with sharing class PMT_PaymentCreator_TEST {
         List<Opportunity> testOpportunities = new List<Opportunity>();
         for (Integer i = 0; i < testOpportunitiesCount; i++) {
             testOpportunities.add(new Opportunity(
+                Name = UTIL_UnitTestData_TEST.TEST_NAME+i,
                 Amount = null,
                 StageName = UTIL_UnitTestData_TEST.getOpenStage()
             ));
@@ -313,6 +312,7 @@ private with sharing class PMT_PaymentCreator_TEST {
         List<Opportunity> testOpportunities = new List<Opportunity>();
         for (Integer i = 0; i < testOpportunitiesCount; i++) {
             testOpportunities.add(new Opportunity(
+                Name = UTIL_UnitTestData_TEST.TEST_NAME+i,
                 Amount = 0,
                 StageName = UTIL_UnitTestData_TEST.getOpenStage()
             ));
@@ -352,6 +352,7 @@ private with sharing class PMT_PaymentCreator_TEST {
         List<Opportunity> testOpportunities = new List<Opportunity>();
         for (Integer i = 0; i < 200; i++) {
             testOpportunities.add(new Opportunity(
+                Name = UTIL_UnitTestData_TEST.TEST_NAME+i,
                 Amount = null,
                 StageName = UTIL_UnitTestData_TEST.getClosedLostStage()
             ));
@@ -383,6 +384,7 @@ private with sharing class PMT_PaymentCreator_TEST {
         List<Opportunity> testOpportunities = new List<Opportunity>();
         for (Integer i = 0; i < 200; i++) {
             testOpportunities.add(new Opportunity(
+                Name = UTIL_UnitTestData_TEST.TEST_NAME+i,
                 Amount = 0,
                 StageName = UTIL_UnitTestData_TEST.getClosedLostStage()
             ));
@@ -413,13 +415,12 @@ private with sharing class PMT_PaymentCreator_TEST {
             new npe01__Contacts_And_Orgs_Settings__c (npe01__Payments_Enabled__c= true)
         );
         
-        Account testAccount = new Account(
-            Name = 'Test_Account'
-        );
+        Account testAccount = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME);
         insert testAccount;
 
+        Integer i = 0;
         for (Opportunity testOpportunity : testOpportunities) {
-            testOpportunity.Name = 'TestOpportunity';
+            testOpportunity.Name = UTIL_UnitTestData_TEST.TEST_NAME + (i++);
             testOpportunity.AccountId = testAccount.Id;
             testOpportunity.CloseDate = Date.today();
         }
@@ -456,13 +457,11 @@ private with sharing class PMT_PaymentCreator_TEST {
             new npe01__Contacts_And_Orgs_Settings__c (npe01__Payments_Enabled__c= true, Opp_Types_Excluded_for_Payments__c='NO-PAYMENT'));
         
         // create test data
-        Account acct = new Account (
-            Name='Test Account'
-        );
+        Account acct = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acct;
 
         Opportunity opp = new Opportunity (
-            Name='Test Opp',
+            Name=UTIL_UnitTestData_TEST.TEST_NAME,
             AccountId = acct.id,
             CloseDate = date.today(), 
             Amount = 1,
@@ -491,13 +490,11 @@ private with sharing class PMT_PaymentCreator_TEST {
             new npe01__Contacts_And_Orgs_Settings__c (npe01__Payments_Enabled__c= true, Opp_Types_Excluded_for_Payments__c='NO-PAYMENT'));
         
         // create test data
-        Account acct = new Account (
-            Name='Test Account'
-        );
+        Account acct = new Account (Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acct;
 
         Opportunity opp = new Opportunity (
-            Name='Test Opp',
+            Name=UTIL_UnitTestData_TEST.TEST_NAME,
             AccountId = acct.id,
             CloseDate = date.today(), 
             Amount = 1,
@@ -533,13 +530,11 @@ private with sharing class PMT_PaymentCreator_TEST {
         );
 
         // create test data
-        Account acct = new Account (
-            Name='Test Account'
-        );
+        Account acct = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert acct;
 
         Opportunity opp = new Opportunity (
-            Name='Test Opp',
+            Name=UTIL_UnitTestData_TEST.TEST_NAME,
             AccountId = acct.id,
             CloseDate = date.today(), 
             Amount = 1,
@@ -859,7 +854,7 @@ private with sharing class PMT_PaymentCreator_TEST {
         public Opportunity opp;
         public OpportunityHelper(String initialStageName) {
             opp = new Opportunity(
-                Name = 'Test Opportunity',
+                Name = UTIL_UnitTestData_TEST.TEST_NAME,
                 Amount = 500,
                 CloseDate = Date.today(),
                 StageName = initialStageName
@@ -940,41 +935,43 @@ private with sharing class PMT_PaymentCreator_TEST {
         
         //create test data
         Account acct = new Account (
-            Name='Test Account'
+            Name=UTIL_UnitTestData_TEST.TEST_NAME
         );
         insert acct;
 
+        // The Name Field value has to be a max of 15 characters for this test
+        String uniquePrefix = UTIL_UnitTestData_TEST.getUniqueString().right(2);
         list<Opportunity> testOppList = new list<Opportunity>();
         testOppList.add(new Opportunity (
-            Name='Paid Payment',
+            Name = uniquePrefix + 'Paid',
             AccountId = acct.id,
             Amount = 8,
             CloseDate = date.today(), 
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage()
         ));
         testOppList.add(new Opportunity (
-            Name='Unpaid Payment',
+            Name = uniquePrefix + 'Unpaid',
             AccountId = acct.id,
             Amount = 36,
             CloseDate = date.today(), 
             StageName = UTIL_UnitTestData_TEST.getOpenStage()
         ));
         testOppList.add(new Opportunity (
-            Name='No payment: Closed Lost',
+            Name = uniquePrefix + 'NoPmt;Lost',
             AccountId = acct.id,
             Amount = 36,
             CloseDate = date.today(), 
             StageName = UTIL_UnitTestData_TEST.getClosedLostStage()
         ));
         testOppList.add(new Opportunity (
-            Name='No payment: Zero amount',
+            Name = uniquePrefix + 'NoPmt;Zero',
             AccountId = acct.id,
             Amount = 0,
             CloseDate = date.today(), 
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage()
         ));
         testOppList.add(new Opportunity (
-            Name='No payment: Excluded type',
+            Name = uniquePrefix + 'NoPmt;Excluded',
             AccountId = acct.id,
             Amount = 1,
             CloseDate = date.today(), 
@@ -982,7 +979,7 @@ private with sharing class PMT_PaymentCreator_TEST {
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage()
         ));
         testOppList.add(new Opportunity (
-            Name='No payment: npe01__Do_Not_Automatically_Create_Payment__c',
+            Name = uniquePrefix + 'NoPmt;NoAutoPay',
             AccountId = acct.id,
             Amount = 2,
             CloseDate = date.today(), 
@@ -990,14 +987,15 @@ private with sharing class PMT_PaymentCreator_TEST {
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage()
         ));
         Opportunity opp = new Opportunity (
-            Name='No pmt:rectype',
+            Name = uniquePrefix + 'NoPmt:Rectype',
             AccountId = acct.id,
             Amount = 3,
             CloseDate = date.today(), 
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage()
         );
-        if (rtIdGift != null)
+        if (rtIdGift != null) {
             opp.RecordtypeId = rtIdGift;
+        }
         testOppList.add(opp);
 
         //disable TDTM so payments aren't created
@@ -1021,8 +1019,8 @@ private with sharing class PMT_PaymentCreator_TEST {
         }
 
         system.assertEquals(true, queryPmt[0].npe01__Paid__c, 'Payment for closed/won opportunity should be marked paid.');
-        system.assertEquals('Paid Payment', queryPmt[0].npe01__Custom_Payment_Field__c, 'Custom field mapping should be copied over.');
+        system.assertEquals(uniquePrefix+'Paid', queryPmt[0].npe01__Custom_Payment_Field__c, 'Custom field mapping should be copied over.');
         system.assertEquals(false, queryPmt[1].npe01__Paid__c, 'Payment for open opportunity should not be marked paid.');
-        system.assertEquals('Unpaid Payment', queryPmt[1].npe01__Custom_Payment_Field__c, 'Custom field mapping should be copied over.');
+        system.assertEquals(uniquePrefix+'Unpaid', queryPmt[1].npe01__Custom_Payment_Field__c, 'Custom field mapping should be copied over.');
     }
 }

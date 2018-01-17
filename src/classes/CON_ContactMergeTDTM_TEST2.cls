@@ -182,12 +182,12 @@ public with sharing class CON_ContactMergeTDTM_TEST2 {
     static void testNamesAndOppsMerge(string accTypeLoser, string accTypeWinner) {
     
         // create our losing account and contacts
-        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeLoser, 1, 2, 1);
+        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeLoser, 1, 2, 18);
         Account accLoser = UTIL_UnitTestData_TEST.listAccT[0];
         list<Contact> listConAll = UTIL_UnitTestData_TEST.listConT; 
         
         // create our winning account and contacts
-        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeWinner, 1, 2, 3);
+        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeWinner, 1, 2, 19);
         Account accWinner = UTIL_UnitTestData_TEST.listAccT[0];
         listConAll.addAll(UTIL_UnitTestData_TEST.listConT);        
         

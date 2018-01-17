@@ -70,7 +70,7 @@ public with sharing class PSC_ManageSoftCredits_TEST {
     public static void initTestData(boolean createPSCs) {
         
         // create a matching gift company
-        insert acc = new Account(name='some company');
+        insert acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         
         // create some Contacts in Household Accounts
         listCon = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(cContact);
@@ -81,7 +81,7 @@ public with sharing class PSC_ManageSoftCredits_TEST {
         
         // create an Opportunity
         insert opp = new Opportunity(
-            Name='test opp', 
+            Name=UTIL_UnitTestData_TEST.TEST_NAME,
             Amount=1000, 
             AccountId=acc.Id, 
             CloseDate=System.Today(),

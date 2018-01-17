@@ -33,7 +33,7 @@
 * @group Address Management
 * @description Tests for the ADDR_Validator class. 
 */
-@isTest
+@isTest(IsParallel=true)
 public with sharing class ADDR_Validator_TEST {
 
     // if you only want to run one test in this class, fill in its name here.
@@ -44,6 +44,16 @@ public with sharing class ADDR_Validator_TEST {
         return TDTM_DefaultConfig.ADDR_Address_TDTM_TestAsync ||
             TDTM_DefaultConfig.ADDR_Contact_TDTM_TestAsync ||
             TDTM_DefaultConfig.ADDR_Account_TDTM_TestAsync; 
+    }
+
+    private static Contact createDummyContact(String street) {
+        Contact c = UTIL_UnitTestData_TEST.getContact();
+        c.MailingStreet = street;
+        c.MailingCity = 'Cupertino';
+        c.MailingState = 'California';
+        c.MailingPostalCode = '95014';
+        c.MailingCountry = 'United States';
+        return c;
     }
     
     public static Addr_Verification_Settings__c createDefaultSettings() {
@@ -69,14 +79,9 @@ public with sharing class ADDR_Validator_TEST {
         
         createDefaultSettings();
         Test.setMock(HttpCalloutMock.class, new ADDR_MockHttpRespGenerator_TEST());
-              
-        Contact contact = new contact(firstname='Test', lastname='Person'); 
-        contact.MailingStreet = 'single-address';
-        contact.MailingCity = 'Cupertino';
-        contact.MailingState = 'California';
-        contact.MailingPostalCode = '95014';
-        contact.MailingCountry = 'United States';
-        
+
+        Contact contact = createDummyContact('single-address');
+
         Test.StartTest();
         insert contact;
         Test.StopTest();
@@ -114,14 +119,9 @@ public with sharing class ADDR_Validator_TEST {
         
         createDefaultSettings();
         Test.setMock(HttpCalloutMock.class, new ADDR_MockHttpRespGenerator_TEST());
-              
-        Contact contact = new contact(firstname='Test', lastname='Person'); 
-        contact.MailingStreet = 'invalid-address';
-        contact.MailingCity = 'chicago';
-        contact.MailingState = 'Illinois';
-        contact.MailingPostalCode = '60606';
-        contact.MailingCountry = 'United States';
-        
+
+        Contact contact = createDummyContact('invalid-address');
+
         Test.StartTest();
         insert contact;
         Test.StopTest();
@@ -145,14 +145,9 @@ public with sharing class ADDR_Validator_TEST {
         
         Addr_Verification_Settings__c settings = createDefaultSettings();
         Test.setMock(HttpCalloutMock.class, new ADDR_MockHttpRespGenerator_TEST());
-              
-        Contact contact = new contact(firstname='Test', lastname='Person'); 
-        contact.MailingStreet = '400 error';
-        contact.MailingCity = 'chicago';
-        contact.MailingState = 'Illinois';
-        contact.MailingPostalCode = '60606';
-        contact.MailingCountry = 'United States';
-        
+
+        Contact contact = createDummyContact('400 error');
+
         Test.StartTest();
         insert contact;
         Test.StopTest();
@@ -176,14 +171,9 @@ public with sharing class ADDR_Validator_TEST {
         
         Addr_Verification_Settings__c settings = createDefaultSettings();
         Test.setMock(HttpCalloutMock.class, new ADDR_MockHttpRespGenerator_TEST());
-              
-        Contact contact = new contact(firstname='Test', lastname='Person'); 
-        contact.MailingStreet = '401 error';
-        contact.MailingCity = 'chicago';
-        contact.MailingState = 'Illinois';
-        contact.MailingPostalCode = '60606';
-        contact.MailingCountry = 'United States';
-        
+
+        Contact contact = createDummyContact('401 error');
+
         Test.StartTest();
         insert contact;
         Test.StopTest();
@@ -207,14 +197,9 @@ public with sharing class ADDR_Validator_TEST {
         
         Addr_Verification_Settings__c settings = createDefaultSettings();
         Test.setMock(HttpCalloutMock.class, new ADDR_MockHttpRespGenerator_TEST());
-              
-        Contact contact = new contact(firstname='Test', lastname='Person'); 
-        contact.MailingStreet = '402 error';
-        contact.MailingCity = 'chicago';
-        contact.MailingState = 'Illinois';
-        contact.MailingPostalCode = '60606';
-        contact.MailingCountry = 'United States';
-        
+
+        Contact contact = createDummyContact('402 error');
+
         Test.StartTest();
         insert contact;
         Test.StopTest();
@@ -238,14 +223,9 @@ public with sharing class ADDR_Validator_TEST {
         
         Addr_Verification_Settings__c settings = createDefaultSettings();
         Test.setMock(HttpCalloutMock.class, new ADDR_MockHttpRespGenerator_TEST());
-              
-        Contact contact = new contact(firstname='Test', lastname='Person'); 
-        contact.MailingStreet = '500 error';
-        contact.MailingCity = 'chicago';
-        contact.MailingState = 'Illinois';
-        contact.MailingPostalCode = '60606';
-        contact.MailingCountry = 'United States';
-        
+
+        Contact contact = createDummyContact('500 error');
+
         Test.StartTest();
         insert contact;
         Test.StopTest();
@@ -269,14 +249,9 @@ public with sharing class ADDR_Validator_TEST {
         
         createDefaultSettings();
         Test.setMock(HttpCalloutMock.class, new ADDR_MockHttpRespGenerator_TEST());
-              
-        Contact contact = new contact(firstname='Test', lastname='Person'); 
-        contact.MailingStreet = 'ambiguous-address';
-        contact.MailingCity = 'chicago';
-        contact.MailingState = 'Illinois';
-        contact.MailingPostalCode = '60606';
-        contact.MailingCountry = 'United States';
-        
+
+        Contact contact = createDummyContact('ambiguous-address');
+
         Test.StartTest();
         insert contact;
         Test.StopTest();
@@ -302,12 +277,11 @@ public with sharing class ADDR_Validator_TEST {
         
         createDefaultSettings();
         Test.setMock(HttpCalloutMock.class, new ADDR_MockHttpRespGenerator_TEST());
-        
-        Contact contact = new contact(firstname='Test', lastname='Person'); 
-        contact.MailingPostalCode = '94105';
-        contact.MailingCity = 'single-zip';
-        contact.MailingCountry = 'United States';
-        
+
+        Contact contact = createDummyContact('single-zip');
+        contact.MailingCity = contact.MailingStreet;
+        contact.MailingStreet = null;
+
         Test.StartTest();
         insert contact;
         Test.StopTest();
@@ -338,12 +312,11 @@ public with sharing class ADDR_Validator_TEST {
         
         createDefaultSettings();
         Test.setMock(HttpCalloutMock.class, new ADDR_MockHttpRespGenerator_TEST());
-        
-        Contact contact = new contact(firstname='Test', lastname='Person'); 
-        contact.MailingCity = 'single-zip';
-        contact.MailingState = 'Illinois';
-        contact.MailingCountry = 'United States';
-        
+
+        Contact contact = createDummyContact('single-zip');
+        contact.MailingCity = contact.MailingStreet;
+        contact.MailingStreet = contact.MailingPostalCode = null;
+
         Test.startTest();
         insert contact;
         Test.StopTest();
@@ -431,16 +404,10 @@ public with sharing class ADDR_Validator_TEST {
         
         // address validation is async, so no way to successfully test if other related triggers are already async!
         if (hasAsyncAddrTriggers()) return;
-        
-        Contact contact = new contact(firstname='Test', lastname='Person'); 
-        contact.MailingStreet = 'single-address';
-        contact.MailingCity = 'Cupertino';
-        contact.MailingState = 'California';
-        contact.MailingPostalCode = '95014';
-        contact.MailingCountry = 'United States';
-        
+
+        Contact contact = createDummyContact('single-address');
         insert contact;
-        
+
         //check household got created for contact
         contact = [select Account.Id from Contact where Id = :contact.Id];
         Id accountId = contact.Account.Id;

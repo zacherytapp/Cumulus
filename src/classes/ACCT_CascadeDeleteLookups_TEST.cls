@@ -70,7 +70,7 @@ private class ACCT_CascadeDeleteLookups_TEST {
         );
         insert rdAcc;
 
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name='foo');
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert gau;
         Allocation__c allo = new Allocation__c(Recurring_Donation__c=rdCon.id, Amount__c = 4, General_Accounting_Unit__c = gau.id);
         insert allo;

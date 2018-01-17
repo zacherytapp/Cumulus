@@ -97,7 +97,7 @@ public with sharing class OPP_SendAcknowledgmentBTN_TEST {
     * @return List<Opportunity> List of Opportunities
     **********************************************************************************************************/
     private static List<Opportunity> setUpOpportunities(Integer oppCount) {
-        Account account = new Account(Name = 'Test Company');
+        Account account = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME);
         insert account;
         
         Contact contact = UTIL_UnitTestData_TEST.getContact();

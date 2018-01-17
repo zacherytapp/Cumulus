@@ -34,7 +34,7 @@
 * @description Tests for ACCT_IndividualAccounts_TDTM
 */
 @isTest(isParallel=true)
-private class ACCT_IndividualAccounts_TEST {    
+private class ACCT_IndividualAccounts_TEST {
 
     /*********************************************************************************************************
     * @description if you only want to run one test in this class, fill in its name here.
@@ -670,7 +670,7 @@ private class ACCT_IndividualAccounts_TEST {
         
         Id accountId = insertedContacts[0].AccountId;
         
-        Contact con2 = new Contact(FirstName='John', LastName='Smith',AccountId=accountId);
+        Contact con2 = new Contact(FirstName='John', LastName=UTIL_UnitTestData_TEST.TEST_NAME+'1',AccountId=accountId);
         
         Test.startTest();
         insert con2;
@@ -774,7 +774,7 @@ private class ACCT_IndividualAccounts_TEST {
         system.assertEquals(acctName,insertedContacts[0].Account.Name);
         
         
-        Contact con2 = new Contact(id=con.id, LastName='Smith');
+        Contact con2 = new Contact(Id=con.id, LastName=UTIL_UnitTestData_TEST.TEST_NAME+'1');
         Test.startTest();        
         update con2;
         Test.stopTest();
@@ -1177,7 +1177,7 @@ private class ACCT_IndividualAccounts_TEST {
         System.assert(insertedCon.Account.Name.contains(con.LastName), 'The Account Name should contain the contacts last name.');
 
         //add other contact to household and associate opportunity with that contact to avoid cascade deletion of opportunity
-        Contact othercon = new Contact(accountId = acctId, LastName='other');
+        Contact othercon = new Contact(accountId = acctId, LastName=UTIL_UnitTestData_TEST.TEST_NAME+'1');
         insert othercon;
 
         Opportunity opp = new Opportunity(

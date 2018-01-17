@@ -68,8 +68,10 @@ public with sharing class CON_ContactMergeTDTM_TEST {
         // create a primary affiliation for each contact
         npe5__Affiliations_Settings__c affiliationsSettingsForTests = UTIL_CustomSettingsFacade.getAffiliationsSettingsForTests(
             new npe5__Affiliations_Settings__c(npe5__Automatic_Affiliation_Creation_Turned_On__c = true));
-        Account accOrg = new Account(Name='OrgAccount');
+
+        Account accOrg = new Account(Name='OrgAccount' + UTIL_UnitTestData_TEST.TEST_NAME);
         insert accOrg;
+
         conWinner.Primary_Affiliation__c = accOrg.Id;
         conLoser.Primary_Affiliation__c = accOrg.Id;
         update new list<Contact> {conWinner, conLoser};
@@ -82,10 +84,9 @@ public with sharing class CON_ContactMergeTDTM_TEST {
         Test.stopTest();
 
         // reload our contacts and accounts
-        list<Account> listAcc = new list<Account>([select Id, Name, npo02__Formal_Greeting__c, npo02__Informal_Greeting__c, 
-            npo02__NumberOfClosedOpps__c, 
-            BillingStreet, BillingCity, BillingState, BillingPostalCode, BillingCountry 
-            from Account where Name <> 'OrgAccount' order by Id]);
+        list<Account> listAcc = new list<Account>([SELECT Id, Name, npo02__Formal_Greeting__c, npo02__Informal_Greeting__c,
+                    npo02__NumberOfClosedOpps__c, BillingStreet, BillingCity, BillingState, BillingPostalCode, BillingCountry
+            FROM Account WHERE NOT Name LIKE 'OrgAccount%' ORDER BY Id]);
         list<Contact> listCon = [select Id, Firstname, AccountId, npo02__NumberOfClosedOpps__c,
             is_Address_Override__c, Current_Address__c, MailingStreet, MailingCity, MailingState, MailingPostalCode, MailingCountry 
             from Contact order by Firstname];
@@ -145,11 +146,14 @@ public with sharing class CON_ContactMergeTDTM_TEST {
         // create a primary affiliation for each contact
         npe5__Affiliations_Settings__c affiliationsSettingsForTests = UTIL_CustomSettingsFacade.getAffiliationsSettingsForTests(
             new npe5__Affiliations_Settings__c(npe5__Automatic_Affiliation_Creation_Turned_On__c = true));
-        Account accOrg = new Account(Name='OrgAccount');
+
+        Account accOrg = new Account(Name='OrgAccount'+UTIL_UnitTestData_TEST.TEST_NAME);
         insert accOrg;
+
         conWinner.Primary_Affiliation__c = accOrg.Id;
         conLoser.Primary_Affiliation__c = accOrg.Id;
         update new list<Contact> {conWinner, conLoser};
+
         system.assertEquals(2, [select count() from npe5__Affiliation__c]);
 
         Test.startTest();
@@ -159,10 +163,9 @@ public with sharing class CON_ContactMergeTDTM_TEST {
         Test.stopTest();
 
         // reload our accounts
-        list<Account> listAcc = new list<Account>([select Id, Name, npo02__Formal_Greeting__c, npo02__Informal_Greeting__c, 
-            npo02__NumberOfClosedOpps__c, 
-            BillingStreet, BillingCity, BillingState, BillingPostalCode, BillingCountry 
-            from Account where Name <> 'OrgAccount' order by Id]);
+        list<Account> listAcc = new list<Account>([SELECT Id, Name, npo02__Formal_Greeting__c, npo02__Informal_Greeting__c,
+                    npo02__NumberOfClosedOpps__c, BillingStreet, BillingCity, BillingState, BillingPostalCode, BillingCountry
+            FROM Account WHERE NOT Name LIKE 'OrgAccount%' ORDER BY Id]);
         system.assertEquals(conWinner.AccountId, listAcc[0].Id);
         Account accWinner = listAcc[0];
         system.assertEquals(conLoser.AccountId, listAcc[1].Id);
@@ -232,7 +235,7 @@ public with sharing class CON_ContactMergeTDTM_TEST {
         // create a primary affiliation for each contact
         npe5__Affiliations_Settings__c affiliationsSettingsForTests = UTIL_CustomSettingsFacade.getAffiliationsSettingsForTests(
             new npe5__Affiliations_Settings__c(npe5__Automatic_Affiliation_Creation_Turned_On__c = true));
-        Account accOrg = new Account(Name='OrgAccount');
+        Account accOrg = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert accOrg;
         conWinner.Primary_Affiliation__c = accOrg.Id;
         conLoser1.Primary_Affiliation__c = accOrg.Id;

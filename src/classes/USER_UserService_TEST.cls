@@ -73,10 +73,12 @@ public with sharing class USER_UserService_TEST {
         List<User> newUsers = createUsers();
         Set<Id> sysAdminIds = new Map<Id, User>(newUsers).keySet();
 
-        UTIL_CustomSettingsFacade.getErrorSettingsForTests(new Error_Settings__c(Error_Notifications_On__c = true, 
-            Error_Notifications_To__c = newUsers[1].Id, Store_Errors_On__c = true));
+        UTIL_CustomSettingsFacade.getErrorSettingsForTests(new Error_Settings__c(
+                Error_Notifications_On__c = true,
+                Error_Notifications_To__c = newUsers[1].Id,
+                Store_Errors_On__c = true));
         Error_Settings__c errorSettings = UTIL_CustomSettingsFacade.getErrorSettings();
-        Database.insert(errorSettings, true);
+//        Database.insert(errorSettings, true);
 
         Test.startTest();
         USER_UserService.handleDeactivatedSysAdminFuture(sysAdminIds);
@@ -95,10 +97,12 @@ public with sharing class USER_UserService_TEST {
         List<User> newUsers = createUsers();
         Set<Id> sysAdminIds = new Map<Id, User>(newUsers).keySet();
 
-        UTIL_CustomSettingsFacade.getErrorSettingsForTests(new Error_Settings__c(Error_Notifications_On__c = true, 
-            Error_Notifications_To__c = newUsers[1].Id, Store_Errors_On__c = true));
+        UTIL_CustomSettingsFacade.getErrorSettingsForTests(new Error_Settings__c(
+                Error_Notifications_On__c = true,
+                Error_Notifications_To__c = newUsers[1].Id,
+                Store_Errors_On__c = true));
         Error_Settings__c errorSettings = UTIL_CustomSettingsFacade.getErrorSettings();
-        Database.insert(errorSettings, true);
+//        Database.insert(errorSettings, true);
 
         Test.startTest();
         USER_UserService.setErrorNotificationToAllSysAdminsForInActiveSysAdmin(sysAdminIds);

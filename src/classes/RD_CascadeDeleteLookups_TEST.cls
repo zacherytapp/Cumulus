@@ -45,7 +45,7 @@ private class RD_CascadeDeleteLookups_TEST {
         insert con;
 
         npe03__Recurring_Donation__c rd = new npe03__Recurring_Donation__c(
-            Name = 'test',
+            Name = UTIL_UnitTestData_TEST.TEST_NAME,
             npe03__Installments__c = 2,
             npe03__Amount__c = 1,
             npe03__Installment_Period__c = system.label.npe03.RecurringDonationInstallmentPeriodYearly,
@@ -58,7 +58,7 @@ private class RD_CascadeDeleteLookups_TEST {
         List<Opportunity> queryOpps = [SELECT Id FROM Opportunity WHERE npe03__Recurring_Donation__c = :rd.id];
         System.assertEquals(2, queryOpps.size(), 'Two opps should be auto created by recurring donation.');
 
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name='foo');
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert gau;
         Allocation__c alloForInsert = new Allocation__c(Recurring_Donation__c=rd.id, Amount__c = 4, General_Accounting_Unit__c = gau.id);
         insert alloForInsert;
@@ -94,7 +94,7 @@ private class RD_CascadeDeleteLookups_TEST {
         insert con;
 
         npe03__Recurring_Donation__c rd = new npe03__Recurring_Donation__c(
-            Name = 'test',
+            Name = UTIL_UnitTestData_TEST.TEST_NAME,
             npe03__Installments__c = 2,
             npe03__Amount__c = 1,
             npe03__Installment_Period__c = system.label.npe03.RecurringDonationInstallmentPeriodYearly,

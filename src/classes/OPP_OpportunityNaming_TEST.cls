@@ -35,8 +35,7 @@
 * @description Test class for Opportunity Naming.
 */
 @isTest(isParallel=True)
-private class OPP_OpportunityNaming_TEST
-{
+private class OPP_OpportunityNaming_TEST {
     /*********************************************************************************************************
     * @description If you only want to run a single test in this class, fill in its name here.
     * If you want to run all tests, then use '*'
@@ -66,7 +65,7 @@ private class OPP_OpportunityNaming_TEST
         if (strTestOnly != '*' && strTestOnly != 'testButton') return;
 
         Opportunity_Naming_Settings__c ons = new Opportunity_Naming_Settings__c(
-            Name = 'foo',
+            Name = UTIL_UnitTestData_TEST.TEST_NAME+'1',
             Opportunity_Name_Format__c = '{!Account.Name} {!Contact.Name} {!CloseDate} {!RecordType.Name}',
             Attribution__c = Label.oppNamingBoth
         );
@@ -83,7 +82,7 @@ private class OPP_OpportunityNaming_TEST
         Opportunity opp = new Opportunity(
             AccountId = acc.id,
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
-            Name=UTIL_UnitTestData_TEST.TEST_NAME,
+            Name=UTIL_UnitTestData_TEST.TEST_NAME+'2',
             Amount=8,
             CloseDate = Date.newInstance(2000, 1, 1),
             Primary_Contact__c = con.id
@@ -174,13 +173,13 @@ private class OPP_OpportunityNaming_TEST
 
         list<Opportunity_Naming_Settings__c> onsList = new list<Opportunity_Naming_Settings__c>();
         onsList.add(new Opportunity_Naming_Settings__c(
-            Name = 'foo',
+            Name = UTIL_UnitTestData_TEST.TEST_NAME+'1',
             Opportunity_Record_Types__c = '',
             Opportunity_Name_Format__c = '{!Account.Name} {!Amount} {!Type} {!RecordType.Name}',
             Attribution__c = Label.oppNamingOrganizational
         ));
         onsList.add(new Opportunity_Naming_Settings__c(
-            Name = 'foo2',
+            Name = UTIL_UnitTestData_TEST.TEST_NAME+'2',
             Opportunity_Name_Format__c = '{!Contact.Name} {!Contact.HasOptedOutOfFax} {!Type} {!RecordType.Name}',
             Attribution__c = Label.oppNamingIndividual
         ));

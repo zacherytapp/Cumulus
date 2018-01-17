@@ -55,7 +55,7 @@ private class CON_CascadeDeleteLookups_TEST {
         );
         insert rd;
 
-        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name='foo');
+        General_Accounting_Unit__c gau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert gau;
         Allocation__c alloForInsert = new Allocation__c(Recurring_Donation__c=rd.id, Amount__c = 4, General_Accounting_Unit__c = gau.id);
         insert alloForInsert;
@@ -92,7 +92,7 @@ private class CON_CascadeDeleteLookups_TEST {
 
         Opportunity closedWonOpp = new Opportunity(
             Amount = 8,
-            Name = 'foo-1',
+            Name = UTIL_UnitTestData_TEST.TEST_NAME+'1',
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
             CloseDate = System.today(),
             Primary_Contact__c = con.id
@@ -102,7 +102,7 @@ private class CON_CascadeDeleteLookups_TEST {
         Opportunity orgOpp = new Opportunity(
             Amount = 8,
             AccountId = org.id,
-            Name = 'foo-2',
+            Name = UTIL_UnitTestData_TEST.TEST_NAME+'2',
             StageName = UTIL_UnitTestData_TEST.getClosedLostStage(),
             CloseDate = System.today(),
             Primary_Contact__c = con.id

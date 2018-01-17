@@ -54,17 +54,15 @@ private with sharing class RD_RecurringDonations_TEST2 {
         ));           
         
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = UTIL_UnitTestData_TEST.TEST_LASTNAME+'1';
         insert a;
         
-        Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         c.AccountId = a.Id;
         insert c;       
 
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_LASTNAME;
         r1.npe03__Installments__c = 2;
         r1.npe03__Organization__c = a.id;
         r1.npe03__Amount__c = 100;
@@ -108,17 +106,15 @@ private with sharing class RD_RecurringDonations_TEST2 {
         ));           
         
         Account a = new Account();
-        a.Name = 'test Individual';
+        a.Name = UTIL_UnitTestData_TEST.TEST_LASTNAME;
         insert a;
         
-        Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         c.AccountId = a.Id;
         insert c;       
 
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_LASTNAME;
         r1.npe03__Installments__c = 2;
         r1.npe03__Contact__c = c.Id;
         r1.npe03__Amount__c = 100;
@@ -152,18 +148,15 @@ private with sharing class RD_RecurringDonations_TEST2 {
         npe03__Open_Opportunity_Behavior__c = RD_RecurringDonations.RecurringDonationCloseOptions.Mark_Opportunities_Closed_Lost.name()        
         ));           
         
-        Account a = new Account();
-        a.Name = 'test Individual';
+        Account a = new Account(Name=UTIL_UnitTestData_TEST.TEST_LASTNAME);
         insert a;
         
-        Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         c.AccountId = a.Id;
         insert c;        
 
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_LASTNAME;
         r1.npe03__Installments__c = 2;
         r1.npe03__Contact__c = c.Id;
         r1.npe03__Amount__c = 100;
@@ -206,18 +199,15 @@ private with sharing class RD_RecurringDonations_TEST2 {
         npe03__Open_Opportunity_Behavior__c = RD_RecurringDonations.RecurringDonationCloseOptions.Mark_Opportunities_Closed_Lost.name()        
         ));           
         
-        Account a = new Account();
-        a.Name = 'test Individual';
+        Account a = new Account(Name=UTIL_UnitTestData_TEST.TEST_LASTNAME);
         insert a;
         
-        Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         c.AccountId = a.Id;
         insert c;       
 
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_LASTNAME;
         r1.npe03__Installments__c = 0;
         r1.npe03__Contact__c = c.Id;
         r1.npe03__Amount__c = 100;
@@ -233,7 +223,7 @@ private with sharing class RD_RecurringDonations_TEST2 {
         o.CloseDate = system.today();
         o.Amount = 50;
         o.AccountId = a.Id;
-        o.Name = 'test';
+        o.Name = UTIL_UnitTestData_TEST.TEST_LASTNAME+'1';
         o.npe03__Recurring_Donation__c = r1.Id;
         Test.startTest();
         insert o;
@@ -255,21 +245,18 @@ private with sharing class RD_RecurringDonations_TEST2 {
         npe03__Open_Opportunity_Behavior__c = RD_RecurringDonations.RecurringDonationCloseOptions.Mark_Opportunities_Closed_Lost.name()        
         ));           
         
-        Account a = new Account();
-        a.Name = 'test Individual';
+        Account a = new Account(Name=UTIL_UnitTestData_TEST.TEST_LASTNAME);
         insert a;
         
-        Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         c.AccountId = a.Id;
         insert c;       
         
-        Campaign camp = new Campaign(Name = 'MyTestCamp', isActive = true);
+        Campaign camp = new Campaign(Name = UTIL_UnitTestData_TEST.TEST_LASTNAME, isActive = true);
         insert camp;
 
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_LASTNAME;
         r1.npe03__Installments__c = 2;
         r1.npe03__Organization__c = a.id;
         r1.npe03__Amount__c = 100;
@@ -310,13 +297,10 @@ private with sharing class RD_RecurringDonations_TEST2 {
         npe03__Open_Opportunity_Behavior__c = RD_RecurringDonations.RecurringDonationCloseOptions.Delete_Open_Opportunities.name()        
         ));           
         
-        Account a = new Account();
-        a.Name = 'test Individual';
+        Account a = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert a;
         
-        Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         c.AccountId = a.Id;
         insert c;       
         
@@ -324,7 +308,7 @@ private with sharing class RD_RecurringDonations_TEST2 {
         insert camp;
 
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         r1.npe03__Installments__c = 2;
         r1.npe03__Organization__c = a.id;
         r1.npe03__Amount__c = 100;
@@ -365,19 +349,16 @@ private with sharing class RD_RecurringDonations_TEST2 {
         );
         insert cfm1;
         
-        Account a = new Account();
-        a.Name = 'test Individual';
+        Account a = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert a;
-        
-        Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         c.AccountId = a.Id;
         insert c;       
 
         list<npe03__Recurring_Donation__c> rdlist = new list<npe03__Recurring_Donation__c>();
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         r1.npe03__Installments__c = 2;
         r1.npe03__Contact__c = c.Id;
         r1.npe03__Amount__c = 100;
@@ -389,7 +370,7 @@ private with sharing class RD_RecurringDonations_TEST2 {
         rdlist.add(r1);
                 
         npe03__Recurring_Donation__c r2 = new npe03__Recurring_Donation__c();
-        r2.Name = 'test';
+        r2.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         r2.npe03__Installments__c = 2;
         r2.npe03__Contact__c = c.Id;
         r2.npe03__Amount__c = 100;
@@ -424,19 +405,16 @@ private with sharing class RD_RecurringDonations_TEST2 {
         npe03__Open_Opportunity_Behavior__c = RD_RecurringDonations.RecurringDonationCloseOptions.Mark_Opportunities_Closed_Lost.name()        
         ));           
         
-        Account a = new Account();
-        a.Name = 'test Individual';
+        Account a = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert a;
-        
-        Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         c.AccountId = a.Id;
         insert c;       
 
         list<npe03__Recurring_Donation__c> rdlist = new list<npe03__Recurring_Donation__c>();
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         r1.npe03__Installments__c = 50;
         r1.npe03__Contact__c = c.Id;
         r1.npe03__Amount__c = 100;
@@ -475,15 +453,13 @@ private with sharing class RD_RecurringDonations_TEST2 {
         a.Name = 'test Individual';
         insert a;
         
-        Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         c.AccountId = a.Id;
         insert c;       
         
         list<npe03__Recurring_Donation__c> rdlist = new list<npe03__Recurring_Donation__c>();
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         r1.npe03__Installments__c = 2;
         r1.npe03__Contact__c = c.Id;
         r1.npe03__Amount__c = 100;
@@ -495,7 +471,7 @@ private with sharing class RD_RecurringDonations_TEST2 {
         insert r1;
                 
         npe03__Recurring_Donation__c r2 = new npe03__Recurring_Donation__c();
-        r2.Name = 'test';
+        r2.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         r2.npe03__Installments__c = 2;
         r2.npe03__Contact__c = c.Id;
         r2.npe03__Amount__c = 100;
@@ -525,10 +501,10 @@ private with sharing class RD_RecurringDonations_TEST2 {
             npe03__Opportunity_Forecast_Months__c = 12                
         ));         
         
-        Account a = new Account(Name = 'Test');
+        Account a = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME);
         insert a;
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         r1.npe03__Organization__c = a.id;
         r1.npe03__Amount__c = 100;
         r1.npe03__Installment_Period__c = system.label.npe03.RecurringDonationInstallmentPeriodWeekly;
@@ -569,10 +545,10 @@ private with sharing class RD_RecurringDonations_TEST2 {
             npe03__Opportunity_Forecast_Months__c = 12
         ));  
         
-        Account a = new Account(Name = 'Test');
+        Account a = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME);
         insert a;
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         r1.npe03__Organization__c = a.id;
         r1.npe03__Amount__c = 100;
         r1.npe03__Installment_Period__c = system.label.npe03.RecurringDonationInstallmentPeriodWeekly;
@@ -615,10 +591,10 @@ private with sharing class RD_RecurringDonations_TEST2 {
             npe03__Opportunity_Forecast_Months__c = 12
         ));         
         
-        Account a = new Account(Name = 'Test');
+        Account a = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME);
         insert a;
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         r1.npe03__Organization__c = a.id;
         r1.npe03__Amount__c = 100;
         r1.npe03__Installment_Period__c = system.label.npe03.RecurringDonationInstallmentPeriodWeekly;
@@ -670,18 +646,15 @@ private with sharing class RD_RecurringDonations_TEST2 {
         npe03__Open_Opportunity_Behavior__c = RD_RecurringDonations.RecurringDonationCloseOptions.Mark_Opportunities_Closed_Lost.name()
         ));           
                     
-        Account a = new Account();
-        a.Name = 'test Individual';
+        Account a = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert a;
-        
-        Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         c.AccountId = a.Id;
         insert c;       
 
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         r1.npe03__Installments__c = 2;
         r1.npe03__Organization__c = a.id;
         r1.npe03__Amount__c = 100;
@@ -814,10 +787,10 @@ private with sharing class RD_RecurringDonations_TEST2 {
     public static testMethod void testBTN(){
         if (strTestOnly != '*' && strTestOnly != 'testBTN') return;
 
-        Account a = new Account(Name = 'TestA');
+        Account a = new Account(Name = UTIL_UnitTestData_TEST.TEST_NAME);
         insert a;
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         r1.npe03__Installments__c = 2;
         r1.npe03__Organization__c = a.Id;
         r1.npe03__Amount__c = 100;
@@ -850,13 +823,11 @@ private with sharing class RD_RecurringDonations_TEST2 {
         
         UTIL_Debug.debug('multiply: ' + system.label.npe03.RecurringDonationMultiplyValue);
         UTIL_Debug.debug('divide: ' + system.label.npe03.RecurringDonationDivideValue);
-        Account a = new Account();
-        a.Name = 'test Individual';
+
+        Account a = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert a;
-        
-        Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         c.AccountId = a.Id;        
         insert c;
         
@@ -871,7 +842,7 @@ private with sharing class RD_RecurringDonations_TEST2 {
 
 
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'TestRD CFM Insert';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         r1.npe03__Installments__c = 2;
         r1.npe03__Contact__c = c.Id;
         r1.npe03__Amount__c = 100;
@@ -888,13 +859,13 @@ private with sharing class RD_RecurringDonations_TEST2 {
         }
 
         Test.startTest();
-            r1.name='TestRD CFM Update';
+            r1.name='TestRD CFM Update1';
             update r1;
         Test.stopTest();
 
         npe03__Recurring_Donation__c r2 = [select name from npe03__Recurring_Donation__c r1 where id=:r1.id];
 
-        system.assertEquals(r2.name,'TestRD CFM Update');
+        system.assertEquals(r2.name,'TestRD CFM Update1');
         //check that opps have picked up the upated value of the RD field set through custom field mapping
         Opportunity[] installments2 = [select Description from Opportunity where npe03__Recurring_Donation__c = :r1.id order by CloseDate];
         for(opportunity opp:installments2){
@@ -911,13 +882,11 @@ private with sharing class RD_RecurringDonations_TEST2 {
         
         UTIL_Debug.debug('multiply: ' + system.label.npe03.RecurringDonationMultiplyValue);
         UTIL_Debug.debug('divide: ' + system.label.npe03.RecurringDonationDivideValue);
-        Account a = new Account();
-        a.Name = 'test Individual';
+
+        Account a = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert a;
-        
-        Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         c.AccountId = a.Id;        
         insert c;
         
@@ -932,7 +901,7 @@ private with sharing class RD_RecurringDonations_TEST2 {
 
 
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'TestRD CFM Insert';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         r1.npe03__Contact__c = c.Id;
         r1.npe03__Amount__c = 100;
         r1.npe03__Installment_Period__c = system.label.npe03.RecurringDonationInstallmentPeriodMonthly;
@@ -949,13 +918,13 @@ private with sharing class RD_RecurringDonations_TEST2 {
         }
 
         Test.startTest();
-            r1.name='TestRD CFM Update';
+            r1.name='TestRD CFM Update2';
             update r1;
         Test.stopTest();
 
         npe03__Recurring_Donation__c r2 = [select name from npe03__Recurring_Donation__c r1 where id=:r1.id];
 
-        system.assertEquals(r2.name,'TestRD CFM Update');
+        system.assertEquals(r2.name,'TestRD CFM Update2');
         //check that opps have picked up the upated value of the RD field set through custom field mapping
         Opportunity[] installments2 = [select Description from Opportunity where npe03__Recurring_Donation__c = :r1.id order by CloseDate];
         system.assertNotEquals(0, installments2.size());
@@ -974,21 +943,18 @@ private with sharing class RD_RecurringDonations_TEST2 {
         npe03__Open_Opportunity_Behavior__c = RD_RecurringDonations.RecurringDonationCloseOptions.Delete_Open_Opportunities.name()        
         ));           
         
-        Account a = new Account();
-        a.Name = 'test Individual';
+        Account a = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert a;
-        
-        Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         c.AccountId = a.Id;
         insert c;       
         
-        Campaign camp = new Campaign(Name = 'MyTestCamp', isActive = true);
+        Campaign camp = new Campaign(Name = UTIL_UnitTestData_TEST.TEST_NAME, isActive = true);
         insert camp;
 
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'test';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         r1.npe03__Installments__c = 10;
         r1.npe03__Organization__c = a.id;
         r1.npe03__Amount__c = 100;
@@ -1035,10 +1001,7 @@ private with sharing class RD_RecurringDonations_TEST2 {
             npe03__Maximum_Donations__c = 50
             ));
 
-        Contact c = new Contact(
-            FirstName = 'test',
-            LastName = 'contact'
-        );
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         insert c;
         Account a = [SELECT Id FROM Account WHERE Id IN (SELECT AccountId FROM Contact WHERE Id = :c.Id) LIMIT 1];
 
@@ -1072,10 +1035,7 @@ private with sharing class RD_RecurringDonations_TEST2 {
                         npe03__Maximum_Donations__c = 50
                 ));
 
-        Contact c = new Contact(
-                FirstName = 'test',
-                LastName = 'contact'
-        );
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         insert c;
         Account a = [SELECT Id FROM Account WHERE Id IN (SELECT AccountId FROM Contact WHERE Id = :c.Id) LIMIT 1];
 
@@ -1130,10 +1090,7 @@ private with sharing class RD_RecurringDonations_TEST2 {
                         npe03__Maximum_Donations__c = 50
                 ));
 
-        Contact c = new Contact(
-                FirstName = 'test',
-                LastName = 'contact'
-        );
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         insert c;
         Account a = [SELECT Id FROM Account WHERE Id IN (SELECT AccountId FROM Contact WHERE Id = :c.Id) LIMIT 1];
 
@@ -1164,7 +1121,7 @@ private with sharing class RD_RecurringDonations_TEST2 {
     static testMethod void testOrphanedRd() {
         if (strTestOnly != '*' && strTestOnly != 'testOrphanedRd') return;
 
-        Contact con = new Contact(LastName='test');
+        Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
 
         List<npe03__Recurring_Donation__c> rdList = new List<npe03__Recurring_Donation__c>();
@@ -1177,7 +1134,7 @@ private with sharing class RD_RecurringDonations_TEST2 {
             npe03__Open_Ended_Status__c= Label.npe03.RecurringDonationOpenStatus
         ));
         rdList.add(new npe03__Recurring_Donation__c(
-            Name = 'test',
+            Name = UTIL_UnitTestData_TEST.TEST_NAME,
             npe03__Contact__c = con.id,
             npe03__Amount__c = 100,
             npe03__Installments__c = 2,
@@ -1223,22 +1180,19 @@ private with sharing class RD_RecurringDonations_TEST2 {
         
         //--------------------------------
         // Setup the Account
-        Account a = new Account();
-        a.Name = 'test Individual';
+        Account a = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert a;
-        
+
         //--------------------------------
         // Setup the Contact
-        Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         c.AccountId = a.Id;
         insert c;       
 
         //--------------------------------
         // Setup the Recurring Donation
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'TestRD';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         r1.npe03__Installments__c = 0;
         r1.npe03__Contact__c = c.Id;
         r1.npe03__Amount__c = 100;
@@ -1257,7 +1211,7 @@ private with sharing class RD_RecurringDonations_TEST2 {
         o.CloseDate = system.today();
         o.Amount = 50;
         o.AccountId = a.Id;
-        o.Name = 'test';
+        o.Name = UTIL_UnitTestData_TEST.TEST_NAME+'1';
         o.npe03__Recurring_Donation__c = r1.Id;
         
         //--------------------------------
@@ -1267,7 +1221,7 @@ private with sharing class RD_RecurringDonations_TEST2 {
         oppty2.CloseDate = system.today();
         oppty2.Amount = 100;
         oppty2.AccountId = a.Id;
-        oppty2.Name = 'test2';
+        oppty2.Name = UTIL_UnitTestData_TEST.TEST_NAME+'2';
         oppty2.npe03__Recurring_Donation__c = null;
 
         //--------------------------------
@@ -1313,22 +1267,19 @@ private with sharing class RD_RecurringDonations_TEST2 {
         
         //--------------------------------
         // Setup the Account
-        Account a = new Account();
-        a.Name = 'test Individual';
+        Account a = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert a;
-        
+
         //--------------------------------
         // Setup the Contact
-        Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         c.AccountId = a.Id;
         insert c;       
 
         //--------------------------------
         // Setup the First Recurring Donation
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'TestRD1';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME+'1';
         r1.npe03__Installments__c = 0;
         r1.npe03__Contact__c = c.Id;
         r1.npe03__Amount__c = 100;
@@ -1341,7 +1292,7 @@ private with sharing class RD_RecurringDonations_TEST2 {
         //--------------------------------
         // Setup the Second Recurring Donation
         npe03__Recurring_Donation__c r2 = new npe03__Recurring_Donation__c();
-        r2.Name = 'TestRD2';
+        r2.Name = UTIL_UnitTestData_TEST.TEST_NAME+'2';
         r2.npe03__Installments__c = 0;
         r2.npe03__Contact__c = c.Id;
         r2.npe03__Amount__c = 100;
@@ -1360,7 +1311,7 @@ private with sharing class RD_RecurringDonations_TEST2 {
         o.CloseDate = system.today();
         o.Amount = 50;
         o.AccountId = a.Id;
-        o.Name = 'test';
+        o.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         o.npe03__Recurring_Donation__c = r1.Id;
 
         //--------------------------------
@@ -1410,22 +1361,19 @@ private with sharing class RD_RecurringDonations_TEST2 {
         
         //--------------------------------
         // Setup the Account
-        Account a = new Account();
-        a.Name = 'test Individual';
+        Account a = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert a;
         
         //--------------------------------
         // Setup the Contact
-        Contact c = new Contact();
-        c.FirstName = 'test';
-        c.LastName = 'contact';
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         c.AccountId = a.Id;
         insert c;       
 
         //--------------------------------
         // Setup the First Recurring Donation
         npe03__Recurring_Donation__c r1 = new npe03__Recurring_Donation__c();
-        r1.Name = 'TestRD1';
+        r1.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         r1.npe03__Installments__c = 0;
         r1.npe03__Contact__c = c.Id;
         r1.npe03__Amount__c = 100;
@@ -1444,7 +1392,7 @@ private with sharing class RD_RecurringDonations_TEST2 {
         o.CloseDate = system.today();
         o.Amount = 50;
         o.AccountId = a.Id;
-        o.Name = 'test';
+        o.Name = UTIL_UnitTestData_TEST.TEST_NAME;
         o.npe03__Recurring_Donation__c = r1.Id;
 
         //--------------------------------

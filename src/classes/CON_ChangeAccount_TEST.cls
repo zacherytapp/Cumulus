@@ -283,12 +283,12 @@ public with sharing class CON_ChangeAccount_TEST {
         TDTM_DefaultConfig.startTestDataInit();
         
         // create our source account and contacts
-        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeSrc, 1, 2, 1);
+        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeSrc, 1, 2, 5);
         Account accSrc = UTIL_UnitTestData_TEST.listAccT[0];
         list<Contact> listConSrc = UTIL_UnitTestData_TEST.listConT;  
         
         // create our destination account and contacts
-        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeDst, 1, 2, 3);
+        UTIL_UnitTestData_TEST.createAccountContactTestData(accTypeDst, 1, 2, 7);
         Account accDst = UTIL_UnitTestData_TEST.listAccT[0];
         list<Contact> listConDst = UTIL_UnitTestData_TEST.listConT;        
         

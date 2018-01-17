@@ -33,7 +33,7 @@
 * @group Households
 * @description test class for Household naming functionality.
 */
-@isTest
+@isTest(IsParallel=true)
 public class HH_HouseholdNaming_TEST {
 
     /*********************************************************************************************************
@@ -368,9 +368,9 @@ public class HH_HouseholdNaming_TEST {
         insert accounts;
 
         List<Contact> contacts = new List<Contact>{
-            new Contact(FirstName = 'Alpha', LastName = 'A', AccountId = accounts[0].Id),
-            new Contact(FirstName = 'Beta', LastName = 'B', AccountId = accounts[1].Id),
-            new Contact(FirstName = 'Charlie', LastName = 'C', npe01__Private__c = true)
+            new Contact(FirstName = 'Alpha1', LastName = 'A', AccountId = accounts[0].Id),
+            new Contact(FirstName = 'Beta1', LastName = 'B', AccountId = accounts[1].Id),
+            new Contact(FirstName = 'Charlie1', LastName = 'C', npe01__Private__c = true)
         };
 
         // Execute Contact insert in start/stopTest() to complete Household future jobs
@@ -416,27 +416,30 @@ public class HH_HouseholdNaming_TEST {
     */
     public static testMethod void testCaseChanges() {
         if (strTestOnly != '*' && strTestOnly != 'testCaseChanges') return;
-  
-        Contact con = new Contact(firstname='joe', lastname='smith');
+
+        String firstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME;
+        String lastName = UTIL_UnitTestData_TEST.TEST_LASTNAME;
+
+        Contact con =new Contact(FirstName=firstName, LastName = lastName);
         insert con;
   
         Account hh = [select Id, Name, npo02__Formal_greeting__c, npo02__Informal_greeting__c from Account];
     
-        system.assertEquals('smith ' + system.label.npo02.DefaultHouseholdName, hh.Name);
-        system.assertEquals('joe smith', hh.npo02__Formal_greeting__c);
-        system.assertEquals('joe', hh.npo02__Informal_greeting__c);
+        system.assertEquals(lastName+ ' ' + system.label.npo02.DefaultHouseholdName, hh.Name);
+        system.assertEquals(firstName + ' ' + lastName, hh.npo02__Formal_greeting__c);
+        system.assertEquals(firstName, hh.npo02__Informal_greeting__c);
   
-        con.firstname = 'Joe';
-        con.lastname = 'Smith';
+        con.FirstName = con.FirstName.toLowerCase();
+        con.LastName = con.LastName.toLowerCase();
         Test.startTest();
         update con;
         Test.stopTest();
   
         hh = [select Id, Name, npo02__Formal_greeting__c, npo02__Informal_greeting__c from Account];
     
-        system.assertEquals('Smith ' + system.label.npo02.DefaultHouseholdName, hh.Name);
-        system.assertEquals('Joe Smith', hh.npo02__Formal_greeting__c);
-        system.assertEquals('Joe', hh.npo02__Informal_greeting__c);
+        system.assertEquals(lastName.toLowerCase() + ' ' + system.label.npo02.DefaultHouseholdName, hh.Name);
+        system.assertEquals(firstName.toLowerCase() + ' ' + lastName.toLowerCase(), hh.npo02__Formal_greeting__c);
+        system.assertEquals(firstName.toLowerCase(), hh.npo02__Informal_greeting__c);
     }
     
     /*********************************************************************************************************
@@ -444,14 +447,17 @@ public class HH_HouseholdNaming_TEST {
     */
     public static testMethod void testNamingOrder2() {
         if (strTestOnly != '*' && strTestOnly != 'testNamingOrder2') return;
+
+        String firstName = UTIL_UnitTestData_TEST.TEST_FIRSTNAME;
+        String lastName = UTIL_UnitTestData_TEST.TEST_LASTNAME;
   
-        Contact con0 = new Contact(FirstName='c0', LastName='smith');
+        Contact con0 = new Contact(FirstName=firstName+'1', LastName = lastName);
         insert con0;
         con0 = [Select Id, FirstName, LastName, AccountId from Contact];
         system.assertNotEquals(null, con0.AccountId);
-        
-        Contact con1 = new Contact(FirstName='c1', LastName='smith', AccountId=con0.AccountId);
-        Contact con2 = new Contact(FirstName='c2', LastName='smith', AccountId=con0.AccountId);
+
+        Contact con1 = new Contact(FirstName=firstName+'2', LastName = lastName, AccountId=con0.AccountId);
+        Contact con2 = new Contact(FirstName=firstName+'3', LastName = lastName, AccountId=con0.AccountId);
         Test.startTest();
         insert new list<Contact>{con1,con2};
         Test.stopTest();
@@ -460,20 +466,20 @@ public class HH_HouseholdNaming_TEST {
         Account hh = [select Id, Name, npo02__Formal_greeting__c, npo02__Informal_greeting__c, npe01__One2OneContact__c, Number_of_Household_Members__c from Account];
         system.assertEquals(con0.Id, hh.npe01__One2OneContact__c);
         system.assertEquals(3, hh.Number_of_Household_Members__c);
-        system.assertEquals('smith ' + system.label.npo02.DefaultHouseholdName, hh.Name);
-        system.assertEquals('c0, c1 and c2 smith', hh.npo02__Formal_greeting__c);
-        system.assertEquals('c0, c1 and c2', hh.npo02__Informal_greeting__c);
-  
+        system.assertEquals(lastName + ' ' + system.label.npo02.DefaultHouseholdName, hh.Name);
+        system.assertEquals(con0.Firstname + ', ' + con1.FirstName + ' and ' + con2.FirstName + ' ' + lastname, hh.npo02__Formal_greeting__c);
+        system.assertEquals(con0.Firstname + ', ' + con1.FirstName + ' and ' + con2.FirstName, hh.npo02__Informal_greeting__c);
+
         con1.npo02__Household_Naming_Order__c = 0;
         update con1;
 
         // naming order overrides primary contact  
         hh = [select Id, Name, npo02__Formal_greeting__c, npo02__Informal_greeting__c, npe01__One2OneContact__c from Account];
         system.assertEquals(con0.Id, hh.npe01__One2OneContact__c);
-        system.assertEquals('smith ' + system.label.npo02.DefaultHouseholdName, hh.Name);
-        system.assertEquals('c1, c0 and c2 smith', hh.npo02__Formal_greeting__c);
-        system.assertEquals('c1, c0 and c2', hh.npo02__Informal_greeting__c);
-  
+        system.assertEquals(lastName + ' ' + system.label.npo02.DefaultHouseholdName, hh.Name);
+        system.assertEquals(con1.Firstname + ', ' + con0.FirstName + ' and ' + con2.FirstName + ' ' + lastname, hh.npo02__Formal_greeting__c);
+        system.assertEquals(con1.Firstname + ', ' + con0.FirstName + ' and ' + con2.FirstName, hh.npo02__Informal_greeting__c);
+
     }
 
     /*********************************************************************************************************
@@ -671,10 +677,10 @@ public class HH_HouseholdNaming_TEST {
         insert hhs;
 
         List<Contact> contacts = new List<Contact>{
-            new Contact(FirstName = 'Alpha', LastName = 'A', AccountId = accounts[0].Id),
-            new Contact(FirstName = 'Beta', LastName = 'B', AccountId = accounts[1].Id, npo02__Household__c = hhs[0].Id),
-            new Contact(FirstName = 'Charlie', LastName = 'C', AccountId = accounts[2].Id),
-            new Contact(FirstName = 'Delta', LastName = 'D', npe01__Private__c = true)
+            new Contact(FirstName = 'Alpha2', LastName = 'A', AccountId = accounts[0].Id),
+            new Contact(FirstName = 'Beta2', LastName = 'B', AccountId = accounts[1].Id, npo02__Household__c = hhs[0].Id),
+            new Contact(FirstName = 'Charlie2', LastName = 'C', AccountId = accounts[2].Id),
+            new Contact(FirstName = 'Delta2', LastName = 'D', npe01__Private__c = true)
         };
 
         // Execute Contact insert in start/stopTest() to complete Household future jobs
@@ -727,7 +733,7 @@ public class HH_HouseholdNaming_TEST {
         
         for (Integer i = 0; i < size; i++) {
             accounts.add(new Account(
-                Name = 'ACC' + i, 
+                Name = UTIL_UnitTestData_TEST.TEST_NAME + i,
                 npe01__SYSTEM_AccountType__c = accountType
             ));
         }
@@ -745,7 +751,7 @@ public class HH_HouseholdNaming_TEST {
         
         for (Integer i = 0; i < size; i++) {
             hhs.add(new npo02__Household__c(
-                Name = 'HH' + i
+                Name = UTIL_UnitTestData_TEST.TEST_NAME + i
             ));
         }
         

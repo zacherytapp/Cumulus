@@ -47,16 +47,16 @@ public with sharing class ERR_AddError_TEST {
     	    delete errorSettings;
     	}
     	
-        Account acc1 = new Account(Name='testAcc1');
-        Account acc2 = new Account(Name='testAcc2');
-        Account acc3 = new Account(Name='testAcc3');
-        Account acc4 = new Account(Name='testAcc4');     
+        Account acc1 = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME + '1');
+        Account acc2 = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME + '2');
+        Account acc3 = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME + '3');
+        Account acc4 = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME + '4');
         insert new Account[] {acc1, acc2, acc3, acc4};
         
-        Contact contact1 = new Contact(FirstName = 'test1', LastName = 'testerson', AccountId = acc1.Id, Title = 'VP');
-        Contact contact2 = new Contact(FirstName = 'test2', LastName = 'testerson', AccountId = acc2.Id, Title = 'VP');
-        Contact contact3 = new Contact(FirstName = 'test3', LastName = 'testerson', AccountId = acc3.Id, Title = 'VP');
-        Contact contact4 = new Contact(FirstName = 'test3', LastName = 'testerson', AccountId = acc4.Id, Title = 'VP');
+        Contact contact1 = new Contact(FirstName = 'test1', LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME, AccountId = acc1.Id, Title = 'VP');
+        Contact contact2 = new Contact(FirstName = 'test2', LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME, AccountId = acc2.Id, Title = 'VP');
+        Contact contact3 = new Contact(FirstName = 'test3', LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME, AccountId = acc3.Id, Title = 'VP');
+        Contact contact4 = new Contact(FirstName = 'test3', LastName = UTIL_UnitTestData_TEST.TEST_LASTNAME, AccountId = acc4.Id, Title = 'VP');
         Contact[] contacts = new Contact[] {contact1, contact2, contact3, contact4};
         
         delete new Account[] {acc2, acc4};

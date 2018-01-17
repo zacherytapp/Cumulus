@@ -556,8 +556,6 @@ public class UTIL_UnitTestData_TEST {
     **********************************************************************************************************/
     public static void createAccountContactTestData(string accType, integer cAcc, integer cCon, integer iUnique) {
         
-        //npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettings();
-            
         listConT = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(cAcc * cCon);
         listAccT = UTIL_UnitTestData_TEST.CreateMultipleTestAccounts(cAcc, accType);
         insert listAccT;
@@ -565,16 +563,19 @@ public class UTIL_UnitTestData_TEST {
         // set each contact's account, and give them a unique name and mailing address
         for (integer i = 0; i < cAcc; i++) {
             for (integer j = 0; j < cCon; j++) {
-            	integer iCon = (i * cCon) + j;
-            	Contact con = listConT[iCon]; 
-            	con.Firstname = 'TestFirstname' + iUnique + iCon;
+                integer iCon = (i * cCon) + j;
+                Contact con = listConT[iCon];
+                con.Firstname = 'TestFirstname.' + iUnique + iCon;
                 con.Lastname = 'TestLastname' + iUnique + iCon;
                 con.AccountId = listAccT[i].Id;
                 con.MailingStreet = 'Street' + iUnique + iCon;
                 con.MailingCity = 'City' + iUnique + iCon;
             }
         }        
-        insert listConT;
+        Database.DMLOptions dmlOptions = new Database.DMLOptions();
+        dmlOptions.optAllOrNone = true;
+        dmlOptions.DuplicateRuleHeader.AllowSave = true;
+        Database.insert(listConT, dmlOptions);
     }
 
     private static testMethod void testCreateNewUserWithDefaultRole() {

@@ -119,7 +119,7 @@ private class BDE_BatchEntry_TEST {
         ext.initializeBatchEntry();
         
         //test deletion
-        Account a = new Account(Name='TestAcct');       
+        Account a = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         insert a;
         ext.itemList = new list<BDE_BatchEntry_CTRL.BatchItem>(); 
         ext.itemList.add(new BDE_BatchEntry_CTRL.BatchItem(ext, a));
@@ -145,9 +145,9 @@ private class BDE_BatchEntry_TEST {
     static testMethod void testOtherConfig(){
         Batch__c b = new Batch__c(Name = 'Opp Batch', Object_Name__c = 'opportunity');
         insert b;
-        Opportunity oppinbatch = new Opportunity(Name='MyTestOpp', CloseDate=system.today(), StageName='Closed Won', Batch__c = b.id);
+        Opportunity oppinbatch = new Opportunity(Name=UTIL_UnitTestData_TEST.TEST_NAME, CloseDate=system.today(), StageName='Closed Won', Batch__c = b.id);
         insert oppinbatch;
-        Contact c = new Contact(Lastname = 'OCRLastName');
+        Contact c = UTIL_UnitTestData_TEST.getContact();
         insert c;
         OpportunityContactRole ocr = new OpportunityContactRole(OpportunityID = oppinbatch.id, ContactID = c.id);
         insert ocr;
