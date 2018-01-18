@@ -50,14 +50,14 @@ private with sharing class EP_EngagementPlans_TEST {
         insert con;
 
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(
-            Name = 'Template',
+            Name = 'TemplateDependentPlan',
             Skip_Weekends__c = false,
             Default_Assignee__c = EP_EngagementPlans_UTIL.BLANK_ASSIGNMENT_USER_CREATING
         );
         insert template;
 
         Engagement_Plan_Task__c epTask = new Engagement_Plan_Task__c(
-            Name = 'Call',
+            Name = 'Call' + UTIL_UnitTestData_TEST.TEST_NAME,
             Engagement_Plan_Template__c = template.id,
             Assigned_To__c = otherUserId,
             Comments__c = 'This comment should be copied correctly to the Task.',
@@ -70,7 +70,7 @@ private with sharing class EP_EngagementPlans_TEST {
         insert epTask;
 
         Engagement_Plan_Task__c dependentEpTask = new Engagement_Plan_Task__c(
-            Name = 'Email',
+            Name = 'Email' + UTIL_UnitTestData_TEST.TEST_NAME,
             Engagement_Plan_Template__c = template.id,
             Parent_Task__c = epTask.id,
             Comments__c = 'This comment should also be copied correctly to the Task.',
@@ -125,7 +125,7 @@ private with sharing class EP_EngagementPlans_TEST {
         insert con;
 
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(
-            Name = 'TemplateSkipWeekends',
+            Name = 'TemplateSkipWeekendsMonday',
             Skip_Weekends__c = true,
             Reschedule_To__c = EP_EngagementPlans_UTIL.SKIP_DAY_MONDAY,
             Default_Assignee__c = EP_EngagementPlans_UTIL.BLANK_ASSIGNMENT_USER_CREATING
@@ -133,7 +133,7 @@ private with sharing class EP_EngagementPlans_TEST {
         insert template;
 
         Engagement_Plan_Task__c epTask = new Engagement_Plan_Task__c(
-            Name = 'Call',
+            Name = 'Call' + UTIL_UnitTestData_TEST.TEST_NAME,
             Engagement_Plan_Template__c = template.id,
             Comments__c = 'This comment should be copied correctly to the Task.',
             Reminder__c = true,
@@ -189,14 +189,14 @@ private with sharing class EP_EngagementPlans_TEST {
         insert con;
 
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(
-            Name = 'TemplateSkipWeekends',
+            Name = 'TemplateSkipWeekendsFriday',
             Skip_Weekends__c = true,
             Reschedule_To__c = EP_EngagementPlans_UTIL.SKIP_DAY_FRIDAY
         );
         insert template;
 
         Engagement_Plan_Task__c epTask = new Engagement_Plan_Task__c(
-            Name = 'Call',
+            Name = 'Call' + UTIL_UnitTestData_TEST.TEST_NAME,
             Engagement_Plan_Template__c = template.id,
             Comments__c = 'This comment should be copied correctly to the Task.',
             Reminder__c = true,
@@ -261,7 +261,7 @@ private with sharing class EP_EngagementPlans_TEST {
         insert template;
 
         Engagement_Plan_Task__c epTask = new Engagement_Plan_Task__c(
-            Name = 'Call',
+            Name = 'Call' + UTIL_UnitTestData_TEST.TEST_NAME,
             Engagement_Plan_Template__c = template.id,
             Type__c = 'Call',
             Priority__c = 'Medium'
@@ -289,7 +289,7 @@ private with sharing class EP_EngagementPlans_TEST {
     */
     static testMethod void testPlanWithoutLookup() {
 
-        Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(Name = 'Template');
+        Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(Name = 'TemplatePlanWithoutLookup');
         insert template;
 
         Engagement_Plan__c plan = new Engagement_Plan__c(
@@ -320,7 +320,7 @@ private with sharing class EP_EngagementPlans_TEST {
         Contact con = UTIL_UnitTestData_TEST.getContact();
         con.AccountId = acc.Id;
         insert con;
-        Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(Name = 'Template');
+        Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(Name = 'TemplatePlanWithTwoLookups');
         insert template;
 
         Engagement_Plan__c plan = new Engagement_Plan__c(
@@ -350,7 +350,7 @@ private with sharing class EP_EngagementPlans_TEST {
         Account acc = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME+'1');
         Account acc2 = new Account(Name=UTIL_UnitTestData_TEST.TEST_NAME+'2');
         insert new List<Account>{acc,acc2};
-        Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(Name = 'Template');
+        Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(Name = 'TemplatePlanUpdate');
         insert template;
 
         Engagement_Plan__c plan = new Engagement_Plan__c(

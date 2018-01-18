@@ -349,7 +349,7 @@ public class UTIL_UnitTestData_TEST {
         List<Engagement_Plan_Template__c> EPTemplatesToAdd = New List<Engagement_Plan_Template__c>();
         
         for (integer i=0 ;i<n; i++) {
-            EPTemplatesToAdd.add(new Engagement_Plan_Template__c(Name = 'Test ' + i));
+            EPTemplatesToAdd.add(new Engagement_Plan_Template__c(Name = 'Test ' + getUniqueString() + i));
         }
         
         return EPTemplatesToAdd;

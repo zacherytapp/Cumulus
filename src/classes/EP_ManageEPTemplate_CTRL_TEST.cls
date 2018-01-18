@@ -158,7 +158,7 @@ private with sharing class EP_ManageEPTemplate_CTRL_TEST {
         EP_ManageEPTemplate_CTRL ctrl = new EP_ManageEPTemplate_CTRL(new ApexPages.StandardController(template));
 
         String templateName = ctrl.template.Name;
-        ctrl.template.Name += ' - Test Save';
+        ctrl.template.Name += ' - Test Save1';
 
         ctrl.getTaskTree();
         ctrl.addTask();
@@ -194,16 +194,16 @@ private with sharing class EP_ManageEPTemplate_CTRL_TEST {
         EP_ManageEPTemplate_CTRL ctrl = new EP_ManageEPTemplate_CTRL(new ApexPages.StandardController(template));
 
         String templateName = ctrl.template.Name;
-        ctrl.template.Name += ' - Test Save';
+        ctrl.template.Name += ' - Test Save2';
 
         ctrl.getTaskTree();
         ctrl.addTask();
         ctrl.getTaskTree();
-        ctrl.mapTaskWrappers.get('2').detail.put('Name', 'foo');
+        ctrl.mapTaskWrappers.get('2').detail.put('Name', 'foo2');
 
         ctrl.addTask();
         ctrl.getTaskTree();
-        ctrl.mapTaskWrappers.get('3').detail.put('Name', 'bar');
+        ctrl.mapTaskWrappers.get('3').detail.put('Name', 'bar2');
 
         ctrl.currentTaskLevel = '1-1';
         ctrl.deleteTask();
@@ -247,7 +247,7 @@ private with sharing class EP_ManageEPTemplate_CTRL_TEST {
         EP_ManageEPTemplate_CTRL ctrl = new EP_ManageEPTemplate_CTRL(new ApexPages.StandardController(template));
 
         ctrl.getTaskTree();
-        ctrl.mapTaskWrappers.get('1').detail.put('Name', epTask.Name + ' - Test Update');
+        ctrl.mapTaskWrappers.get('1').detail.put('Name', epTask.Name + ' - Test Update3');
 
         // Cause an error on update
         Id parentTaskId = ctrl.mapTaskWrappers.get('1').detail.Parent_Task__c;
@@ -255,7 +255,7 @@ private with sharing class EP_ManageEPTemplate_CTRL_TEST {
 
         ctrl.addTask();
         ctrl.getTaskTree();
-        ctrl.mapTaskWrappers.get('2').detail.put('Name', 'foo');
+        ctrl.mapTaskWrappers.get('2').detail.put('Name', 'foo3');
 
         ctrl.currentTaskLevel = '2';
         ctrl.addDependentTask();
@@ -264,7 +264,7 @@ private with sharing class EP_ManageEPTemplate_CTRL_TEST {
 
         ctrl.addTask();
         ctrl.getTaskTree();
-        ctrl.mapTaskWrappers.get('3').detail.put('Name', 'bar');
+        ctrl.mapTaskWrappers.get('3').detail.put('Name', 'bar3');
 
         PageReference retPage = ctrl.saveClose();
 
@@ -324,7 +324,7 @@ private with sharing class EP_ManageEPTemplate_CTRL_TEST {
      */
     private static Engagement_Plan_Template__c createTemplate() {
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(
-            Name = 'Template'+UTIL_UnitTestData_TEST.getUniqueString(),
+            Name = 'Template' + UTIL_UnitTestData_TEST.TEST_NAME,
             Skip_Weekends__c = false,
             Default_Assignee__c = EP_EngagementPlans_UTIL.BLANK_ASSIGNMENT_USER_CREATING
         );
@@ -340,7 +340,7 @@ private with sharing class EP_ManageEPTemplate_CTRL_TEST {
      */
     private static Engagement_Plan_Task__c createTask(Id templateId) {
         Engagement_Plan_Task__c epTask = new Engagement_Plan_Task__c(
-            Name = 'Call',
+            Name = 'Call' + UTIL_UnitTestData_TEST.TEST_NAME,
             Engagement_Plan_Template__c = templateId,
             Comments__c = 'This comment should be copied correctly to the Task.',
             Reminder__c = true,
@@ -363,7 +363,7 @@ private with sharing class EP_ManageEPTemplate_CTRL_TEST {
      */
     private static Engagement_Plan_Task__c createDependentTask(Id templateId, Id parentTaskId) {
         Engagement_Plan_Task__c dependentEpTask = new Engagement_Plan_Task__c(
-            Name = 'Email',
+            Name = 'Email' + UTIL_UnitTestData_TEST.TEST_NAME,
             Engagement_Plan_Template__c = templateId,
             Parent_Task__c = parentTaskId,
             Comments__c = 'This comment should also be copied correctly to the Task.',

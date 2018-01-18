@@ -33,9 +33,9 @@
 * @group Households
 * @description This class contains unit tests for validating the behavior of the Households class 
 */
-@isTest(isParallel=true)
+@isTest
 public class HH_Households_TEST {
-	
+
     /*********************************************************************************************************
     * @description Tests default constructor
     */

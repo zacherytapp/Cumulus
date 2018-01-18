@@ -50,7 +50,7 @@ private with sharing class EP_TaskDependency_TEST {
         insert con;
 
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(
-            Name = 'Template',
+            Name = 'TemplateDependentPlan2',
             Skip_Weekends__c = false,
             Default_Assignee__c = EP_EngagementPlans_UTIL.BLANK_ASSIGNMENT_USER_CREATING,
             Automatically_Update_Child_Task_Due_Date__c = true
@@ -58,7 +58,7 @@ private with sharing class EP_TaskDependency_TEST {
         insert template;
 
         Engagement_Plan_Task__c epTask = new Engagement_Plan_Task__c(
-            Name = 'Call',
+            Name = 'Call' + UTIL_UnitTestData_TEST.TEST_NAME,
             Engagement_Plan_Template__c = template.id,
             Comments__c = 'This comment should be copied correctly to the Task.',
             Reminder__c = true,
@@ -71,7 +71,7 @@ private with sharing class EP_TaskDependency_TEST {
 
         List<Engagement_Plan_Task__c> childEpTasks = new List<Engagement_Plan_Task__c>();
         childEpTasks.add(new Engagement_Plan_Task__c(
-            Name = 'Email',
+            Name = 'Email' + UTIL_UnitTestData_TEST.TEST_NAME,
             Engagement_Plan_Template__c = template.id,
             Parent_Task__c = epTask.id,
             Comments__c = 'This comment should also be copied correctly to the Task.',
@@ -82,7 +82,7 @@ private with sharing class EP_TaskDependency_TEST {
             Priority__c = 'Low'
         ));
         childEpTasks.add(new Engagement_Plan_Task__c(
-            Name = 'Meeting',
+            Name = 'Meeting' + UTIL_UnitTestData_TEST.TEST_NAME,
             Engagement_Plan_Template__c = template.id,
             Parent_Task__c = epTask.id,
             Comments__c = 'This comment should also be copied correctly to the Task.',
@@ -95,7 +95,7 @@ private with sharing class EP_TaskDependency_TEST {
         insert childEpTasks;
 
         Engagement_Plan_Task__c grandchildEpTask = new Engagement_Plan_Task__c(
-            Name = 'Other',
+            Name = 'Other' + UTIL_UnitTestData_TEST.TEST_NAME,
             Engagement_Plan_Template__c = template.id,
             Parent_Task__c = childEpTasks[0].id,
             Comments__c = 'This comment should also be copied correctly to the Task.',
@@ -117,10 +117,10 @@ private with sharing class EP_TaskDependency_TEST {
                             IsReminderSet, ReminderDateTime FROM Task WHERE WhoId = :con.id ORDER BY ActivityDate];
         System.assertEquals(4, results.size(), 'Four tasks should be created.');
 
-        System.assertEquals('Call', results[0].Subject, 'Subject field should be set based on EP Task Name.');
-        System.assertEquals('Email', results[1].Subject, 'Subject field should be set based on EP Task Name.');
-        System.assertEquals('Meeting', results[2].Subject, 'Subject field should be set based on EP Task Name.');
-        System.assertEquals('Other', results[3].Subject, 'Subject field should be set based on EP Task Name.');
+        System.assertEquals('Call' + UTIL_UnitTestData_TEST.TEST_NAME, results[0].Subject, 'Subject field should be set based on EP Task Name.');
+        System.assertEquals('Email' + UTIL_UnitTestData_TEST.TEST_NAME, results[1].Subject, 'Subject field should be set based on EP Task Name.');
+        System.assertEquals('Meeting' + UTIL_UnitTestData_TEST.TEST_NAME, results[2].Subject, 'Subject field should be set based on EP Task Name.');
+        System.assertEquals('Other' + UTIL_UnitTestData_TEST.TEST_NAME, results[3].Subject, 'Subject field should be set based on EP Task Name.');
         
         System.assertEquals(System.Today(), results[0].ActivityDate, 'Activity Date should be today.');
         System.assertEquals(System.Today().addDays(1), results[1].ActivityDate, 'Activity Date one day from today.');
@@ -166,7 +166,7 @@ private with sharing class EP_TaskDependency_TEST {
         insert con;
 
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(
-            Name = 'Template',
+            Name = 'TemplateDelayType',
             Skip_Weekends__c = false,
             Default_Assignee__c = EP_EngagementPlans_UTIL.BLANK_ASSIGNMENT_USER_CREATING,
             Automatically_Update_Child_Task_Due_Date__c = false
@@ -174,7 +174,7 @@ private with sharing class EP_TaskDependency_TEST {
         insert template;
 
         Engagement_Plan_Task__c epTask = new Engagement_Plan_Task__c(
-            Name = 'Call',
+            Name = 'Call' + UTIL_UnitTestData_TEST.TEST_NAME,
             Engagement_Plan_Template__c = template.id,
             Comments__c = 'This comment should be copied correctly to the Task.',
             Reminder__c = true,
@@ -186,7 +186,7 @@ private with sharing class EP_TaskDependency_TEST {
         insert epTask;
 
         Engagement_Plan_Task__c childEpTask = new Engagement_Plan_Task__c(
-            Name = 'Email',
+            Name = 'Email' + UTIL_UnitTestData_TEST.TEST_NAME,
             Engagement_Plan_Template__c = template.id,
             Parent_Task__c = epTask.id,
             Comments__c = 'This comment should also be copied correctly to the Task.',
@@ -208,8 +208,8 @@ private with sharing class EP_TaskDependency_TEST {
                             IsReminderSet, ReminderDateTime FROM Task WHERE WhoId = :con.id ORDER BY ActivityDate];
         System.assertEquals(2, results.size(), 'Two tasks should be created.');
 
-        System.assertEquals('Call', results[0].Subject, 'Subject field should be set based on EP Task Name.');
-        System.assertEquals('Email', results[1].Subject, 'Subject field should be set based on EP Task Name.');
+        System.assertEquals('Call' + UTIL_UnitTestData_TEST.TEST_NAME, results[0].Subject, 'Subject field should be set based on EP Task Name.');
+        System.assertEquals('Email' + UTIL_UnitTestData_TEST.TEST_NAME, results[1].Subject, 'Subject field should be set based on EP Task Name.');
 
         System.assertEquals(System.Today(), results[0].ActivityDate, 'Activity Date should be today.');
         System.assertEquals(System.Today().addDays(1), results[1].ActivityDate, 'Activity Date one day from today.');
@@ -241,7 +241,7 @@ private with sharing class EP_TaskDependency_TEST {
         insert con;
 
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(
-            Name = 'Template',
+            Name = 'TemplateDeletedPlan',
             Skip_Weekends__c = false,
             Default_Assignee__c = EP_EngagementPlans_UTIL.BLANK_ASSIGNMENT_USER_CREATING,
             Automatically_Update_Child_Task_Due_Date__c = false
@@ -249,7 +249,7 @@ private with sharing class EP_TaskDependency_TEST {
         insert template;
 
         Engagement_Plan_Task__c epTask = new Engagement_Plan_Task__c(
-            Name = 'Call',
+            Name = 'Call' + UTIL_UnitTestData_TEST.TEST_NAME,
             Engagement_Plan_Template__c = template.id,
             Comments__c = 'This comment should be copied correctly to the Task.',
             Reminder__c = true,
@@ -261,7 +261,7 @@ private with sharing class EP_TaskDependency_TEST {
         insert epTask;
 
         Engagement_Plan_Task__c childEpTask = new Engagement_Plan_Task__c(
-            Name = 'Email',
+            Name = 'Email' + UTIL_UnitTestData_TEST.TEST_NAME,
             Engagement_Plan_Template__c = template.id,
             Parent_Task__c = epTask.id,
             Comments__c = 'This comment should also be copied correctly to the Task.',
@@ -316,13 +316,13 @@ private with sharing class EP_TaskDependency_TEST {
         insert con;
 
         Engagement_Plan_Template__c template = new Engagement_Plan_Template__c(
-            Name = 'Template',
+            Name = 'TemplateDeleteDependentTask',
             Default_Assignee__c = EP_EngagementPlans_UTIL.BLANK_ASSIGNMENT_USER_CREATING
         );
         insert template;
 
         Engagement_Plan_Task__c epTask = new Engagement_Plan_Task__c(
-            Name = 'Call',
+            Name = 'Call' + UTIL_UnitTestData_TEST.TEST_NAME,
             Engagement_Plan_Template__c = template.id,
             Comments__c = 'This comment should be copied correctly to the Task.',
             Reminder__c = true,
@@ -334,7 +334,7 @@ private with sharing class EP_TaskDependency_TEST {
         insert epTask;
 
         Engagement_Plan_Task__c dependentEpTask = new Engagement_Plan_Task__c(
-            Name = 'Email',
+            Name = 'Email' + UTIL_UnitTestData_TEST.TEST_NAME,
             Engagement_Plan_Template__c = template.id,
             Parent_Task__c = epTask.id,
             Comments__c = 'This comment should also be copied correctly to the Task.',
