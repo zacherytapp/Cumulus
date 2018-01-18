@@ -34,7 +34,7 @@
 * @group-content ../../ApexDocContent/Opportunity.htm
 * @description Test class for Opportunity Naming.
 */
-@isTest(isParallel=True)
+@isTest
 private class OPP_OpportunityNaming_TEST {
     /*********************************************************************************************************
     * @description If you only want to run a single test in this class, fill in its name here.

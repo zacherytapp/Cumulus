@@ -34,7 +34,7 @@
 * @description tests specific to the Household Account model 
 */
 
-@isTest(IsParallel=true)
+@isTest
 private with sharing class ACCT_HHAccounts_TEST {
 
     /*********************************************************************************************************

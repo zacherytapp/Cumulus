@@ -33,7 +33,7 @@
 * @group Households
 * @description test class for Household naming functionality.
 */
-@isTest(IsParallel=true)
+@isTest
 public class HH_HouseholdNaming_TEST {
 
     /*********************************************************************************************************

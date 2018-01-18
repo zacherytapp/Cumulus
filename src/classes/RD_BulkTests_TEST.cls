@@ -33,7 +33,7 @@
 * @group Recurring Donations
 * @description Test code for larger data volumes.
 */
-@isTest(IsParallel=true)
+@isTest
 public class RD_BulkTests_TEST {
 
     /*******************************************************************************************************

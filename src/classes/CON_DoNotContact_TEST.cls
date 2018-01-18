@@ -34,7 +34,7 @@
 * @group-content ../../ApexDocContent/Contacts.htm
 * @description Handles changes to the deceased and do not contact fields on Contact.
 */
-@isTest(isParallel=True)
+@isTest
 private class CON_DoNotContact_TEST {
 
     /*********************************************************************************************************

@@ -33,7 +33,7 @@
 * @group Utilities
 * @description Tests for cascade delete of Contacts
 */
-@isTest(IsParallel=true)
+@isTest
 private class CON_CascadeDeleteLookups_TEST {
 
     /*********************************************************************************************************
