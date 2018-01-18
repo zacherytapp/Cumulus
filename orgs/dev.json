@@ -1,7 +1,7 @@
 {
   "orgName": "NPSP - Dev Workspace",
   "edition": "Developer",
-  "hasSampleData": "false",
+  "hasSampleData": "true",
   "orgPreferences" : {
     "enabled": [
       "ChatterEnabled",
