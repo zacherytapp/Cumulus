@@ -83,6 +83,9 @@
         <members>CAM_CascadeDeleteLookups_TDTM</members>
         <members>CAM_CascadeDeleteLookups_TEST</members>
         <members>CAO_Constants</members>
+        <members>CDL_CascadeDeleteLookups</members>
+        <members>CDL_CascadeDeleteLookups_TDTM</members>
+        <members>CDL_CascadeDeleteLookups_TEST</members>
         <members>CONV_Account_Conversion_BATCH</members>
         <members>CONV_Account_Conversion_BATCH_TEST</members>
         <members>CONV_Account_Conversion_CTRL</members>
@@ -299,8 +302,6 @@
         <members>USER_UserService</members>
         <members>USER_UserService_TEST</members>
         <members>UTIL_AbstractRollup_BATCH</members>
-        <members>UTIL_CascadeDeleteLookups_TDTM</members>
-        <members>UTIL_CascadeDeleteLookups_TDTM_TEST</members>
         <members>UTIL_Currency</members>
         <members>UTIL_Currency_TEST</members>
         <members>UTIL_CustomSettingsFacade</members>
@@ -1538,6 +1539,7 @@
         <members>stgHelpPrimaryContactBatch</members>
         <members>stgHelpRDAddCampaign</members>
         <members>stgHelpRDBatch</members>
+        <members>stgHelpRDBatchSize</members>
         <members>stgHelpRDDisableScheduling</members>
         <members>stgHelpRDFailures</members>
         <members>stgHelpRDFieldMap</members>
