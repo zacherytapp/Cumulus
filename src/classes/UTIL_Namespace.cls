@@ -144,9 +144,7 @@ public class UTIL_Namespace {
     ********************************************************************************************************/
     public static boolean isCustomerOrg() {
         try {
-            if (!String.isEmpty(UTIL_Namespace.getNamespace()) && System.requestVersion() != null) {
-                return true;
-            }
+            return UserInfo.isCurrentUserLicensed('npsp');
         } catch (Exception ex) {}
         return false;
     }
