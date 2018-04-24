@@ -41,14 +41,15 @@ public class UTIL_Namespace {
     * @description String helper property for getNamespace() method.
     *******************************************************************************************************/
     private static string plainNamespace;
+
     /*******************************************************************************************************
     * @description Finds the namespace for the current context.
     * @return string The current namespace as a string, or a blank string if we're not in a namespaced context.
     ********************************************************************************************************/
-    public static string getNamespace() {       
+    public static string getNamespace() {
         if (plainNamespace == null) {
-            string withDotNotation = UTIL_Namespace.class.getName();  
-        
+            string withDotNotation = UTIL_Namespace.class.getName();
+
             if (withDotNotation.contains('.')) {
                 plainNamespace = withDotNotation.substringBefore('.');
             } else {
@@ -136,5 +137,17 @@ public class UTIL_Namespace {
           email = email.replace('=', '@');
         }
         return email;
+    }
+
+    /*******************************************************************************************************
+    * @description Returns true if the package is currently installed in an org as a managed package
+    ********************************************************************************************************/
+    public static boolean isCustomerOrg() {
+        try {
+            if (!String.isEmpty(UTIL_Namespace.getNamespace()) && System.requestVersion() != null) {
+                return true;
+            }
+        } catch (Exception ex) {}
+        return false;
     }
 }
