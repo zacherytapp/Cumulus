@@ -1,0 +1,25 @@
+<aura:component description="DEMO_BGE_FieldOptionGrid">
+  <aura:attribute name="data" type="Object[]" default="[
+            { object: 'Contact', label: 'First Name', default: '', required: false, hide: false },
+            { object: 'Contact', label: 'Last Name',  default: '', required: false, hide: false }
+        ]"/>
+  <aura:attribute name="columns" type="List" default="[
+            { label: 'Object', fieldName: 'object', type: 'text' },
+            { label: 'Field', fieldName: 'label', type: 'text' },
+            { label: 'Default Value', fieldName: 'default', type: 'text', editable: true },
+            { label: 'Required', fieldName: 'required', type: 'boolean', editable: true },
+            { label: 'Hide', fieldName: 'hide', type: 'boolean', editable: true }
+        ]"/>
+  <div class="slds-grid slds-grid--align-center">
+    <div class="slds-size_1-of-1 slds-m-around--medium">
+      <h1 class="slds-text-heading--small slds-m-bottom--small">Set Field Options</h1>
+      <div style="height: 300px">
+        <lightning:datatable
+            columns="{!v.columns}"
+            data="{!v.data}"
+            keyField="label"
+            hideCheckboxColumn="true"/>
+      </div>
+    </div>
+  </div>
+</aura:component>

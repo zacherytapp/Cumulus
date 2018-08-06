@@ -1,0 +1,56 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:lightningQuickAction,lightning:actionOverride"
+                access="public">
+  <aura:attribute name="eventStepNumber" type="Integer" default="1"/>
+  <aura:attribute name="step" type="String" default="step1" />
+
+  <!-- Begin Markup -->
+  <div class="slds-grid slds-grid--align-center">
+    <div class="slds-size_3-of-5 slds-m-around--medium">
+
+      <!--Header-->
+      <div class="slds-text-align--center slds-m-vertical--medium">
+        <h2 class="slds-text-heading--medium">Configure Template</h2>
+      </div>
+
+      <!--Progress Indicator-->
+      <lightning:progressIndicator currentStep="{!v.step}" type="base" hasError="false" variant="base">
+        <lightning:progressStep label="Set Up Template" value="step1"/>
+        <lightning:progressStep label="Select Fields" value="step2"/>
+        <lightning:progressStep label="Configure Fields" value="step3"/>
+      </lightning:progressIndicator>
+
+      <!--Content Body-->
+      <div>
+        <div class="slds-p-horizontal_medium">
+          <div class="{!v.eventStepNumber == 1 ? 'slds-show' : 'slds-hide'}">
+            <c:DEMO_BGE_TemplateSettings/>
+          </div>
+          <div class="{!v.eventStepNumber == 2 ? 'slds-show' : 'slds-hide'}">
+            <!--Content-->
+            <c:DEMO_BGE_SelectFields/>
+          </div>
+          <div class="{!v.eventStepNumber == 3 ? 'slds-show' : 'slds-hide'}">
+            <c:DEMO_BGE_FieldOptionGrid/>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- Footer -->
+      <div class="slds-grid slds-grid--align-end slds-p-horizontal_medium">
+        <button class="slds-button slds-button--neutral slds-m-right--medium">Cancel</button>
+        <span class="{!v.eventStepNumber > 1 ? 'slds-show' : 'slds-hide'}">
+          <button class="slds-button slds-button--neutral slds-m-right--medium" onclick="{!c.back}">Back</button>
+        </span>
+        <span class="{!not(v.eventStepNumber == 3) ? 'slds-show' : 'slds-hide'}" onclick="{!c.next}">
+          <button class="slds-button slds-button--neutral">Next</button>
+        </span>
+        <span class="{!v.eventStepNumber == 3 ? 'slds-show' : 'slds-hide'}" onclick="{!c.next}">
+          <button class="slds-button slds-button--brand">Save</button>
+        </span>
+      </div>
+    </div>
+  </div>
+
+</aura:component>

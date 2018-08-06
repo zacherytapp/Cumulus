@@ -1,0 +1,85 @@
+<aura:component access="public">
+
+  <aura:attribute name="contactOptions" type="List" default="[
+        { label: 'First Name', value: 'FirstName' },
+        { label: 'Last Name', value: 'LastName' },
+        { label: 'Email', value: 'Email' },
+        { label: 'Billing Street', value: 'BillingStreet' },
+        { label: 'Billing City', value: 'BillingCity' },
+        { label: 'Billing State', value: 'BillingState' },
+        { label: 'Billing Zip/Postal Code', value: 'BillingPostalCode' }]"/>
+  <aura:attribute name="contactValues" type="List"/>
+
+  <aura:attribute name="householdOptions" type="List" default="[
+        { label: 'Name', value: 'asdf' },
+        { label: 'Street', value: 'asdf' },
+        { label: 'City', value: 'asdf' },
+        { label: 'State', value: 'asdf' },
+        { label: 'Zip/Postal Code', value: 'asdf' }]"/>
+  <aura:attribute name="householdValues" type="List"/>
+
+  <aura:attribute name="oppOptions" type="List" default="[
+        { label: 'Amount', value: 'asdf' },
+        { label: 'Stage', value: 'asdf' },
+        { label: 'Close Date', value: 'asdf' }]"/>
+  <aura:attribute name="oppValues" type="List"/>
+
+  <div class="slds-grid slds-grid--align-center">
+    <div class="slds-size_1-of-1 slds-m-around--medium">
+      <h1 class="slds-text-heading--small slds-m-bottom--small">Select Fields</h1>
+      <div class="slds-text-body--regular slds-m-vertical--medium">Choose the fields to include in your Batch Gift Entry
+        spreadsheet. Once you've moved fields to the selected list, you can use the up/down arrows to change the order
+        in which they will appear as columns in the spreadsheet.
+      </div>
+
+      <!-- Contact -->
+      <c:sldsExpandableSection title="Contact" expanded="true">
+        <div class="slds-grid">
+          <div class="slds-col slds-size_1-of-6"></div>
+          <div class="slds-col slds-size_4-of-6">
+            <lightning:dualListbox name="multipleOptions"
+                                   label="Fields"
+                                   sourceLabel="Available"
+                                   selectedLabel="Selected"
+                                   options="{!v.contactOptions}"
+                                   value="{!v.contactValues}"
+            />
+          </div>
+          <div class="slds-col slds-size_1-of-6"></div>
+        </div>
+      </c:sldsExpandableSection>
+      <!-- Household -->
+      <c:sldsExpandableSection title="Household" expanded="false">
+        <div class="slds-grid">
+          <div class="slds-col slds-size_1-of-6"></div>
+          <div class="slds-col slds-size_4-of-6">
+            <lightning:dualListbox name="multipleOptions"
+                                   label="Fields"
+                                   sourceLabel="Available"
+                                   selectedLabel="Selected"
+                                   options="{!v.householdOptions}"
+                                   value="{!v.householdValues}"
+            />
+          </div>
+          <div class="slds-col slds-size_1-of-6"></div>
+        </div>
+      </c:sldsExpandableSection>
+      <!-- Opportunity -->
+      <c:sldsExpandableSection title="Opportunity" expanded="false">
+        <div class="slds-grid">
+          <div class="slds-col slds-size_1-of-6"></div>
+          <div class="slds-col slds-size_4-of-6">
+            <lightning:dualListbox name="multipleOptions"
+                                   label="Fields"
+                                   sourceLabel="Available"
+                                   selectedLabel="Selected"
+                                   options="{!v.oppOptions}"
+                                   value="{!v.oppValues}"
+            />
+          </div>
+          <div class="slds-col slds-size_1-of-6"></div>
+        </div>
+      </c:sldsExpandableSection>
+    </div>
+  </div>
+</aura:component>

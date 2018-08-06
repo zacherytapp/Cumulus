@@ -1,0 +1,11 @@
+<aura:component description="DEMO_BGE_TemplateSettings">
+  <div class="slds-grid slds-grid--align-center">
+    <div class="slds-size_1-of-1 slds-m-around--medium">
+      <h1 class="slds-text-heading--small slds-m-bottom--small">Batch Template Settings</h1>
+      <lightning:input type="text" name="input1" label="Name"/>
+      <lightning:textarea name="input1" label="Description"/>
+      <lightning:input type="checkbox" name="input1" label="Display Total Prompt"/>
+      <lightning:input type="checkbox" name="input1" label="Require Match Total"/>
+    </div>
+  </div>
+</aura:component>
