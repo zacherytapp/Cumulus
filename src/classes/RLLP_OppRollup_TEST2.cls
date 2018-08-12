@@ -274,9 +274,13 @@ public with sharing class RLLP_OppRollup_TEST2 {
             insert testOpps;
             Test.StopTest();
 
-            Contact c = [SELECT Id,npo02__Total_Household_Gifts__c,npo02__OppAmountThisYearHH__c,npo02__OppAmountLastYearHH__c,
-                            npo02__LastCloseDateHH__c, npo02__Best_Gift_Year__c, npo02__Best_Gift_Year_Total__c, npo02__Household__r.npo02__Best_Gift_Year__c, npo02__Household__r.npo02__Best_Gift_Year_Total__c
-                FROM Contact WHERE LastName=:UTIL_UnitTestData_TEST.TEST_LASTNAME AND FirstName=:UTIL_UnitTestData_TEST.TEST_FIRSTNAME+'second' LIMIT 1];
+            Contact c = [
+                SELECT Id,npo02__Total_Household_Gifts__c,npo02__OppAmountThisYearHH__c,npo02__OppAmountLastYearHH__c,
+                    npo02__LastCloseDateHH__c, npo02__Best_Gift_Year__c, npo02__Best_Gift_Year_Total__c,
+                    npo02__Household__r.npo02__Best_Gift_Year__c, npo02__Household__r.npo02__Best_Gift_Year_Total__c
+                FROM Contact
+                WHERE Id = :Con2.Id
+                LIMIT 1];
             System.assertEquals (375,c.npo02__Total_Household_Gifts__c);
             System.assertEquals (100,c.npo02__OppAmountThisYearHH__c);
             System.assertEquals (0,c.npo02__OppAmountLastYearHH__c);
@@ -415,9 +419,9 @@ public with sharing class RLLP_OppRollup_TEST2 {
                 npe01__Enable_Opportunity_Contact_Role_Trigger__c = true,
                 npe01__Opportunity_Contact_Role_Default_role__c = 'Donor'
         ));
-        //exercise internal multicurrency helper methods, check currency conversion             
-        decimal d = RLLP_OppRollup_UTIL.ConvertFromCorporate('USD', 55.00);      
-        d = RLLP_OppRollup_UTIL.ConvertCurrency('USD', 'USD', 55.00);
+        //exercise internal multicurrency helper methods, check currency conversion
+        decimal d = UTIL_CurrencyConversion.convertFromCorporateUsingStandardRates('USD', 55.00);
+        d = UTIL_CurrencyConversion.convertAmountUsingStandardRates('USD', 'USD', 55.00);
 
         //create & insert second household member
         Contact Con = new contact(
@@ -478,10 +482,10 @@ public with sharing class RLLP_OppRollup_TEST2 {
 
         test.startTest();
         og.rollupAllContacts();
-        og.rollupAllAccounts();     
+        og.rollupAllAccounts();
         boolean x = RLLP_OppRollup_UTIL.isMultiCurrency();
-        decimal y = RLLP_OppRollup_UTIL.ConvertFromCorporate('USD', 500.00);
-        decimal z = RLLP_OppRollup_UTIL.ConvertCurrency('USD', 'USD', 6565.54);
+        decimal y = UTIL_CurrencyConversion.convertFromCorporateUsingStandardRates('USD', 500.00);
+        decimal z = UTIL_CurrencyConversion.convertAmountUsingStandardRates('USD', 'USD', 6565.54);
         test.stopTest();
 
         // UNDONE: THERE ARE NO ASSERTS!!!!
@@ -710,7 +714,7 @@ public with sharing class RLLP_OppRollup_TEST2 {
                 listAcc.add(new Account(name='Test Account' + string.valueOf(i), npe01__SYSTEMIsIndividual__c=false));
             }
             insert listAcc;
-            listAcc = [select Id, Name, npe01__SYSTEMIsIndividual__c from Account where Name like 'Test Account%'];
+            listAcc = [SELECT Id, Name, npe01__SYSTEMIsIndividual__c FROM Account WHERE Id IN : listAcc];
             system.assertEquals(cTest, listAcc.size());
             system.assertEquals(false, listAcc[0].npe01__SYSTEMIsIndividual__c);
             

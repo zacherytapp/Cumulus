@@ -500,6 +500,14 @@
         <label>状況</label>
         <name>Status__c</name>
         <picklistValues>
+            <masterLabel>Dry Run - Error</masterLabel>
+            <translation><!-- Dry Run - Error --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dry Run - Validated</masterLabel>
+            <translation><!-- Dry Run - Validated --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>Failed</masterLabel>
             <translation>失敗</translation>
         </picklistValues>

@@ -61,6 +61,8 @@ public with sharing class BDI_Donations_TEST {
         listConT = UTIL_UnitTestData_TEST.CreateMultipleTestContacts(2);
         insert listConT;
 
+        UTIL_UnitTestData_TEST.setFixedSearchResults(listConT);
+
         listOppT = UTIL_UnitTestData_TEST.OppsForContactList(listConT, null, 
             UTIL_unitTestData_TEST.getOpenStage(), system.Today(), 100, null, null);
         insert listOppT;
@@ -74,6 +76,9 @@ public with sharing class BDI_Donations_TEST {
     *       payment objects updated
     */
     static testMethod void TwoDIWithExistingDonations() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'TwoDIWithExistingDonations') return;
         
         createTestData();
@@ -107,29 +112,29 @@ public with sharing class BDI_Donations_TEST {
         Test.stopTest();
     
         // verify expected results
-        list<Contact> listCon = [select Id, Name, AccountId, npo02__TotalOppAmount__c from Contact order by Firstname];
+        list<Contact> listCon = [select Id, Name, AccountId, npo02__TotalOppAmount__c from Contact order by Id];
         system.assertEquals(2, listCon.size());
         system.assertEquals(listOppT[0].Amount, listCon[0].npo02__TotalOppAmount__c);
         system.assertEquals(listOppT[1].Amount, listCon[1].npo02__TotalOppAmount__c);
         
-        list<Account> listAcc = [select Id, Name, npo02__TotalOppAmount__c from Account order by Name];
+        list<Account> listAcc = [select Id, Name, npo02__TotalOppAmount__c from Account order by Id];
         system.assertEquals(2, listAcc.size());
         system.assertEquals(listOppT[0].Amount, listAcc[0].npo02__TotalOppAmount__c);
         system.assertEquals(listOppT[1].Amount, listAcc[1].npo02__TotalOppAmount__c);
         
-        list<Opportunity> listOpp = [select Id, Name, Amount, StageName, isWon, isClosed, AccountId from Opportunity order by Name];
+        list<Opportunity> listOpp = [select Id, Name, Amount, StageName, isWon, isClosed, AccountId from Opportunity order by Id];
         system.assertEquals(2, listOpp.size());
         system.assertEquals(true, listOpp[0].isWon);
         system.assertEquals(true, listOpp[1].isWon);
         
-        list<npe01__OppPayment__c> listPmt = [select Id, npe01__Payment_Amount__c, npe01__Payment_Method__c, npe01__Check_Reference_Number__c from npe01__OppPayment__c order by npe01__Opportunity__r.Name];
+        list<npe01__OppPayment__c> listPmt = [select Id, npe01__Payment_Amount__c, npe01__Payment_Method__c, npe01__Check_Reference_Number__c from npe01__OppPayment__c order by npe01__Opportunity__r.Id];
         system.assertEquals(2, listPmt.size());
         system.assertEquals('Check', listPmt[0].npe01__Payment_Method__c);
         system.assertEquals('Visa', listPmt[1].npe01__Payment_Method__c);
         system.assertEquals('abc', listPmt[0].npe01__Check_Reference_Number__c);
         system.assertEquals('1234', listPmt[1].npe01__Check_Reference_Number__c);
 
-        listDI = [select Id, DonationImported__c, DonationImportStatus__c from DataImport__c order by Contact1_Lastname__c];
+        listDI = [select Id, DonationImported__c, DonationImportStatus__c from DataImport__c order by Id];
         system.assertEquals(2, listDI.size());
         system.assertEquals(listDI[0].DonationImported__c, listOpp[0].Id); 
         system.assertEquals(listDI[1].DonationImported__c, listOpp[1].Id);
@@ -174,27 +179,27 @@ public with sharing class BDI_Donations_TEST {
         Test.stopTest();
 
         // verify expected results
-        list<Contact> listCon = [select Id, Name, AccountId, npo02__TotalOppAmount__c from Contact order by Firstname];
+        list<Contact> listCon = [select Id, Name, AccountId, npo02__TotalOppAmount__c from Contact order by Id];
         system.assertEquals(2, listCon.size());
         system.assertEquals(listOppT[0].Amount, listCon[0].npo02__TotalOppAmount__c);
         system.assertEquals(listOppT[1].Amount, listCon[1].npo02__TotalOppAmount__c);
 
-        list<Account> listAcc = [select Id, Name, npo02__TotalOppAmount__c from Account order by Name];
+        list<Account> listAcc = [select Id, Name, npo02__TotalOppAmount__c from Account order by Id];
         system.assertEquals(2, listAcc.size());
         system.assertEquals(listOppT[0].Amount, listAcc[0].npo02__TotalOppAmount__c);
         system.assertEquals(listOppT[1].Amount, listAcc[1].npo02__TotalOppAmount__c);
 
-        list<Opportunity> listOpp = [select Id, Name, Amount, StageName, isWon, isClosed, AccountId from Opportunity order by Name];
+        list<Opportunity> listOpp = [select Id, Name, Amount, StageName, isWon, isClosed, AccountId from Opportunity order by Id];
         system.assertEquals(2, listOpp.size());
         system.assertEquals(true, listOpp[0].isWon);
         system.assertEquals(true, listOpp[1].isWon);
 
-        list<npe01__OppPayment__c> listPmt = [select Id, npe01__Paid__c from npe01__OppPayment__c order by npe01__Opportunity__r.Name];
+        list<npe01__OppPayment__c> listPmt = [select Id, npe01__Paid__c from npe01__OppPayment__c order by npe01__Opportunity__r.Id];
         system.assertEquals(2, listPmt.size());
         system.assertEquals(true, listPmt[0].npe01__Paid__c);
         system.assertEquals(true, listPmt[1].npe01__Paid__c);
 
-        listDI = [select Id, DonationImported__c, DonationImportStatus__c, PaymentImported__c, PaymentImportStatus__c from DataImport__c order by Contact1_Lastname__c];
+        listDI = [select Id, DonationImported__c, DonationImportStatus__c, PaymentImported__c, PaymentImportStatus__c from DataImport__c order by Id];
         system.assertEquals(2, listDI.size());
         system.assertEquals(listDI[0].DonationImported__c, listOpp[0].Id);
         system.assertEquals(listDI[1].DonationImported__c, listOpp[1].Id);
@@ -249,29 +254,29 @@ public with sharing class BDI_Donations_TEST {
         Test.stopTest();
 
         // verify expected results
-        list<Contact> listCon = [select Id, Name, AccountId, npo02__TotalOppAmount__c from Contact order by Firstname];
+        list<Contact> listCon = [select Id, Name, AccountId, npo02__TotalOppAmount__c from Contact order by Id];
         system.assertEquals(2, listCon.size());
         system.assertEquals(listOppT[0].Amount, listCon[0].npo02__TotalOppAmount__c);
         system.assertEquals(listOppT[1].Amount, listCon[1].npo02__TotalOppAmount__c);
 
-        list<Account> listAcc = [select Id, Name, npo02__TotalOppAmount__c from Account order by Name];
+        list<Account> listAcc = [select Id, Name, npo02__TotalOppAmount__c from Account order by Id];
         system.assertEquals(2, listAcc.size());
         system.assertEquals(listOppT[0].Amount, listAcc[0].npo02__TotalOppAmount__c);
         system.assertEquals(listOppT[1].Amount, listAcc[1].npo02__TotalOppAmount__c);
 
-        list<Opportunity> listOpp = [select Id, Name, Amount, StageName, isWon, isClosed, AccountId from Opportunity order by Name];
+        list<Opportunity> listOpp = [select Id, Name, Amount, StageName, isWon, isClosed, AccountId from Opportunity order by Id];
         system.assertEquals(2, listOpp.size());
         system.assertEquals(true, listOpp[0].isWon);
         system.assertEquals(true, listOpp[1].isWon);
 
-        list<npe01__OppPayment__c> listPmt = [select Id, npe01__Paid__c, npe01__Payment_Date__c, npe01__Opportunity__r.CloseDate from npe01__OppPayment__c order by npe01__Opportunity__r.Name];
+        list<npe01__OppPayment__c> listPmt = [select Id, npe01__Paid__c, npe01__Payment_Date__c, npe01__Opportunity__r.CloseDate from npe01__OppPayment__c order by npe01__Opportunity__r.Id];
         system.assertEquals(2, listPmt.size());
         system.assertEquals(true, listPmt[0].npe01__Paid__c);
         system.assertEquals(true, listPmt[1].npe01__Paid__c);
         system.assertEquals(listPmt[0].npe01__Opportunity__r.CloseDate, listPmt[0].npe01__Payment_Date__c);
         system.assertEquals(listPmt[1].npe01__Opportunity__r.CloseDate, listPmt[1].npe01__Payment_Date__c);
 
-        listDI = [select Id, DonationImported__c, DonationImportStatus__c, PaymentImported__c, PaymentImportStatus__c from DataImport__c order by Contact1_Lastname__c];
+        listDI = [select Id, DonationImported__c, DonationImportStatus__c, PaymentImported__c, PaymentImportStatus__c from DataImport__c order by Id];
         system.assertEquals(2, listDI.size());
         system.assertEquals(listDI[0].DonationImported__c, listOpp[0].Id);
         system.assertEquals(listDI[1].DonationImported__c, listOpp[1].Id);
@@ -289,6 +294,9 @@ public with sharing class BDI_Donations_TEST {
     *       payment objects updated
     */
     static testMethod void TwoDIWithExistingDonationsSpecified() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'TwoDIWithExistingDonationsSpecified') return;
         
         createTestData();
@@ -327,29 +335,29 @@ public with sharing class BDI_Donations_TEST {
         Test.stopTest();
     
         // verify expected results
-        list<Contact> listCon = [select Id, Name, AccountId, npo02__TotalOppAmount__c from Contact order by Firstname];
+        list<Contact> listCon = [select Id, Name, AccountId, npo02__TotalOppAmount__c from Contact order by Id];
         system.assertEquals(2, listCon.size());
         system.assertEquals(listOppT[0].Amount, listCon[0].npo02__TotalOppAmount__c);
         system.assertEquals(listOppT[1].Amount, listCon[1].npo02__TotalOppAmount__c);
         
-        list<Account> listAcc = [select Id, Name, npo02__TotalOppAmount__c from Account order by Name];
+        list<Account> listAcc = [select Id, Name, npo02__TotalOppAmount__c from Account order by Id];
         system.assertEquals(2, listAcc.size());
         system.assertEquals(listOppT[0].Amount, listAcc[0].npo02__TotalOppAmount__c);
         system.assertEquals(listOppT[1].Amount, listAcc[1].npo02__TotalOppAmount__c);
         
-        list<Opportunity> listOpp = [select Id, Name, Amount, StageName, isWon, isClosed, AccountId from Opportunity order by Name];
+        list<Opportunity> listOpp = [select Id, Name, Amount, StageName, isWon, isClosed, AccountId from Opportunity order by Id];
         system.assertEquals(2, listOpp.size());
         system.assertEquals(true, listOpp[0].isWon);
         system.assertEquals(true, listOpp[1].isWon);
         
-        list<npe01__OppPayment__c> listPmt = [select Id, npe01__Payment_Amount__c, npe01__Payment_Method__c, npe01__Check_Reference_Number__c from npe01__OppPayment__c order by npe01__Opportunity__r.Name];
+        list<npe01__OppPayment__c> listPmt = [select Id, npe01__Payment_Amount__c, npe01__Payment_Method__c, npe01__Check_Reference_Number__c from npe01__OppPayment__c order by npe01__Opportunity__r.Id];
         system.assertEquals(2, listPmt.size());
         system.assertEquals('Check', listPmt[0].npe01__Payment_Method__c);
         system.assertEquals('Visa', listPmt[1].npe01__Payment_Method__c);
         system.assertEquals('abc', listPmt[0].npe01__Check_Reference_Number__c);
         system.assertEquals('1234', listPmt[1].npe01__Check_Reference_Number__c);
 
-        listDI = [select Id, DonationImported__c, DonationImportStatus__c from DataImport__c order by Contact1_Lastname__c];
+        listDI = [select Id, DonationImported__c, DonationImportStatus__c from DataImport__c order by Id];
         system.assertEquals(2, listDI.size());
         system.assertEquals(listDI[0].DonationImported__c, listOpp[0].Id); 
         system.assertEquals(listDI[1].DonationImported__c, listOpp[1].Id);
@@ -365,6 +373,9 @@ public with sharing class BDI_Donations_TEST {
     *       payment objects updated
     */
     static testMethod void TwoDIWithExistingPaymentsSpecified() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'TwoDIWithExistingPaymentsSpecified') return;
         
         createTestData();
@@ -416,12 +427,12 @@ public with sharing class BDI_Donations_TEST {
         Test.stopTest();
     
         // verify expected results
-        list<Opportunity> listOpp = [select Id, Name, Amount, StageName, isWon, isClosed, AccountId from Opportunity order by Name];
+        list<Opportunity> listOpp = [select Id, Name, Amount, StageName, isWon, isClosed, AccountId from Opportunity order by Id];
         system.assertEquals(2, listOpp.size());
         system.assertEquals(false, listOpp[0].isWon);
         system.assertEquals(true, listOpp[1].isWon);
         
-        list<Contact> listCon = [select Id, Name, AccountId, npo02__TotalOppAmount__c from Contact order by Firstname];
+        list<Contact> listCon = [select Id, Name, AccountId, npo02__TotalOppAmount__c from Contact order by Id];
         system.assertEquals(2, listCon.size());
         system.assertEquals(0, listCon[0].npo02__TotalOppAmount__c);
         system.assertEquals(listOppT[1].Amount, listCon[1].npo02__TotalOppAmount__c);
@@ -442,7 +453,7 @@ public with sharing class BDI_Donations_TEST {
         system.assertEquals('1234', pmt1.npe01__Check_Reference_Number__c);
 
         listDI = [select Id, DonationImported__c, DonationImportStatus__c, PaymentImported__c, PaymentImportStatus__c 
-            from DataImport__c order by Contact1_Lastname__c];
+            from DataImport__c order by Id];
         system.assertEquals(2, listDI.size());
         system.assertEquals(listDI[0].DonationImported__c, listOpp[0].Id); 
         system.assertEquals(listDI[1].DonationImported__c, listOpp[1].Id);
@@ -463,6 +474,9 @@ public with sharing class BDI_Donations_TEST {
     *       payment objects updated
     */
     static testMethod void TwoDIWithExistingDonationsOneDupe() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'TwoDIWithExistingDonationsOneDupe') return;
         
         createTestData();
@@ -505,23 +519,23 @@ public with sharing class BDI_Donations_TEST {
         Test.stopTest();
     
         // verify expected results
-        list<Contact> listCon = [select Id, Name, AccountId, npo02__TotalOppAmount__c from Contact order by Firstname];
+        list<Contact> listCon = [select Id, Name, AccountId, npo02__TotalOppAmount__c from Contact order by Id];
         system.assertEquals(2, listCon.size());
         system.assertEquals(listOppT[0].Amount, listCon[0].npo02__TotalOppAmount__c);
         system.assertEquals(listOppT[1].Amount * 2, listCon[1].npo02__TotalOppAmount__c);
         
-        list<Account> listAcc = [select Id, Name, npo02__TotalOppAmount__c from Account order by npe01__One2OneContact__r.Firstname];
+        list<Account> listAcc = [select Id, Name, npo02__TotalOppAmount__c from Account order by npe01__One2OneContact__r.Id];
         system.assertEquals(2, listAcc.size());
         system.assertEquals(listOppT[0].Amount, listAcc[0].npo02__TotalOppAmount__c);
         system.assertEquals(listOppT[1].Amount * 2, listAcc[1].npo02__TotalOppAmount__c);
         
-        list<Opportunity> listOpp = [select Id, Name, Amount, StageName, isWon, isClosed, AccountId from Opportunity order by Name];
+        list<Opportunity> listOpp = [select Id, Name, Amount, StageName, isWon, isClosed, AccountId from Opportunity order by Id];
         system.assertEquals(3, listOpp.size());
         system.assertEquals(true, listOpp[0].isWon);
         system.assertEquals(true, listOpp[1].isWon);
         system.assertEquals(true, listOpp[2].isWon);
         
-        list<npe01__OppPayment__c> listPmt = [select Id, npe01__Payment_Amount__c, npe01__Payment_Method__c, npe01__Check_Reference_Number__c from npe01__OppPayment__c order by npe01__Opportunity__r.Name];
+        list<npe01__OppPayment__c> listPmt = [select Id, npe01__Payment_Amount__c, npe01__Payment_Method__c, npe01__Check_Reference_Number__c from npe01__OppPayment__c order by npe01__Opportunity__r.Id];
         system.assertEquals(3, listPmt.size());
         system.assertEquals('Check', listPmt[0].npe01__Payment_Method__c);
         system.assertEquals('abc', listPmt[0].npe01__Check_Reference_Number__c);
@@ -530,7 +544,7 @@ public with sharing class BDI_Donations_TEST {
         system.assertEquals('Mastercard', listPmt[2].npe01__Payment_Method__c);
         system.assertEquals('5678', listPmt[2].npe01__Check_Reference_Number__c);
 
-        listDI = [select Id, DonationImported__c, DonationImportStatus__c from DataImport__c order by Contact1_Lastname__c];
+        listDI = [select Id, DonationImported__c, DonationImportStatus__c from DataImport__c order by Id];
         system.assertEquals(3, listDI.size());
         system.assertEquals(listDI[0].DonationImported__c, listOpp[0].Id); 
         system.assertEquals(listDI[1].DonationImported__c, listOpp[1].Id);
@@ -780,6 +794,9 @@ public with sharing class BDI_Donations_TEST {
     *    correct donations matched
     **********************************************************************************************************/            
     static testMethod void donationMatchRules1() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules1') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=100,
@@ -801,6 +818,9 @@ public with sharing class BDI_Donations_TEST {
     *    correct donations matched
     **********************************************************************************************************/
     static testMethod void donationMatchRules1b() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules1b') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=100,
@@ -822,6 +842,9 @@ public with sharing class BDI_Donations_TEST {
     *    error, due to multiple matches
     **********************************************************************************************************/
     static testMethod void donationMatchRules1c() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules1c') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=100,
@@ -843,6 +866,9 @@ public with sharing class BDI_Donations_TEST {
     *    correct donations matched
     **********************************************************************************************************/
     static testMethod void donationMatchRules1d() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules1d') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=100,
@@ -863,6 +889,9 @@ public with sharing class BDI_Donations_TEST {
     *    correct donations matched
     **********************************************************************************************************/            
     static testMethod void donationMatchRules2() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules2') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=300,
@@ -913,6 +942,9 @@ public with sharing class BDI_Donations_TEST {
     *    ambiguous match error logged
     **********************************************************************************************************/            
     static testMethod void donationMatchRules4() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules4') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=200,
@@ -934,6 +966,9 @@ public with sharing class BDI_Donations_TEST {
     *    new donation created
     **********************************************************************************************************/            
     static testMethod void donationMatchRules4b() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules4b') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=99,
@@ -954,6 +989,9 @@ public with sharing class BDI_Donations_TEST {
     *    best donation matched
     **********************************************************************************************************/            
     static testMethod void donationMatchRules5() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules5') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=200,
@@ -975,6 +1013,9 @@ public with sharing class BDI_Donations_TEST {
     *    new donation created
     **********************************************************************************************************/            
     static testMethod void donationMatchRules5b() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules5b') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=99,
@@ -995,6 +1036,9 @@ public with sharing class BDI_Donations_TEST {
     *    new donation created (even though matches existing Opp)
     **********************************************************************************************************/            
     static testMethod void donationMatchRules6() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules6') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=100,
@@ -1016,6 +1060,9 @@ public with sharing class BDI_Donations_TEST {
     *    error reported on bdi
     **********************************************************************************************************/            
     static testMethod void donationMatchRules7() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules7') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=200,
@@ -1036,6 +1083,9 @@ public with sharing class BDI_Donations_TEST {
     *    new donation created
     **********************************************************************************************************/            
     static testMethod void donationMatchRules7b() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules7b') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=99,
@@ -1057,6 +1107,9 @@ public with sharing class BDI_Donations_TEST {
     *    error reported on bdi
     **********************************************************************************************************/            
     static testMethod void donationMatchRules8() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules8') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=99,
@@ -1078,6 +1131,9 @@ public with sharing class BDI_Donations_TEST {
     *    error reported on bdi
     **********************************************************************************************************/            
     static testMethod void donationMatchRules9() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules9') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=200,
@@ -1099,6 +1155,9 @@ public with sharing class BDI_Donations_TEST {
     *    record matched
     **********************************************************************************************************/            
     static testMethod void donationMatchRules9b() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules9b') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=100,
@@ -1120,6 +1179,9 @@ public with sharing class BDI_Donations_TEST {
     *    best opp matched
     **********************************************************************************************************/            
     static testMethod void donationMatchRules10() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules10') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=200,
@@ -1141,6 +1203,9 @@ public with sharing class BDI_Donations_TEST {
     *    error reported on bdi
     **********************************************************************************************************/            
     static testMethod void donationMatchRules10b() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules10b') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=99,
@@ -1162,6 +1227,9 @@ public with sharing class BDI_Donations_TEST {
     *    existing opp matched
     **********************************************************************************************************/            
     static testMethod void donationMatchRules11() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules11') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=99,
@@ -1183,6 +1251,9 @@ public with sharing class BDI_Donations_TEST {
     *    existing opp matched
     **********************************************************************************************************/            
     static testMethod void donationMatchRules11b() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules11b') return;
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
             Donation_Amount__c=300,
@@ -1203,6 +1274,9 @@ public with sharing class BDI_Donations_TEST {
     *    existing opp matched
     **********************************************************************************************************/            
     static testMethod void donationMatchRules12() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules12') return;
 
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
@@ -1225,6 +1299,9 @@ public with sharing class BDI_Donations_TEST {
     *    existing opp matched
     **********************************************************************************************************/            
     static testMethod void donationMatchRules13() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules13') return;
 
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
@@ -1247,6 +1324,9 @@ public with sharing class BDI_Donations_TEST {
     *    existing opp matched
     **********************************************************************************************************/            
     static testMethod void donationMatchRules14() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules14') return;
 
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
@@ -1272,6 +1352,9 @@ public with sharing class BDI_Donations_TEST {
     *    no opp matched
     **********************************************************************************************************/            
     static testMethod void donationMatchRules14b() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules14b') return;
 
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
@@ -1300,6 +1383,9 @@ public with sharing class BDI_Donations_TEST {
     *    opp remaining balance updated
     **********************************************************************************************************/            
     static testMethod void donationMatchRules14c() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules14c') return;
 
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
@@ -1318,13 +1404,13 @@ public with sharing class BDI_Donations_TEST {
         system.assertEquals(label.bdiMatched, di.DonationImportStatus__c);       
         system.assertEquals(label.bdiMatched, di.PaymentImportStatus__c);
         
-        Opportunity opp = [select Id, IsWon, IsClosed, Amount, npe01__Amount_Outstanding__c from Opportunity where id = :di.DonationImported__c];
+        Opportunity opp = getOpportunityWithPayments(di.DonationImported__c);
         npe01__OppPayment__c pmt = [select Id, npe01__Payment_Amount__c, npe01__Paid__c from npe01__OppPayment__c where id = :di.PaymentImported__c];
         
         system.assertEquals(false, opp.IsWon);
         system.assertEquals(false, opp.IsClosed);
         system.assertEquals(600, opp.Amount);
-        system.assertEquals(250, opp.npe01__Amount_Outstanding__c);
+        system.assertEquals(250, PMT_PaymentCreator.getAmountOutstanding(opp));
         system.assertEquals(350, pmt.npe01__Payment_Amount__c);
         system.assertEquals(true, pmt.npe01__Paid__c);
     }
@@ -1338,6 +1424,9 @@ public with sharing class BDI_Donations_TEST {
     *    error reported on bdi
     **********************************************************************************************************/            
     static testMethod void donationMatchRules15() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules15') return;
 
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
@@ -1362,6 +1451,9 @@ public with sharing class BDI_Donations_TEST {
     *    error reported on bdi
     **********************************************************************************************************/            
     static testMethod void donationMatchRules16() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+        
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules16') return;
 
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
@@ -1386,6 +1478,9 @@ public with sharing class BDI_Donations_TEST {
     *    error reported on bdi
     **********************************************************************************************************/            
     static testMethod void donationMatchRules17() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules17') return;
 
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
@@ -1412,6 +1507,9 @@ public with sharing class BDI_Donations_TEST {
     *    opp remaining balance updated
     **********************************************************************************************************/
     static testMethod void donationMatchRules18a() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules18a') return;
 
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
@@ -1430,13 +1528,13 @@ public with sharing class BDI_Donations_TEST {
         system.assertEquals(label.bdiMatched, di.DonationImportStatus__c);
         system.assertEquals(label.bdiMatched, di.PaymentImportStatus__c);
 
-        Opportunity opp = [select Id, IsWon, IsClosed, Amount, npe01__Amount_Outstanding__c from Opportunity where id = :di.DonationImported__c];
+        Opportunity opp = getOpportunityWithPayments(di.DonationImported__c);
         npe01__OppPayment__c pmt = [select Id, npe01__Payment_Amount__c, npe01__Paid__c from npe01__OppPayment__c where id = :di.PaymentImported__c];
 
         system.assertEquals(false, opp.IsWon);
         system.assertEquals(false, opp.IsClosed);
         system.assertEquals(48, opp.Amount);
-        system.assertEquals(36, opp.npe01__Amount_Outstanding__c);
+        system.assertEquals(36, PMT_PaymentCreator.getAmountOutstanding(opp));
         system.assertEquals(12, pmt.npe01__Payment_Amount__c);
         system.assertEquals(true, pmt.npe01__Paid__c);
     }
@@ -1452,6 +1550,9 @@ public with sharing class BDI_Donations_TEST {
     *    opp remaining balance updated
     **********************************************************************************************************/
     static testMethod void donationMatchRules18b() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules18a') return;
 
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
@@ -1470,13 +1571,13 @@ public with sharing class BDI_Donations_TEST {
         system.assertEquals(label.bdiMatched, di.DonationImportStatus__c);
         system.assertEquals(label.bdiMatchedBest, di.PaymentImportStatus__c);
 
-        Opportunity opp = [select Id, IsWon, IsClosed, Amount, npe01__Amount_Outstanding__c from Opportunity where id = :di.DonationImported__c];
+        Opportunity opp = getOpportunityWithPayments(di.DonationImported__c);
         npe01__OppPayment__c pmt = [select Id, npe01__Payment_Amount__c, npe01__Paid__c, npe01__Scheduled_Date__c from npe01__OppPayment__c where id = :di.PaymentImported__c];
 
         system.assertEquals(false, opp.IsWon);
         system.assertEquals(false, opp.IsClosed);
         system.assertEquals(48, opp.Amount);
-        system.assertEquals(36, opp.npe01__Amount_Outstanding__c);
+        system.assertEquals(36, PMT_PaymentCreator.getAmountOutstanding(opp));
         system.assertEquals(12, pmt.npe01__Payment_Amount__c);
         system.assertEquals(true, pmt.npe01__Paid__c);
         system.assertEquals(system.Today(), pmt.npe01__Scheduled_Date__c);
@@ -1493,6 +1594,9 @@ public with sharing class BDI_Donations_TEST {
     *    opp remaining balance updated
     **********************************************************************************************************/
     static testMethod void donationMatchRules18c() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules18c') return;
 
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
@@ -1511,13 +1615,13 @@ public with sharing class BDI_Donations_TEST {
         system.assertEquals(label.bdiMatched, di.DonationImportStatus__c);
         system.assertEquals(label.bdiMatchedBest, di.PaymentImportStatus__c);
 
-        Opportunity opp = [select Id, IsWon, IsClosed, Amount, npe01__Amount_Outstanding__c from Opportunity where id = :di.DonationImported__c];
+        Opportunity opp = getOpportunityWithPayments(di.DonationImported__c);
         npe01__OppPayment__c pmt = [select Id, npe01__Payment_Amount__c, npe01__Paid__c, npe01__Scheduled_Date__c from npe01__OppPayment__c where id = :di.PaymentImported__c];
 
         system.assertEquals(false, opp.IsWon);
         system.assertEquals(false, opp.IsClosed);
         system.assertEquals(48, opp.Amount);
-        system.assertEquals(36, opp.npe01__Amount_Outstanding__c);
+        system.assertEquals(36, PMT_PaymentCreator.getAmountOutstanding(opp));
         system.assertEquals(12, pmt.npe01__Payment_Amount__c);
         system.assertEquals(true, pmt.npe01__Paid__c);
         system.assertEquals(system.Today()+1, pmt.npe01__Scheduled_Date__c);
@@ -1531,6 +1635,9 @@ public with sharing class BDI_Donations_TEST {
     *    error, due to detection of multiple payments
     **********************************************************************************************************/
     static testMethod void donationMatchRules18d() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules18d') return;
 
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
@@ -1555,6 +1662,9 @@ public with sharing class BDI_Donations_TEST {
     *    payment matched and marked paid and updated to match opp
     **********************************************************************************************************/
     static testMethod void donationMatchRules19() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'donationMatchRules19') return;
 
         insert new DataImport__c(Contact1_Firstname__c='c0', Contact1_Lastname__c='c0', Contact1_Personal_Email__c='c0@c0.com',
@@ -1573,13 +1683,13 @@ public with sharing class BDI_Donations_TEST {
         system.assertEquals(label.bdiMatched, di.DonationImportStatus__c);
         system.assertEquals(label.bdiMatched, di.PaymentImportStatus__c);
 
-        Opportunity opp = [select Id, IsWon, IsClosed, Amount, npe01__Amount_Outstanding__c from Opportunity where id = :di.DonationImported__c];
+        Opportunity opp = getOpportunityWithPayments(di.DonationImported__c);
         npe01__OppPayment__c pmt = [select Id, npe01__Payment_Amount__c, npe01__Paid__c, npe01__Scheduled_Date__c, npe01__Payment_Date__c from npe01__OppPayment__c where id = :di.PaymentImported__c];
 
         system.assertEquals(true, opp.IsWon);
         system.assertEquals(true, opp.IsClosed);
         system.assertEquals(15, opp.Amount);
-        system.assertEquals(0, opp.npe01__Amount_Outstanding__c);
+        system.assertEquals(0, PMT_PaymentCreator.getAmountOutstanding(opp));
         system.assertEquals(15, pmt.npe01__Payment_Amount__c);
         system.assertEquals(true, pmt.npe01__Paid__c);
         system.assertEquals(system.Today(), pmt.npe01__Payment_Date__c);
@@ -1603,6 +1713,7 @@ public with sharing class BDI_Donations_TEST {
         // create opps to match against
         Contact con = new Contact(firstname='c0', lastname='c0', email='c0@c0.com');
         insert con;
+        UTIL_UnitTestData_TEST.setFixedSearchResults(new List<Contact>{ con });
         list<Opportunity> listOpp = new list<Opportunity>();
         
         // Opps 0-5 will get their default single Payment record
@@ -1725,5 +1836,12 @@ public with sharing class BDI_Donations_TEST {
 	        list<Opportunity> listOppX = [select Id, Name, Amount, Primary_Contact__c from Opportunity];
 	        system.assertEquals(listOpp.size(), listOppX.size());
         }
+    }
+
+    private static Opportunity getOpportunityWithPayments(Id oppId) {
+        // requery the Opportunity for all fields that we need.
+        return [SELECT Id, IsWon, IsClosed, Amount, npe01__Amount_Outstanding__c,
+            (SELECT Id, npe01__Payment_Amount__c, npe01__Written_Off__c, npe01__Paid__c FROM  npe01__OppPayment__r)
+            FROM Opportunity WHERE Id = :oppId LIMIT 1];
     }
 }

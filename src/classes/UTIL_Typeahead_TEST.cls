@@ -50,7 +50,7 @@ public with sharing class UTIL_Typeahead_TEST {
 	      Test.setFixedSearchResults(fixedSearchResults);
 	
 	    Test.startTest();
-	    list<sObject> accts = UTIL_Typeahead.searchRecords( 'test', 'Account', null, null, null, null, null );
+	    list<sObject> accts = UTIL_Typeahead.searchRecords( 'test', 'Account', null, null, null, 'Id', null );
 	    Test.stopTest();
 	
 	    system.assertEquals(2, accts.size());

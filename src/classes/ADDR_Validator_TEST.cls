@@ -72,6 +72,9 @@ public with sharing class ADDR_Validator_TEST {
     }
     
     static testMethod void testContactAddress() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'testContactAddress') return;
         
         // address validation is async, so no way to successfully test if other related triggers are already async!
@@ -112,6 +115,9 @@ public with sharing class ADDR_Validator_TEST {
     }
 
     static testMethod void testContactInvalidAddress() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'testContactInvalidAddress') return;
         
         // address validation is async, so no way to successfully test if other related triggers are already async!
@@ -138,6 +144,9 @@ public with sharing class ADDR_Validator_TEST {
     }
     
     static testMethod void test400() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'test400') return;
         
         // address validation is async, so no way to successfully test if other related triggers are already async!
@@ -164,6 +173,9 @@ public with sharing class ADDR_Validator_TEST {
     }
     
     static testMethod void test401() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'test401') return;
         
         // address validation is async, so no way to successfully test if other related triggers are already async!
@@ -190,6 +202,9 @@ public with sharing class ADDR_Validator_TEST {
     }
     
     static testMethod void test402() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'test402') return;
         
         // address validation is async, so no way to successfully test if other related triggers are already async!
@@ -216,6 +231,9 @@ public with sharing class ADDR_Validator_TEST {
     }
     
     static testMethod void test500() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'test500') return;
         
         // address validation is async, so no way to successfully test if other related triggers are already async!
@@ -242,6 +260,9 @@ public with sharing class ADDR_Validator_TEST {
     }
     
     static testMethod void testContactAmbiguousAddress() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'testContactAmbiguousAddress') return;
         
         // address validation is async, so no way to successfully test if other related triggers are already async!
@@ -270,6 +291,9 @@ public with sharing class ADDR_Validator_TEST {
     }
 
     static testMethod void testContactZipOnly() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'testContactZipOnly') return;
         
         // address validation is async, so no way to successfully test if other related triggers are already async!
@@ -305,6 +329,9 @@ public with sharing class ADDR_Validator_TEST {
     }
 
     static testMethod void testContactCityAndStateOnly() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'testContactCityAndStateOnly') return;
         
         // address validation is async, so no way to successfully test if other related triggers are already async!
@@ -394,12 +421,15 @@ public with sharing class ADDR_Validator_TEST {
         Test.stopTest();
         
         System.assertEquals(null, sc.apiSettingsSaveMessage, 'Save message should be empty: ' + sc.apiSettingsSaveMessage);
-        System.assert(sc.apiSettingsErrorMessage.contains('Auth ID cannot be blank'), 'Error message should contain "Auth ID cannot be blank": ' + sc.apiSettingsErrorMessage);
-        System.assert(sc.apiSettingsErrorMessage.contains('Auth Token cannot be blank'), 'Error message should contain "Auth Token cannot be blank": ' + sc.apiSettingsErrorMessage);
+        System.assert(sc.apiSettingsErrorMessage.contains('You must provide an Auth ID'), 'Error message should contain "You must provide an Auth ID": ' + sc.apiSettingsErrorMessage);
+        System.assert(sc.apiSettingsErrorMessage.contains('You must provide an Auth Token'), 'Error message should contain "You must provide an Auth Token": ' + sc.apiSettingsErrorMessage);
     }
 
 
     static testMethod void dontValidatePreviouslyValidatedAddresses() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'dontValidatePreviouslyValidatedAddresses') return;
         
         // address validation is async, so no way to successfully test if other related triggers are already async!

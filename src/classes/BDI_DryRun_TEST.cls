@@ -167,6 +167,8 @@ public with sharing class BDI_DryRun_TEST {
         listConExisting.add(new Contact(Firstname='c4', Lastname='C4', Email='c4@foo.com'));
         insert listConExisting;
 
+        UTIL_UnitTestData_TEST.setFixedSearchResults(listConExisting);
+
         List<DataImport__c> listDI = new List<DataImport__c>();
         listDI.add(new DataImport__c(
             Contact1_Firstname__c='c1', Contact1_Lastname__c='C1', Contact1_Personal_Email__c='c1@foo.com',
@@ -253,6 +255,8 @@ public with sharing class BDI_DryRun_TEST {
         listAccExisting.add(new Account(Name='A4'));
         insert listAccExisting;
 
+        UTIL_UnitTestData_TEST.setFixedSearchResults(listAccExisting);
+
         List<DataImport__c> listDI = new List<DataImport__c>();
         listDI.add(new DataImport__c(Account1_Name__c='A1', Account2_Name__c='A2'));
         listDI.add(new DataImport__c(Account1_Name__c='A3', Account2_Name__c='A4'));
@@ -288,12 +292,16 @@ public with sharing class BDI_DryRun_TEST {
     *    Statuses updated appropriately
     **********************************************************************************************************/
     static testMethod void manyDIExistingHomeAddresses() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
 
         // existing contacts
         List<Contact> listConExisting = new List<Contact>();
         listConExisting.add(new Contact(Firstname='c1', Lastname='C1', Email='c1@foo.com', MailingCity='Seattle', MailingState='Washington', MailingCountry='United States'));
         listConExisting.add(new Contact(Firstname='c3', Lastname='C3', Email='c3@foo.com', MailingCity='Seattle', MailingState='Washington', MailingCountry='United States'));
         insert listConExisting;
+
+        UTIL_UnitTestData_TEST.setFixedSearchResults(listConExisting);
 
         List<DataImport__c> listDI = new List<DataImport__c>();
         listDI.add(new DataImport__c(
@@ -313,13 +321,13 @@ public with sharing class BDI_DryRun_TEST {
         Test.stopTest();
 
         // verify expected results
-        List<Contact> listCon = [select Id, Name, AccountId, MailingCity from Contact order by Lastname];
+        List<Contact> listCon = [select Id, Name, AccountId, MailingCity from Contact];
         system.assertEquals(2, listCon.size());
 
-        List<Address__c> listAddr = [select Id, Household_Account__c, MailingCity__c from Address__c order by MailingCity__c];
+        List<Address__c> listAddr = [select Id, Household_Account__c, MailingCity__c from Address__c];
         system.assertEquals(2, listAddr.size());
 
-        listDI = [select Status__c, HomeAddressImported__c, HomeAddressImportStatus__c, Home_City__c from DataImport__c order by Home_City__c];
+        listDI = [select Status__c, HomeAddressImported__c, HomeAddressImportStatus__c, Home_City__c from DataImport__c];
         system.assertEquals(2, listDI.size());
         for (DataImport__c di : listDI) {
             system.assertEquals(BDI_DataImport_API.bdiDryRunValidated, di.Status__c);
@@ -336,12 +344,16 @@ public with sharing class BDI_DryRun_TEST {
     *    Statuses updated appropriately
     **********************************************************************************************************/
     static testMethod void manyDIUpdatedHomeAddresses() {
-
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+        
         // existing contacts
         List<Contact> listConExisting = new List<Contact>();
         listConExisting.add(new Contact(Firstname='c1', Lastname='C1', Email='c1@foo.com', MailingCity='Seattle', MailingState='Washington', MailingCountry='United States'));
         listConExisting.add(new Contact(Firstname='c3', Lastname='C3', Email='c3@foo.com', MailingCity='Seattle', MailingState='Washington', MailingCountry='United States'));
         insert listConExisting;
+
+        UTIL_UnitTestData_TEST.setFixedSearchResults(listConExisting);
 
         List<DataImport__c> listDI = new List<DataImport__c>();
         listDI.add(new DataImport__c(
@@ -365,13 +377,13 @@ public with sharing class BDI_DryRun_TEST {
         Test.stopTest();
 
         // verify expected results
-        List<Contact> listCon = [select Id, Name, AccountId, MailingCity from Contact order by Lastname];
+        List<Contact> listCon = [select Id, Name, AccountId, MailingCity from Contact];
         system.assertEquals(2, listCon.size());
 
-        List<Address__c> listAddr = [select Id, Household_Account__c, MailingCity__c from Address__c order by MailingCity__c];
+        List<Address__c> listAddr = [select Id, Household_Account__c, MailingCity__c from Address__c];
         system.assertEquals(2, listAddr.size());
 
-        listDI = [select Status__c, HomeAddressImported__c, HomeAddressImportStatus__c, Home_City__c from DataImport__c order by Home_City__c];
+        listDI = [select Status__c, HomeAddressImported__c, HomeAddressImportStatus__c, Home_City__c from DataImport__c];
         system.assertEquals(3, listDI.size());
         for (DataImport__c di : listDI) {
             system.assertEquals(BDI_DataImport_API.bdiDryRunValidated, di.Status__c);
@@ -486,6 +498,8 @@ public with sharing class BDI_DryRun_TEST {
         listConExisting.add(new Contact(Firstname='c2', Lastname='C2', Email='c2@foo.com'));
         insert listConExisting;
 
+        UTIL_UnitTestData_TEST.setFixedSearchResults(listConExisting);
+
         List<DataImport__c> listDI = new List<DataImport__c>();
         listDI.add(new DataImport__c(Contact1_Firstname__c='c1', Contact1_Lastname__c='C1', Contact1_Personal_Email__c='c1@foo.com',
             Donation_Amount__c=100, Donation_Date__c=System.today()));
@@ -545,6 +559,8 @@ public with sharing class BDI_DryRun_TEST {
         listConExisting.add(new Contact(Firstname='c1', Lastname='C1', Email='c1@foo.com'));
         listConExisting.add(new Contact(Firstname='c2', Lastname='C2', Email='c2@foo.com'));
         insert listConExisting;
+
+        UTIL_UnitTestData_TEST.setFixedSearchResults(listConExisting);
         
         // existing opps
         List<Opportunity> listOppExisting = UTIL_UnitTestData_TEST.OppsForContactList(listConExisting, null,
@@ -612,6 +628,8 @@ public with sharing class BDI_DryRun_TEST {
         listConExisting.add(new Contact(Firstname='c2', Lastname='C2', Email='c2@foo.com'));
         insert listConExisting;
 
+        UTIL_UnitTestData_TEST.setFixedSearchResults(listConExisting);
+
         // existing opps
         List<Opportunity> listOppExisting = UTIL_UnitTestData_TEST.OppsForContactList(listConExisting, null,
             UTIL_unitTestData_TEST.getOpenStage(), System.today(), 100, null, null);
@@ -677,6 +695,8 @@ public with sharing class BDI_DryRun_TEST {
         listConExisting.add(new Contact(Firstname='c1', Lastname='C1', Email='c1@foo.com'));
         listConExisting.add(new Contact(Firstname='c2', Lastname='C2', Email='c2@foo.com'));
         insert listConExisting;
+
+        UTIL_UnitTestData_TEST.setFixedSearchResults(listConExisting);
 
         // existing opps
         List<Opportunity> listOppExisting = UTIL_UnitTestData_TEST.OppsForContactList(listConExisting, null,
@@ -747,6 +767,8 @@ public with sharing class BDI_DryRun_TEST {
         listConExisting.add(new Contact(Firstname='c2', Lastname='C2', Email='c2@foo.com'));
         insert listConExisting;
 
+        UTIL_UnitTestData_TEST.setFixedSearchResults(listConExisting);
+
         // existing opps
         List<Opportunity> listOppExisting = UTIL_UnitTestData_TEST.OppsForContactList(listConExisting, null,
             UTIL_unitTestData_TEST.getOpenStage(), System.today().addDays(-1), 100, null, null);
@@ -815,6 +837,8 @@ public with sharing class BDI_DryRun_TEST {
         listConExisting.add(new Contact(Firstname='c1', Lastname='C1', Email='c1@foo.com'));
         listConExisting.add(new Contact(Firstname='c2', Lastname='C2', Email='c2@foo.com'));
         insert listConExisting;
+
+        UTIL_UnitTestData_TEST.setFixedSearchResults(listConExisting);
 
         List<DataImport__c> listDI = new List<DataImport__c>();
         listDI.add(new DataImport__c(Contact1_Firstname__c='c1', Contact1_Lastname__c='C1', Contact1_Personal_Email__c='c1@foo.com',

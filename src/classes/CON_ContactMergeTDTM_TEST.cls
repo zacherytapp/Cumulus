@@ -84,12 +84,13 @@ public with sharing class CON_ContactMergeTDTM_TEST {
         Test.stopTest();
 
         // reload our contacts and accounts
-        list<Account> listAcc = new list<Account>([SELECT Id, Name, npo02__Formal_Greeting__c, npo02__Informal_Greeting__c,
-                    npo02__NumberOfClosedOpps__c, BillingStreet, BillingCity, BillingState, BillingPostalCode, BillingCountry
-            FROM Account WHERE NOT Name LIKE 'OrgAccount%' ORDER BY Id]);
+        list<Account> listAcc = new list<Account>([select Id, Name, npo02__Formal_Greeting__c, npo02__Informal_Greeting__c, 
+            npo02__NumberOfClosedOpps__c, 
+            BillingStreet, BillingCity, BillingState, BillingPostalCode, BillingCountry 
+            from Account where Id != :accOrg.Id order by Id]);
         list<Contact> listCon = [select Id, Firstname, AccountId, npo02__NumberOfClosedOpps__c,
             is_Address_Override__c, Current_Address__c, MailingStreet, MailingCity, MailingState, MailingPostalCode, MailingCountry 
-            from Contact order by Firstname];
+            from Contact order by Id];
             
         // verify the merge
         system.assertEquals(1, listAcc.size());
@@ -110,13 +111,13 @@ public with sharing class CON_ContactMergeTDTM_TEST {
         system.assertEquals(2, listCon[0].npo02__NumberOfClosedOpps__c);          
 
         // verify Soft Credits recalculated
-        system.assertEquals(2, [select count() from OpportunityContactRole where ContactId = :listCon[0].Id]);        
-        system.assertEquals(2, [select count() from OpportunityContactRole where isPrimary = true]);        
-        system.assertEquals(2, [select count() from OpportunityContactRole]);  
+        system.assertEquals(2, [select count() from OpportunityContactRole where ContactId = :listCon[0].Id]);
+        system.assertEquals(2, [select count() from OpportunityContactRole where isPrimary = true]);
+        system.assertEquals(2, [select count() from OpportunityContactRole]);
         
         // verify no duplicate Affiliations and one primary Affiliation
-        system.assertEquals(1, [select count() from npe5__Affiliation__c where npe5__Primary__c = true]);              
-        system.assertEquals(1, [select count() from npe5__Affiliation__c]);              
+        system.assertEquals(1, [select count() from npe5__Affiliation__c where npe5__Primary__c = true]);
+        system.assertEquals(1, [select count() from npe5__Affiliation__c]);
     }
 
     /*******************************************************************************************************
@@ -163,9 +164,10 @@ public with sharing class CON_ContactMergeTDTM_TEST {
         Test.stopTest();
 
         // reload our accounts
-        list<Account> listAcc = new list<Account>([SELECT Id, Name, npo02__Formal_Greeting__c, npo02__Informal_Greeting__c,
-                    npo02__NumberOfClosedOpps__c, BillingStreet, BillingCity, BillingState, BillingPostalCode, BillingCountry
-            FROM Account WHERE NOT Name LIKE 'OrgAccount%' ORDER BY Id]);
+        list<Account> listAcc = new list<Account>([select Id, Name, npo02__Formal_Greeting__c, npo02__Informal_Greeting__c, 
+            npo02__NumberOfClosedOpps__c, 
+            BillingStreet, BillingCity, BillingState, BillingPostalCode, BillingCountry 
+            from Account where Id != :accOrg.Id order by Id]);
         system.assertEquals(conWinner.AccountId, listAcc[0].Id);
         Account accWinner = listAcc[0];
         system.assertEquals(conLoser.AccountId, listAcc[1].Id);
@@ -175,7 +177,7 @@ public with sharing class CON_ContactMergeTDTM_TEST {
         list<Contact> listCon = [select Id, Firstname, AccountId, npo02__NumberOfClosedOpps__c,
             is_Address_Override__c, Current_Address__c, Current_Address__r.Household_Account__c,
             MailingStreet, MailingCity, MailingState, MailingPostalCode, MailingCountry 
-            from Contact order by Firstname];
+            from Contact order by Id];
         system.assertEquals(conWinner.Id, listCon[1].Id);
         conWinner = listCon[1];            
             
@@ -263,7 +265,7 @@ public with sharing class CON_ContactMergeTDTM_TEST {
         list<Contact> listCon = [select Id, Firstname, AccountId, npo02__NumberOfClosedOpps__c,
             is_Address_Override__c, Current_Address__c, Current_Address__r.Household_Account__c,
             MailingStreet, MailingCity, MailingState, MailingPostalCode, MailingCountry 
-            from Contact order by Firstname];
+            from Contact order by Id];
         system.assertEquals(conWinner.Id, listCon[1].Id);
         conWinner = listCon[1];            
             
@@ -285,6 +287,9 @@ public with sharing class CON_ContactMergeTDTM_TEST {
     *   the Contact's mailing address matches the override
     */
     static testMethod void mergeContactsDifferentHHAccountAddressOverride() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+        
         if (strTestOnly != '*' && strTestOnly != 'mergeContactsDifferentHHAccountAddressOverride') return;
         
         // this creates 2 Household Accounts, each with 2 Contacts, and a default Address for each HH
@@ -318,7 +323,7 @@ public with sharing class CON_ContactMergeTDTM_TEST {
         list<Contact> listCon = [select Id, Firstname, AccountId, 
             is_Address_Override__c, Current_Address__c, Current_Address__r.Household_Account__c,
             MailingStreet, MailingCity, MailingState, MailingPostalCode, MailingCountry 
-            from Contact order by Firstname];
+            from Contact order by Id];
         system.assertEquals(3, listCon.size());
         system.assertEquals(conWinner.Id, listCon[2].Id);
         conWinner = listCon[2];            

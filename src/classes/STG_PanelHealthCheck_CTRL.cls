@@ -320,7 +320,7 @@ public without sharing class STG_PanelHealthCheck_CTRL extends STG_Panel {
                     createDR(
                         System.Label.healthLabelAccountDefaultRT, 
                         statusError, 
-                        String.format(System.Label.healthDetailsAccountDefaultRTIssue, new List<String>{accountRecordTypeInfo.getName()}),
+                        String.format(System.Label.healthDetailsAccountDefaultRTIssue, new List<String>{accountRecordTypeInfo.getName().escapeEcmaScript()}),
                         System.Label.healthSolutionAccountDefaultRTIssue
                     );
                     return;
@@ -453,10 +453,7 @@ public without sharing class STG_PanelHealthCheck_CTRL extends STG_Panel {
     */
     @TestVisible
     private void verifyRecordTypes() {
-        checkMultiRecordTypeIds(Opportunity.sObjectType, STG_Panel.stgService.stgAllo.Excluded_Opp_RecTypes__c, 
-            UTIL_Namespace.StrTokenNSPrefix('Allocations_Settings__c'), UTIL_Namespace.StrTokenNSPrefix('Excluded_Opp_RecTypes__c'), Label.stgNavDonations, Label.stgNavAllocations);
-            
-        checkRecordTypeId(Account.sObjectType, STG_Panel.stgService.stgCon.npe01__HH_Account_RecordTypeID__c, 
+        checkRecordTypeId(Account.sObjectType, STG_Panel.stgService.stgCon.npe01__HH_Account_RecordTypeID__c,
             'npe01__Contacts_And_Orgs_Settings__c', 'npe01__HH_Account_RecordTypeID__c', Label.stgNavPeople, Label.stgNavAccountModel);
         checkRecordTypeId(Account.sObjectType, STG_Panel.stgService.stgCon.npe01__One_to_One_RecordTypeID__c, 
             'npe01__Contacts_And_Orgs_Settings__c', 'npe01__One_to_One_RecordTypeID__c', Label.stgNavPeople, Label.stgNavAccountModel);  
@@ -469,14 +466,18 @@ public without sharing class STG_PanelHealthCheck_CTRL extends STG_Panel {
         checkMultiRecordTypeIds(Contact.sObjectType, STG_Panel.stgService.stgHH.npo02__Household_Creation_Excluded_Recordtypes__c, 
             'npo02__Households_Settings__c', 'npo02__Household_Creation_Excluded_Recordtypes__c', Label.stgNavPeople, Label.stgNavHouseholds);
         checkMultiRecordTypeIds(Contact.sObjectType, STG_Panel.stgService.stgHH.npo02__Household_OCR_Excluded_Recordtypes__c, 
-            'npo02__Households_Settings__c', 'npo02__Household_OCR_Excluded_Recordtypes__c', Label.stgNavDonations, Label.stgNavContactRoles);            
-        checkMultiRecordTypeIds(Opportunity.sObjectType, STG_Panel.stgService.stgHH.npo02__Excluded_Account_Opp_Rectypes__c, 
-            'npo02__Households_Settings__c', 'npo02__Excluded_Account_Opp_Rectypes__c', Label.stgNavDonations, Label.stgNavDonorStatistics);
-        checkMultiRecordTypeIds(Opportunity.sObjectType, STG_Panel.stgService.stgHH.npo02__Excluded_Contact_Opp_Rectypes__c, 
-            'npo02__Households_Settings__c', 'npo02__Excluded_Contact_Opp_Rectypes__c', Label.stgNavDonations, Label.stgNavDonorStatistics);
-        checkMultiRecordTypeIds(Opportunity.sObjectType, STG_Panel.stgService.stgHH.npo02__Membership_Record_Types__c, 
-            'npo02__Households_Settings__c', 'npo02__Membership_Record_Types__c', Label.stgNavDonations, Label.stgNavMembership);   
-            
+            'npo02__Households_Settings__c', 'npo02__Household_OCR_Excluded_Recordtypes__c', Label.stgNavDonations, Label.stgNavContactRoles);
+        if (! STG_Panel.stgService.stgCRLP.Customizable_Rollups_Enabled__c) {
+            checkMultiRecordTypeIds(Opportunity.sObjectType, STG_Panel.stgService.stgAllo.Excluded_Opp_RecTypes__c,
+                    UTIL_Namespace.StrTokenNSPrefix('Allocations_Settings__c'), UTIL_Namespace.StrTokenNSPrefix('Excluded_Opp_RecTypes__c'), Label.stgNavDonations, Label.stgNavAllocations);
+            checkMultiRecordTypeIds(Opportunity.sObjectType, STG_Panel.stgService.stgHH.npo02__Excluded_Account_Opp_Rectypes__c,
+                    'npo02__Households_Settings__c', 'npo02__Excluded_Account_Opp_Rectypes__c', Label.stgNavDonations, Label.stgNavDonorStatistics);
+            checkMultiRecordTypeIds(Opportunity.sObjectType, STG_Panel.stgService.stgHH.npo02__Excluded_Contact_Opp_Rectypes__c,
+                    'npo02__Households_Settings__c', 'npo02__Excluded_Contact_Opp_Rectypes__c', Label.stgNavDonations, Label.stgNavDonorStatistics);
+            checkMultiRecordTypeIds(Opportunity.sObjectType, STG_Panel.stgService.stgHH.npo02__Membership_Record_Types__c,
+                    'npo02__Households_Settings__c', 'npo02__Membership_Record_Types__c', Label.stgNavDonations, Label.stgNavMembership);
+        }
+
         // avoid reusing the same recordtype in Account models
         string idHH = STG_Panel.stgService.stgCon.npe01__HH_Account_RecordTypeID__c;
         string idOne = STG_Panel.stgService.stgCon.npe01__One_to_One_RecordTypeID__c;
@@ -533,13 +534,13 @@ public without sharing class STG_PanelHealthCheck_CTRL extends STG_Panel {
         
         if (String.isNotBlank(recordType) && String.isBlank(recordTypeName)) {
             createDR(fieldLabel, statusError, 
-                String.format(label.healthDetailsInvalidRecordtypeId, new String[]{ recordType }),        
+                String.format(label.healthDetailsInvalidRecordtypeId, new String[]{ recordType.escapeEcmaScript() }),        
                 String.format(label.healthSolutionEditSetting, new String[]{ fieldLabel, parentTab, settingsTab }));
         } else {
             if (String.isBlank(recordType)) {
                 recordTypeName = Label.healthLabelNone;
             }
-            createDR(fieldLabel, statusSuccess, null, recordTypeName);               
+            createDR(fieldLabel, statusSuccess, null, recordTypeName.escapeEcmaScript());               
         }           
     }
 

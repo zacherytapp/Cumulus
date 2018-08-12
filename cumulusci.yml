@@ -4,7 +4,7 @@ project:
         name: Cumulus
         name_managed: Nonprofit Success Pack
         namespace: npsp
-        api_version: 37.0
+        api_version: 39.0
         install_class: STG_InstallScript
         uninstall_class: STG_UninstallScript
     git:
@@ -70,14 +70,14 @@ tasks:
         options:
             package_xml: lib/admin_profile.xml
 
-    browsertests:
-        description: Runs the Ruby/Watir browser tests in the test/browser folder using Chrome
-        class_path: cumulusci.tasks.command.SalesforceBrowserTest
+    pmd:
+        description: Run Apex code analysis with PMD. This task assumes that PMD is available in PATH. On MacOS PMD is available to install in brew.
+        class_path: tasks.pmd.PMDTask
         options:
-            command: 'cd test/browser; bundle exec cucumber --format pretty --format junit --out ../junit -c features/ --tags @smoketest'
-            dir: '.'
-            env:
-                SELENIUM_BROWSER: chrome
+            path: 'src/classes'
+            output: text
+            runAllApex: False
+            htmlfilename: 'pmd.html'
 
     test_data_dev_org:
         description: 'Loads a test data set for most NPSP objects based on 100 Contacts that should fit into a scratch org or DE org'
@@ -158,136 +158,61 @@ tasks:
                 - npsp__General_Accounting_Unit__c
                 - Campaign
 
+    npsp_default_settings:
+        description: Configure the default NPSP Settings including Membership RecordType
+        class_path: tasks.anon_apex.AnonymousApexFromFileTask
+        options:
+            path: scripts/configure_npsp_default_settings.cls
+            method: initializeNPSPSettings();
+
+    apex_anon:
+        description: Execute the specified apex anonymous script
+        class_path: tasks.anon_apex.AnonymousApexFromFileTask
+
 flows:
-    browsertests:
-        description: Runs the browser tests locally against a managed package in Firefox
-        tasks:
-            1:
-                task: browsertests
-
-    ci_browsertests:
-        description: Runs the browser tests on Saucelabs in Chrome
-        tasks:
-            1:
-                task: browsertests
-                options:
-                    use_saucelabs: True
-
-    config_npsp_settings:
-        description:  NPSP settings object must be initialized for tests
-
-    dev_org:
-        tasks:
-            8:
+    config_dev:
+        steps:
+            3:
                 task: deploy_dev_config_delete
-            9:
+            4:
                 task: deploy_dev_config
-
-    qa_org:
-        description: Deploys the unmanaged package metadata with additional fields for qa and all dependencies to the target org
-        tasks:
-            0.5:
-                task: unschedule_apex
-            1:
-                task: create_package
-            2:
-                task: update_dependencies
-            3:
-                task: deploy_pre
-            4:
-                task: deploy
             5:
-                task: uninstall_packaged_incremental
-            6:
-                task: deploy_post
-            7:
+                task: npsp_default_settings
+
+    config_qa:
+        steps:
+            2:
+                task: None
+            3:
                 task: deploy_dev_config_delete
-            8:
+            4:
                 task: deploy_dev_config
-            9:
-                task: deploy_qa_config
-            10:
-                task: update_admin_profile
-            11:
-                task: test_data_relationships
-
-    qa_org_beta:
-        description: Installs the latest beta version with additional fields for qa and all dependencies.  Does not attempt to uninstall a previous beta.
-        tasks:
-            1:
-                task: update_dependencies
-            2:
-                task: deploy_pre
-            3:
-                task: install_managed_beta
-            4:
-                task: deploy_post_managed
             5:
-                task: deploy_dev_config_delete
-            6:
-                task: deploy_dev_config_managed
-            7:
                 task: deploy_qa_config
-            8:
-                task: update_admin_profile
-            9:
-                task: test_data_relationships
-
-    qa_org_prod:
-        description: Installs the latest production version with additional fields for qa and all dependencies.
-        tasks:
-            1:
-                task: update_dependencies
-            2:
-                task: deploy_pre
-            3:
-                task: install_managed
-            4:
-                task: deploy_post_managed
-            5:
-                task: deploy_dev_config_delete
             6:
-                task: deploy_dev_config_managed
-            7:
-                task: deploy_qa_config
-            8:
                 task: update_admin_profile
-            9:
+            7:
                 task: test_data_relationships
 
     release_beta:
-        tasks:
+        steps:
             5:
                 task: mrbelvedere_publish
                 options:
                     tag: ^^github_release.tag_name
 
-    install_beta:
-        tasks:
-            6:
+    config_managed:
+        steps:
+            3:
                 task: deploy_dev_config_delete
-            7:
+            4:
                 task: deploy_dev_config_managed
-
-    install_prod:
-        tasks:
-            6:
-                task: deploy_dev_config_delete
-            7:
-                task: deploy_dev_config_managed
-
-    update_prod:
-        description: 'Updates to latest managed release version of every package'
-        tasks:
-            1: 
-                task: update_dependencies
-            2:
-                task: install_managed
-
+            5:
+                task: test_data_relationships
 
     test_data_dev_org:
         description: 'WARNING: This flow deletes all data first, then loads the complete test data set based on 100 Contacts into the target org.'
-        tasks:
+        steps:
             1:
                 task: test_data_delete
             2:
@@ -295,7 +220,7 @@ flows:
 
     test_data_dev_org_managed:
         description: 'WARNING: This flow deletes all data first, then loads the complete test data set based on 100 Contacts into the target org.'
-        tasks:
+        steps:
             1:
                 task: test_data_delete_managed
             2:
@@ -305,7 +230,7 @@ flows:
 
     test_data_1k:
         description: 'WARNING: This flow deletes all data first, then loads the complete test data set based on 1,024 Contacts into the target org.'
-        tasks:
+        steps:
             1:
                 task: test_data_delete
             2:
@@ -313,7 +238,7 @@ flows:
 
     ldv_tests:
         description: 'Deploys and runs LDV tests'
-        tasks:
+        steps:
             1:
                 task: download_ldv_tests
             2:
@@ -334,11 +259,6 @@ orgs:
             config_file: orgs/beta_multicurrency.json
         beta_wave:
             config_file: orgs/beta_wave.json
-        browsertest_classic:
-            config_file: orgs/browsertest_classic.json
-        browsertest_classic_namespaced:
-            config_file: orgs/browsertest_classic.json
-            namespaced: True
         prerelease:
             config_file: orgs/prerelease.json
         trial:

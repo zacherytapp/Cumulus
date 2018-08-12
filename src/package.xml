@@ -37,6 +37,9 @@
         <members>ADDR_Validator_REST</members>
         <members>ADDR_Validator_TDTM</members>
         <members>ADDR_Validator_TEST</members>
+        <members>ADV_Adapter</members>
+        <members>ADV_Adapter_TEST</members>
+        <members>ADV_PackageInfo_SVC</members>
         <members>AFFL_Affiliations_TDTM</members>
         <members>AFFL_Affiliations_TEST</members>
         <members>ALLO_Allocations_TDTM</members>
@@ -46,7 +49,6 @@
         <members>ALLO_ManageAllocations_TEST</members>
         <members>ALLO_Multicurrency_TDTM</members>
         <members>ALLO_Multicurrency_TEST</members>
-        <members>ALLO_RollupBTN_CTRL</members>
         <members>ALLO_Rollup_SCHED</members>
         <members>ALLO_Rollup_TEST</members>
         <members>BDE_BatchDataEntry</members>
@@ -86,6 +88,15 @@
         <members>CDL_CascadeDeleteLookups</members>
         <members>CDL_CascadeDeleteLookups_TDTM</members>
         <members>CDL_CascadeDeleteLookups_TEST</members>
+        <members>CMT_FilterRule</members>
+        <members>CMT_FilterRuleEvaluation_SVC</members>
+        <members>CMT_FilterRuleEvaluation_TEST</members>
+        <members>CMT_FilterRuleUI_SVC</members>
+        <members>CMT_FilterRule_SEL</members>
+        <members>CMT_FilterRule_TEST</members>
+        <members>CMT_MetadataAPI</members>
+        <members>CMT_MetadataAPI_TEST</members>
+        <members>CMT_UnitTestData_TEST</members>
         <members>CONV_Account_Conversion_BATCH</members>
         <members>CONV_Account_Conversion_BATCH_TEST</members>
         <members>CONV_Account_Conversion_CTRL</members>
@@ -105,6 +116,62 @@
         <members>CON_DeleteContactOverride_TEST</members>
         <members>CON_DoNotContact_TDTM</members>
         <members>CON_DoNotContact_TEST</members>
+        <members>CRLP_AccountSkew_BATCH</members>
+        <members>CRLP_AccountSkew_SoftCredit_BATCH</members>
+        <members>CRLP_Account_BATCH</members>
+        <members>CRLP_Account_SoftCredit_BATCH</members>
+        <members>CRLP_Batch_Base</members>
+        <members>CRLP_Batch_Base_NonSkew</members>
+        <members>CRLP_Batch_Base_Skew</members>
+        <members>CRLP_ConfigBuilder_SVC</members>
+        <members>CRLP_ConfigBuilder_TEST</members>
+        <members>CRLP_ContactSkew_BATCH</members>
+        <members>CRLP_ContactSkew_SoftCredit_BATCH</members>
+        <members>CRLP_Contact_BATCH</members>
+        <members>CRLP_Contact_SoftCredit_BATCH</members>
+        <members>CRLP_Debug_UTIL</members>
+        <members>CRLP_DefaultConfigBuilder</members>
+        <members>CRLP_DefaultConfigBuilder_SVC</members>
+        <members>CRLP_DefaultConfigBuilder_TEST</members>
+        <members>CRLP_FiscalYears</members>
+        <members>CRLP_FiscalYears_TEST</members>
+        <members>CRLP_GAU_BATCH</members>
+        <members>CRLP_Operation</members>
+        <members>CRLP_Operation_SVC</members>
+        <members>CRLP_Operation_TEST</members>
+        <members>CRLP_Query_SEL</members>
+        <members>CRLP_Query_SEL_TEST</members>
+        <members>CRLP_RDSkew_BATCH</members>
+        <members>CRLP_RD_BATCH</members>
+        <members>CRLP_RecalculateBTN_CTRL</members>
+        <members>CRLP_RecalculateBTN_TEST</members>
+        <members>CRLP_Rollup</members>
+        <members>CRLP_RollupAccount_SVC</members>
+        <members>CRLP_RollupAccount_TEST</members>
+        <members>CRLP_RollupBatch_SVC</members>
+        <members>CRLP_RollupCMT</members>
+        <members>CRLP_RollupContact_SVC</members>
+        <members>CRLP_RollupContact_TEST</members>
+        <members>CRLP_RollupGAU_SVC</members>
+        <members>CRLP_RollupGAU_TEST</members>
+        <members>CRLP_RollupProcessingOptions</members>
+        <members>CRLP_RollupProcessor_SVC</members>
+        <members>CRLP_RollupQueueable</members>
+        <members>CRLP_RollupRD_SVC</members>
+        <members>CRLP_RollupRecurringDonation_TEST</members>
+        <members>CRLP_RollupScheduler_TEST</members>
+        <members>CRLP_RollupSetup_CTRL</members>
+        <members>CRLP_RollupSoftCredit_SVC</members>
+        <members>CRLP_RollupSoftCredit_TEST</members>
+        <members>CRLP_RollupUI_SVC</members>
+        <members>CRLP_RollupUI_TEST</members>
+        <members>CRLP_Rollup_SEL</members>
+        <members>CRLP_Rollup_SEL_TEST</members>
+        <members>CRLP_Rollup_SVC</members>
+        <members>CRLP_Rollup_SVC_TEST</members>
+        <members>CRLP_Rollup_TDTM</members>
+        <members>CRLP_SkewDispatcher_BATCH</members>
+        <members>CRLP_VRollupHandler</members>
         <members>EP_EngagementPlanTaskValidation_TDTM</members>
         <members>EP_EngagementPlanTaskValidation_TEST</members>
         <members>EP_EngagementPlans_TDTM</members>
@@ -166,6 +233,8 @@
         <members>MTCH_FindGifts_TEST</members>
         <members>MTCH_Opportunity_TDTM</members>
         <members>MTCH_Opportunity_TEST</members>
+        <members>OPP_AutomatedSoftCreditsService</members>
+        <members>OPP_AutomatedSoftCreditsService_TEST</members>
         <members>OPP_CampaignMember_TDTM</members>
         <members>OPP_CampaignMember_TEST</members>
         <members>OPP_CascadeDeleteLookups_TDTM</members>
@@ -179,6 +248,9 @@
         <members>OPP_OpportunityNamingBTN_CTRL</members>
         <members>OPP_OpportunityNaming_BATCH</members>
         <members>OPP_OpportunityNaming_TEST</members>
+        <members>OPP_PrimaryContactRoleMerge</members>
+        <members>OPP_PrimaryContactRoleMerge_BATCH</members>
+        <members>OPP_PrimaryContactRoleMerge_TEST</members>
         <members>OPP_PrimaryContact_BATCH</members>
         <members>OPP_PrimaryContact_TEST</members>
         <members>OPP_SendAcknowledgmentBTN_CTRL</members>
@@ -249,6 +321,7 @@
         <members>STG_PanelContactRoles_CTRL</members>
         <members>STG_PanelContacts_CTRL</members>
         <members>STG_PanelCreatePayments_CTRL</members>
+        <members>STG_PanelCustomizableRollup_CTRL</members>
         <members>STG_PanelERR_CTRL</members>
         <members>STG_PanelErrorLog_CTRL</members>
         <members>STG_PanelHealthCheck_CTRL</members>
@@ -267,6 +340,7 @@
         <members>STG_PanelOpps_CTRL</members>
         <members>STG_PanelOpps_TEST</members>
         <members>STG_PanelPaymentMapping_CTRL</members>
+        <members>STG_PanelPrimaryContactRoleMerge_CTRL</members>
         <members>STG_PanelRDBatch_CTRL</members>
         <members>STG_PanelRDCustomFieldMapping_CTRL</members>
         <members>STG_PanelRDCustomInstallment_CTRL</members>
@@ -303,6 +377,10 @@
         <members>USER_UserService_TEST</members>
         <members>UTIL_AbstractRollup_BATCH</members>
         <members>UTIL_Currency</members>
+        <members>UTIL_CurrencyCache</members>
+        <members>UTIL_CurrencyCache_TEST</members>
+        <members>UTIL_CurrencyConversion</members>
+        <members>UTIL_CurrencyConversion_TEST</members>
         <members>UTIL_Currency_TEST</members>
         <members>UTIL_CustomSettingsFacade</members>
         <members>UTIL_CustomSettings_API</members>
@@ -311,6 +389,8 @@
         <members>UTIL_Debug</members>
         <members>UTIL_Describe</members>
         <members>UTIL_Describe_TEST</members>
+        <members>UTIL_Finder</members>
+        <members>UTIL_Finder_TEST</members>
         <members>UTIL_IScheduled</members>
         <members>UTIL_JobProgress_CTRL</members>
         <members>UTIL_JobProgress_CTRL_TEST</members>
@@ -319,9 +399,13 @@
         <members>UTIL_MasterSchedulableHelper</members>
         <members>UTIL_Namespace</members>
         <members>UTIL_Namespace_TEST</members>
+        <members>UTIL_OrderBy</members>
+        <members>UTIL_OrderBy_TEST</members>
+        <members>UTIL_OrgTelemetry_SVC</members>
         <members>UTIL_PageMessages_CTRL</members>
         <members>UTIL_PerfLogger</members>
         <members>UTIL_PerfLogger_TEST</members>
+        <members>UTIL_PlatformCache</members>
         <members>UTIL_Profile</members>
         <members>UTIL_Profile_TEST</members>
         <members>UTIL_Query</members>
@@ -336,6 +420,8 @@
         <members>UTIL_Typeahead_TEST</members>
         <members>UTIL_UnitTestData_TEST</members>
         <members>UTIL_Version_API</members>
+        <members>UTIL_Where</members>
+        <members>UTIL_Where_TEST</members>
         <members>UTIL_iSoqlListViewConsumer</members>
         <name>ApexClass</name>
     </types>
@@ -371,6 +457,10 @@
         <members>CONV_Account_Conversion</members>
         <members>CON_ContactMerge</members>
         <members>CON_DeleteContactOverride</members>
+        <members>CRLP_RollupAccount_BTN</members>
+        <members>CRLP_RollupContact_BTN</members>
+        <members>CRLP_RollupRD_BTN</members>
+        <members>CRLP_RollupSetup</members>
         <members>EP_ManageEPTemplate</members>
         <members>HH_CampaignDedupeBTN</members>
         <members>HH_ManageHH</members>
@@ -396,6 +486,7 @@
         <members>STG_PanelContactRoles</members>
         <members>STG_PanelContacts</members>
         <members>STG_PanelCreatePayments</members>
+        <members>STG_PanelCustomizableRollup</members>
         <members>STG_PanelERR</members>
         <members>STG_PanelErrorLog</members>
         <members>STG_PanelHealthCheck</members>
@@ -412,6 +503,7 @@
         <members>STG_PanelOppRollups</members>
         <members>STG_PanelOpps</members>
         <members>STG_PanelPaymentMapping</members>
+        <members>STG_PanelPrimaryContactRoleMerge</members>
         <members>STG_PanelRD</members>
         <members>STG_PanelRDBatch</members>
         <members>STG_PanelRDCustomFieldMapping</members>
@@ -450,6 +542,12 @@
         <name>ApexTrigger</name>
     </types>
     <types>
+        <members>CRLP_FilterGroup</members>
+        <members>CRLP_Rollup</members>
+        <members>CRLP_RollupApp</members>
+        <members>CRLP_RollupsContainer</members>
+        <members>CRLP_SelectField</members>
+        <members>CRLP_Tooltip</members>
         <members>HH_AddressChangedEvent</members>
         <members>HH_AddressMgr</members>
         <members>HH_AutoComplete</members>
@@ -603,6 +701,18 @@
         <members>Contact.Primary_Contact__c</members>
         <members>Contact.Soft_Credit_Last_N_Days__c</members>
         <members>Contact.is_Address_Override__c</members>
+        <members>Customizable_Rollup_Settings__c.CMT_API_Status__c</members>
+        <members>Customizable_Rollup_Settings__c.Customizable_Rollups_Enabled__c</members>
+        <members>Customizable_Rollup_Settings__c.Disable_Related_Records_Filter__c</members>
+        <members>Customizable_Rollup_Settings__c.Rollups_Account_Batch_Size__c</members>
+        <members>Customizable_Rollup_Settings__c.Rollups_Account_SkewMode_Batch_Size__c</members>
+        <members>Customizable_Rollup_Settings__c.Rollups_Account_Soft_Credit_Batch_Size__c</members>
+        <members>Customizable_Rollup_Settings__c.Rollups_Contact_Batch_Size__c</members>
+        <members>Customizable_Rollup_Settings__c.Rollups_Contact_SkewMode_Batch_Size__c</members>
+        <members>Customizable_Rollup_Settings__c.Rollups_Contact_Soft_Credit_Batch_Size__c</members>
+        <members>Customizable_Rollup_Settings__c.Rollups_GAU_Batch_Size__c</members>
+        <members>Customizable_Rollup_Settings__c.Rollups_Limit_on_Attached_Opps_for_Skew__c</members>
+        <members>Customizable_Rollup_Settings__c.Rollups_Skew_Dispatcher_Batch_Size__c</members>
         <members>DataImportBatch__c.Account_Custom_Unique_ID__c</members>
         <members>DataImportBatch__c.Batch_Description__c</members>
         <members>DataImportBatch__c.Batch_Process_Size__c</members>
@@ -866,9 +976,35 @@
         <members>Trigger_Handler__c.Trigger_Action__c</members>
         <members>Trigger_Handler__c.User_Managed__c</members>
         <members>Trigger_Handler__c.Usernames_to_Exclude__c</members>
+        <members>Filter_Group__mdt.Description__c</members>
+        <members>Filter_Group__mdt.Is_Deleted__c</members>
+        <members>Filter_Rule__mdt.Constant__c</members>
+        <members>Filter_Rule__mdt.Field__c</members>
+        <members>Filter_Rule__mdt.Filter_Group__c</members>
+        <members>Filter_Rule__mdt.Is_Deleted__c</members>
+        <members>Filter_Rule__mdt.Object__c</members>
+        <members>Filter_Rule__mdt.Operator__c</members>
+        <members>Rollup__mdt.Active__c</members>
+        <members>Rollup__mdt.Amount_Field__c</members>
+        <members>Rollup__mdt.Amount_Object__c</members>
+        <members>Rollup__mdt.Date_Field__c</members>
+        <members>Rollup__mdt.Date_Object__c</members>
+        <members>Rollup__mdt.Description__c</members>
+        <members>Rollup__mdt.Detail_Field__c</members>
+        <members>Rollup__mdt.Detail_Object__c</members>
+        <members>Rollup__mdt.Filter_Group__c</members>
+        <members>Rollup__mdt.Integer__c</members>
+        <members>Rollup__mdt.Is_Deleted__c</members>
+        <members>Rollup__mdt.Operation__c</members>
+        <members>Rollup__mdt.Summary_Field__c</members>
+        <members>Rollup__mdt.Summary_Object__c</members>
+        <members>Rollup__mdt.Time_Bound_Operation_Type__c</members>
+        <members>Rollup__mdt.Use_Fiscal_Year__c</members>
+        <members>npe01__Contacts_And_Orgs_Settings__c.Advancement_Namespace__c</members>
         <members>npe01__Contacts_And_Orgs_Settings__c.Automatic_Campaign_Member_Management__c</members>
         <members>npe01__Contacts_And_Orgs_Settings__c.Campaign_Member_Non_Responded_Status__c</members>
         <members>npe01__Contacts_And_Orgs_Settings__c.Campaign_Member_Responded_Status__c</members>
+        <members>npe01__Contacts_And_Orgs_Settings__c.Contact_Role_for_Organizational_Opps__c</members>
         <members>npe01__Contacts_And_Orgs_Settings__c.Honoree_Opportunity_Contact_Role__c</members>
         <members>npe01__Contacts_And_Orgs_Settings__c.Household_Account_Addresses_Disabled__c</members>
         <members>npe01__Contacts_And_Orgs_Settings__c.Max_Payments__c</members>
@@ -882,9 +1018,12 @@
         <members>npe01__OppPayment__c.Payment_Acknowledgment_Status__c</members>
         <members>npe03__Recurring_Donation__c.Always_Use_Last_Day_Of_Month__c</members>
         <members>npe03__Recurring_Donations_Settings__c.Recurring_Donation_Batch_Size__c</members>
+        <members>npe4__Relationship__c.Related_Opportunity_Contact_Role__c</members>
         <members>npe4__Relationship_Settings__c.Enable_Custom_Field_Sync__c</members>
+        <members>npe5__Affiliation__c.Related_Opportunity_Contact_Role__c</members>
         <members>npo02__Household__c.Number_of_Household_Members__c</members>
         <members>npo02__Households_Settings__c.Matched_Donor_Role__c</members>
+        <members>npo02__Households_Settings__c.Use_Dated_Conversion_Rates__c</members>
         <name>CustomField</name>
     </types>
     <types>
@@ -923,6 +1062,18 @@
         <members>Address_Not_Found</members>
         <members>Address_StateCountry_Invalid_Error</members>
         <members>Address_Verification_Limit</members>
+        <members>CMT_DeleteConfirm</members>
+        <members>CMT_FilterGroupActiveRollupsHelpText</members>
+        <members>CMT_FilterGroupDeleteError</members>
+        <members>CMT_FilterGroupDescriptionHelpText</members>
+        <members>CMT_FilterGroupNameHelpText</members>
+        <members>CMT_FilterGroupNameLimitError</members>
+        <members>CMT_FilterNew</members>
+        <members>CMT_FilterRuleDeleteWarning</members>
+        <members>CMT_FilterRuleDuplicateError</members>
+        <members>CMT_FilterRuleFieldsMissing</members>
+        <members>CMT_FilterRulesHelpText</members>
+        <members>CMT_FilterRulesValueHelpText</members>
         <members>CONV_Accept_Risk</members>
         <members>CONV_Account_Field</members>
         <members>CONV_Account_Field_For_Old_HH_ID</members>
@@ -966,6 +1117,54 @@
         <members>CONV_Triggers_Reenabled</members>
         <members>CONV_Warning</members>
         <members>CONV_What_This_Tool_Does</members>
+        <members>CRLP_AdvancedCustomizationHeader</members>
+        <members>CRLP_AdvancedCustomizationText</members>
+        <members>CRLP_AvailableRollupType</members>
+        <members>CRLP_BatchCalculating</members>
+        <members>CRLP_BatchSkipped</members>
+        <members>CRLP_CreateRollupActiveHelpText</members>
+        <members>CRLP_CreateRollupAmountFieldHelpText</members>
+        <members>CRLP_CreateRollupDateFieldHelpText</members>
+        <members>CRLP_CreateRollupDaysBackHelpText</members>
+        <members>CRLP_CreateRollupDescriptionHelpText</members>
+        <members>CRLP_CreateRollupDetailFieldHelpText</members>
+        <members>CRLP_CreateRollupFilterGroupHelpText</members>
+        <members>CRLP_CreateRollupFiscalYearHelpText</members>
+        <members>CRLP_CreateRollupIntroHelpText</members>
+        <members>CRLP_CreateRollupNameHelpText</members>
+        <members>CRLP_CreateRollupOperationHelpText</members>
+        <members>CRLP_CreateRollupTargetFieldHelpText</members>
+        <members>CRLP_CreateRollupTargetObjectHelpText</members>
+        <members>CRLP_CreateRollupTimeBoundOperationHelpText</members>
+        <members>CRLP_CreateRollupTypeHelpText</members>
+        <members>CRLP_CreateRollupYearsAgoHelpText</members>
+        <members>CRLP_CreditType</members>
+        <members>CRLP_DaysBack</members>
+        <members>CRLP_DeleteError</members>
+        <members>CRLP_DeleteProgress</members>
+        <members>CRLP_DeleteSuccess</members>
+        <members>CRLP_DeleteTimeout</members>
+        <members>CRLP_DisabledMessage</members>
+        <members>CRLP_DisabledTitle</members>
+        <members>CRLP_DisplayError</members>
+        <members>CRLP_DuplicateTargetField</members>
+        <members>CRLP_HardCredit</members>
+        <members>CRLP_NoAvailableDetailFieldsMessage</members>
+        <members>CRLP_NoAvailableTargetFieldsMessage</members>
+        <members>CRLP_NoFilterGroupSelected</members>
+        <members>CRLP_PleaseWait</members>
+        <members>CRLP_RecalculatingRollups</members>
+        <members>CRLP_ResetRollupsWarning</members>
+        <members>CRLP_Return</members>
+        <members>CRLP_RollupNew</members>
+        <members>CRLP_RollupSummary</members>
+        <members>CRLP_RollupType</members>
+        <members>CRLP_RollupsByFilterGroup</members>
+        <members>CRLP_SaveError</members>
+        <members>CRLP_SaveProgress</members>
+        <members>CRLP_SaveSuccess</members>
+        <members>CRLP_SaveTimeout</members>
+        <members>CRLP_SoftCredit</members>
         <members>CampaignMemberStatusOmit</members>
         <members>CascadeDeletionError</members>
         <members>CascadeDeletionErrorLightning</members>
@@ -985,10 +1184,12 @@
         <members>HiddenForSecurity</members>
         <members>InactiveScheduledJobsOwnerErrMsg</members>
         <members>NameRequired</members>
+        <members>OCRRemovePrimaryDuplicateBatchErrorText</members>
         <members>OrganizationalOpportunities</members>
         <members>PageMessagesConfirm</members>
         <members>PageMessagesError</members>
         <members>PageMessagesFatal</members>
+        <members>PageMessagesInfo</members>
         <members>PageMessagesWarning</members>
         <members>RD_ErrorMoreClosedWonOpportunitiesThanInstallments</members>
         <members>RD_ErrorNotEnoughClosedValueForFixedLength</members>
@@ -1027,6 +1228,7 @@
         <members>SmartyStreets_Help_Text</members>
         <members>Zip_Not_Found</members>
         <members>Zipcode_Verification_Limit</members>
+        <members>adapterException</members>
         <members>addrCiceroMissingAPIKey</members>
         <members>addrCopyConAddBtnHHObjOnly</members>
         <members>addrGeneralSettings</members>
@@ -1143,6 +1345,7 @@
         <members>conMergeFoundContacts</members>
         <members>conMergePageTitle</members>
         <members>conMergePageTitleDetail</members>
+        <members>conMergePortalUser</members>
         <members>conMergeSearchPlaceholder</members>
         <members>conMergeSelectAll</members>
         <members>conMergeSelectContact</members>
@@ -1156,6 +1359,8 @@
         <members>exceptionRequiredField</members>
         <members>exceptionValidationRule</members>
         <members>flsError</members>
+        <members>giftProcessingAccountException</members>
+        <members>giftProcessingConfigException</members>
         <members>healthButtonRun</members>
         <members>healthDetailsAccOne2OneNoContacts</members>
         <members>healthDetailsAccountDefaultRTInvalid</members>
@@ -1437,10 +1642,13 @@
         <members>statusCompleted</members>
         <members>statusInProgress</members>
         <members>statusNotStarted</members>
+        <members>stgActive</members>
+        <members>stgAdd</members>
         <members>stgAddrGeneralSettingsIntro</members>
         <members>stgAddrMustChooseClass</members>
         <members>stgBtnCancel</members>
         <members>stgBtnClearErrorLog</members>
+        <members>stgBtnClone</members>
         <members>stgBtnCreateAutoRel</members>
         <members>stgBtnCreateMapping</members>
         <members>stgBtnCreateRDPeriod</members>
@@ -1462,6 +1670,17 @@
         <members>stgBtnRefreshPrimaryContacts</members>
         <members>stgBtnRunBatch</members>
         <members>stgBtnSave</members>
+        <members>stgCRLPGoToSetup</members>
+        <members>stgCRLPHouseholdAccountError</members>
+        <members>stgCRLPInfoOnUDRBody</members>
+        <members>stgCRLPInfoOnUDRHeading</members>
+        <members>stgCRLPNonAdminError</members>
+        <members>stgCRLPReset</members>
+        <members>stgCheckboxFalse</members>
+        <members>stgCheckboxTrue</members>
+        <members>stgCountOf</members>
+        <members>stgDeploymentInProgress</members>
+        <members>stgDeploymentTryAgain</members>
         <members>stgDocumentation</members>
         <members>stgDontAutoScheduleHelpText</members>
         <members>stgErrorINaming</members>
@@ -1487,6 +1706,9 @@
         <members>stgHelpCiceroAddrVerification</members>
         <members>stgHelpContactRTExcluded</members>
         <members>stgHelpCreateMissingPayments</members>
+        <members>stgHelpCustomizableRollupsEnable1</members>
+        <members>stgHelpCustomizableRollupsEnable2</members>
+        <members>stgHelpCustomizableRollupsEnable3</members>
         <members>stgHelpDefaultAllocationsEnabled</members>
         <members>stgHelpDefaultGAU</members>
         <members>stgHelpDisableHHAccountAddr</members>
@@ -1532,6 +1754,7 @@
         <members>stgHelpOppRecTypesNoPayments</members>
         <members>stgHelpOppTypesNoPayments</members>
         <members>stgHelpOrgAccountAddressMgmt</members>
+        <members>stgHelpOrgOCRDefaultRole</members>
         <members>stgHelpOverrunCount</members>
         <members>stgHelpPaymentMapOppField</members>
         <members>stgHelpPaymentMapPaymentField</members>
@@ -1540,6 +1763,7 @@
         <members>stgHelpPaymentsEnabled</members>
         <members>stgHelpPowerOfUsHub</members>
         <members>stgHelpPrimaryContactBatch</members>
+        <members>stgHelpPrimaryContactRoleMergeBatch</members>
         <members>stgHelpRDAddCampaign</members>
         <members>stgHelpRDBatch</members>
         <members>stgHelpRDBatchSize</members>
@@ -1578,6 +1802,7 @@
         <members>stgHelpRollupExcludeContactOppType</members>
         <members>stgHelpRollupNDayValue</members>
         <members>stgHelpRollupPrimaryContact</members>
+        <members>stgHelpRollupSkewLimit</members>
         <members>stgHelpSalesforceSetup</members>
         <members>stgHelpSimpleAddrChangeIsUpdate</members>
         <members>stgHelpSoftCreditRoles</members>
@@ -1594,6 +1819,7 @@
         <members>stgHelpUDROperation</members>
         <members>stgHelpUDROppField</members>
         <members>stgHelpUDRTargetObject</members>
+        <members>stgHelpUseDatedConvRates</members>
         <members>stgInstallScriptError</members>
         <members>stgLabelActionColumn</members>
         <members>stgLabelAddressVerification</members>
@@ -1605,6 +1831,9 @@
         <members>stgLabelAreYouSure</members>
         <members>stgLabelAutoContactRoles</members>
         <members>stgLabelBDESettings</members>
+        <members>stgLabelBatchJobRollupSkewSizes</members>
+        <members>stgLabelBatchJobSizes</members>
+        <members>stgLabelBatchProcessingOptions</members>
         <members>stgLabelBatchStatus</members>
         <members>stgLabelCreateMissingPayments</members>
         <members>stgLabelCurrentUDR</members>
@@ -1624,6 +1853,7 @@
         <members>stgLabelLeadSettings</members>
         <members>stgLabelLvlAssignBatchTitle</members>
         <members>stgLabelMembershipSettings</members>
+        <members>stgLabelName</members>
         <members>stgLabelNewAutoRel</members>
         <members>stgLabelNewPaymentMapping</members>
         <members>stgLabelNewRDFieldMap</members>
@@ -1631,6 +1861,7 @@
         <members>stgLabelNewTH</members>
         <members>stgLabelNewUDR</members>
         <members>stgLabelNone</members>
+        <members>stgLabelOK</members>
         <members>stgLabelONS</members>
         <members>stgLabelOppBatchProgress</members>
         <members>stgLabelOppCampMembers</members>
@@ -1648,6 +1879,7 @@
         <members>stgLabelOtherOpportunigyNamingFormat</members>
         <members>stgLabelPaymentMapNoValidFields</members>
         <members>stgLabelPaymentSettings</members>
+        <members>stgLabelPrimaryContactRoleMergeBatch</members>
         <members>stgLabelRDFieldMap</members>
         <members>stgLabelRDNewPeriod</members>
         <members>stgLabelRDPeriod</members>
@@ -1665,6 +1897,10 @@
         <members>stgLabelUDRTargetField</members>
         <members>stgLabelUDRTargetFieldHelp</members>
         <members>stgLabelUDRTargetObject</members>
+        <members>stgLabelView</members>
+        <members>stgLabelYearPicklistLastYear</members>
+        <members>stgLabelYearPicklistThisYear</members>
+        <members>stgLabelYearPicklistYearsAgo</members>
         <members>stgLinkDelete</members>
         <members>stgNPSPGuideImportData</members>
         <members>stgNPSPSettings</members>
@@ -1675,6 +1911,7 @@
         <members>stgNavAffiliations</members>
         <members>stgNavAllocations</members>
         <members>stgNavBDE</members>
+        <members>stgNavBatchProcessSettings</members>
         <members>stgNavBulkProcesses</members>
         <members>stgNavConnections</members>
         <members>stgNavContactRoles</members>
@@ -1699,13 +1936,19 @@
         <members>stgNavRelationships</members>
         <members>stgNavRollupAlloBatch</members>
         <members>stgNavRollupBatch</members>
+        <members>stgNavRollups</members>
         <members>stgNavSchedule</members>
         <members>stgNavSystem</members>
         <members>stgNavTriggerConfig</members>
         <members>stgNavUserDefinedRollups</members>
+        <members>stgNoObjectsFound</members>
+        <members>stgNotApplicable</members>
         <members>stgOppNamingDescription</members>
         <members>stgPowerOfUsHub</members>
+        <members>stgReset</members>
+        <members>stgSelectOne</members>
         <members>stgTools</members>
+        <members>stgUnknownError</members>
         <members>stgValidationHHAccountHHRules</members>
         <name>CustomLabel</name>
     </types>
@@ -1721,6 +1964,7 @@
         <members>Allocations_Settings__c</members>
         <members>Batch_Data_Entry_Settings__c</members>
         <members>Batch__c</members>
+        <members>Customizable_Rollup_Settings__c</members>
         <members>DataImportBatch__c</members>
         <members>DataImport__c</members>
         <members>Data_Import_Settings__c</members>
@@ -1739,6 +1983,9 @@
         <members>Relationship_Sync_Excluded_Fields__c</members>
         <members>Schedulable__c</members>
         <members>Trigger_Handler__c</members>
+        <members>Filter_Group__mdt</members>
+        <members>Filter_Rule__mdt</members>
+        <members>Rollup__mdt</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -1809,6 +2056,13 @@
         <members>Contact-iw</members>
         <members>Contact-ja</members>
         <members>Contact-nl_NL</members>
+        <members>Customizable_Rollup_Settings__c-de</members>
+        <members>Customizable_Rollup_Settings__c-en_US</members>
+        <members>Customizable_Rollup_Settings__c-es</members>
+        <members>Customizable_Rollup_Settings__c-fr</members>
+        <members>Customizable_Rollup_Settings__c-iw</members>
+        <members>Customizable_Rollup_Settings__c-ja</members>
+        <members>Customizable_Rollup_Settings__c-nl_NL</members>
         <members>DataImportBatch__c-de</members>
         <members>DataImportBatch__c-en_US</members>
         <members>DataImportBatch__c-es</members>
@@ -1947,6 +2201,27 @@
         <members>Trigger_Handler__c-iw</members>
         <members>Trigger_Handler__c-ja</members>
         <members>Trigger_Handler__c-nl_NL</members>
+        <members>Filter_Group__mdt-de</members>
+        <members>Filter_Group__mdt-en_US</members>
+        <members>Filter_Group__mdt-es</members>
+        <members>Filter_Group__mdt-fr</members>
+        <members>Filter_Group__mdt-iw</members>
+        <members>Filter_Group__mdt-ja</members>
+        <members>Filter_Group__mdt-nl_NL</members>
+        <members>Filter_Rule__mdt-de</members>
+        <members>Filter_Rule__mdt-en_US</members>
+        <members>Filter_Rule__mdt-es</members>
+        <members>Filter_Rule__mdt-fr</members>
+        <members>Filter_Rule__mdt-iw</members>
+        <members>Filter_Rule__mdt-ja</members>
+        <members>Filter_Rule__mdt-nl_NL</members>
+        <members>Rollup__mdt-de</members>
+        <members>Rollup__mdt-en_US</members>
+        <members>Rollup__mdt-es</members>
+        <members>Rollup__mdt-fr</members>
+        <members>Rollup__mdt-iw</members>
+        <members>Rollup__mdt-ja</members>
+        <members>Rollup__mdt-nl_NL</members>
         <members>npe01__Contacts_And_Orgs_Settings__c-de</members>
         <members>npe01__Contacts_And_Orgs_Settings__c-es</members>
         <members>npe01__Contacts_And_Orgs_Settings__c-fr</members>
@@ -1977,6 +2252,18 @@
         <members>npe4__Relationship_Settings__c-iw</members>
         <members>npe4__Relationship_Settings__c-ja</members>
         <members>npe4__Relationship_Settings__c-nl_NL</members>
+        <members>npe4__Relationship__c-de</members>
+        <members>npe4__Relationship__c-es</members>
+        <members>npe4__Relationship__c-fr</members>
+        <members>npe4__Relationship__c-iw</members>
+        <members>npe4__Relationship__c-ja</members>
+        <members>npe4__Relationship__c-nl_NL</members>
+        <members>npe5__Affiliation__c-de</members>
+        <members>npe5__Affiliation__c-es</members>
+        <members>npe5__Affiliation__c-fr</members>
+        <members>npe5__Affiliation__c-iw</members>
+        <members>npe5__Affiliation__c-ja</members>
+        <members>npe5__Affiliation__c-nl_NL</members>
         <members>npo02__Household__c-de</members>
         <members>npo02__Household__c-es</members>
         <members>npo02__Household__c-fr</members>
@@ -2017,6 +2304,10 @@
         <members>NPSP_Email_Templates</members>
         <members>NPSP_Email_Templates/NPSP_Opportunity_Acknowledgment</members>
         <name>EmailTemplate</name>
+    </types>
+    <types>
+        <members>IsEnabled_CustomizableRollups</members>
+        <name>FeatureParameterBoolean</name>
     </types>
     <types>
         <members>Account.BDE_Entry_FS</members>
@@ -2062,6 +2353,9 @@
         <members>Partial_Soft_Credit__c-Partial Soft Credit Layout</members>
         <members>Schedulable__c-Schedulable Layout</members>
         <members>Trigger_Handler__c-Trigger Handler Layout</members>
+        <members>Filter_Group__mdt-Filter Group Layout</members>
+        <members>Filter_Rule__mdt-Filter Rule Layout</members>
+        <members>Rollup__mdt-Rollup Layout</members>
         <name>Layout</name>
     </types>
     <types>
@@ -2160,9 +2454,11 @@
     </types>
     <types>
         <members>Account.Manage_Household</members>
+        <members>Account.Recalculate_Rollups</members>
         <members>Address__c.Verify_Address</members>
         <members>Allocation__c.Manage_Allocations</members>
         <members>Contact.Merge_Contacts</members>
+        <members>Contact.Recalculate_Rollups</members>
         <members>DataImportBatch__c.Process_Batch</members>
         <members>DataImport__c.Delete_All_Data_Import_Records</members>
         <members>DataImport__c.Delete_Imported_Data_Import_Records</members>
@@ -2175,6 +2471,7 @@
         <members>Opportunity.Manage_Soft_Credits</members>
         <members>Opportunity.Refresh_Name</members>
         <members>Partial_Soft_Credit__c.Manage_Soft_Credits</members>
+        <members>npe03__Recurring_Donation__c.Recalculate_Rollups</members>
         <name>WebLink</name>
     </types>
     <types>
@@ -2192,5 +2489,5 @@
         <members>Opportunity.Opportunity Email Acknowledgment</members>
         <name>WorkflowRule</name>
     </types>
-    <version>37.0</version>
+    <version>39.0</version>
 </Package>

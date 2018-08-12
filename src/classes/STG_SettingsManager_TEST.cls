@@ -161,6 +161,7 @@ public with sharing class STG_SettingsManager_TEST {
         system.assertNotEquals(null, svc.stgRel);
         system.assertNotEquals(null, svc.stgAffl);
         system.assertNotEquals(null, svc.stgBDE);
+        system.assertNotEquals(null, svc.stgCRLP);
         system.assertNotEquals(null, svc.mapRDCustomField);
         system.assertNotEquals(null, svc.listRDCustomInstallment);
         system.assertNotEquals(null, svc.listRDCustomFieldMapping);
@@ -908,7 +909,53 @@ public with sharing class STG_SettingsManager_TEST {
         );        
         insert badobject;
     }
-    
+
+    /*********************************************************************************************************
+    * @description Tests the Customizable Rollups CRLP panel
+    * @return void
+    */
+    public static testMethod void testPanelCRLP() {
+        if (strTestOnly != '*' && strTestOnly != 'testPanelCRLP') return;
+
+        STG_PanelCustomizableRollup_CTRL panel = new STG_PanelCustomizableRollup_CTRL();
+        System.assertEquals('idPanelCustomizableRollup', panel.idPanel());
+        System.assertEquals(true, panel.isAdmin);
+        System.assertEquals(false, panel.isPolling);
+        System.assertEquals(false, ApexPages.hasMessages());
+        System.assert(panel.isHHAccount);
+        System.assert(panel.isAdmin);
+        System.assertEquals(false, ApexPages.hasMessages());
+
+        panel.enableCRLPs();
+        System.assertEquals(true, panel.isPolling, 'Polling should be active.');
+        //fake the success result.
+        UTIL_CustomSettingsFacade.getCustomizableRollupSettings().CMT_API_Status__c = '123 Succeeded';
+        PageReference deploymentPR = panel.checkDeploymentStatus();
+        System.assertEquals(null, deploymentPR, 'Returned PageReference should be null');
+        System.assertEquals(false, panel.isPolling, 'Polling should not be active.');
+
+        panel.resetRollupsToDefaultConfig();
+        System.assertEquals(true, panel.isPolling, 'Polling should be active.');
+        //fake the success result.
+        UTIL_CustomSettingsFacade.getCustomizableRollupSettings().CMT_API_Status__c = '123 Succeeded';
+        deploymentPR = panel.checkDeploymentStatus();
+        System.assertEquals(null, deploymentPR, 'Returned PageReference should be null');
+        System.assertEquals(false, panel.isPolling, 'Polling should not be active.');
+
+        panel.disableCRLPs();
+        System.assertEquals(false, panel.isPolling, 'Polling should not be active.');
+        //fake the fail result.
+        UTIL_CustomSettingsFacade.getCustomizableRollupSettings().CMT_API_Status__c = '123 Failed';
+        deploymentPR = panel.checkDeploymentStatus();
+        System.assertEquals(null, deploymentPR, 'Returned PageReference should be null');
+        System.assertEquals(false, panel.isPolling, 'Polling should not be active.');
+
+        PageReference navPR = panel.navigate();
+        System.debug(navPR);
+        System.assertNotEquals(null, navPR, 'Returned PageReference should not be null');
+
+    }
+
     /*********************************************************************************************************
     * @description Tests the Schedule panel
     * @return void
@@ -1027,4 +1074,18 @@ public with sharing class STG_SettingsManager_TEST {
         system.assertEquals(true, panel.isRunningBatch);
     }   
 
+    /*********************************************************************************************************
+    * @description Tests the Remove Duplicate Primary OCRs Batch panel.
+    * @return void
+    */
+    public static testMethod void testPanelPanelPrimaryContactRoleMergeBatch() {
+        if (strTestOnly != '*' && strTestOnly != 'testPanelPanelPrimaryContactRoleMergeBatch') return;
+        STG_PanelPrimaryContactRoleMerge_CTRL panel = new STG_PanelPrimaryContactRoleMerge_CTRL();
+        system.assertEquals('idPanelPrimaryContactRoleMergeBatch', panel.idPanel());
+        system.assertEquals(false, panel.isRunningBatch);
+        Test.startTest();
+        panel.runBatch();
+        Test.stopTest();
+        system.assertEquals(true, panel.isRunningBatch);
+    }
 }

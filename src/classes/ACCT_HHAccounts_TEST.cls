@@ -54,6 +54,9 @@ private with sharing class ACCT_HHAccounts_TEST {
 	*	hh accounts' primary contact set to new contact
     **********************************************************************************************************/            
     static testMethod void NewContactsNoAccounts() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+        
     	if (strTestOnly != '*' && strTestOnly != 'NewContactsNoAccounts') return;
     	
     	//Using the API class just to give it test coverage.
@@ -98,6 +101,9 @@ private with sharing class ACCT_HHAccounts_TEST {
     *    hh accounts' primary contact updated to contact
     **********************************************************************************************************/            
     static testMethod void NewContactsEmptyHHAccounts() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'NewContactsEmptyHHAccounts') return;
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettings();
@@ -181,6 +187,9 @@ private with sharing class ACCT_HHAccounts_TEST {
     *    hh accounts' primary contact not updated
     **********************************************************************************************************/            
     static testMethod void NewContactsNonEmptyHHAccounts() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'NewContactsNonEmptyHHAccounts') return;
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettings();
@@ -260,6 +269,9 @@ private with sharing class ACCT_HHAccounts_TEST {
     *    hh accounts' primary contact set to new contact
     **********************************************************************************************************/            
     static testMethod void NewContactsNoAccountsWithHHObj() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'NewContactsNoAccountsWithHHObj') return;
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettings();
@@ -317,6 +329,9 @@ private with sharing class ACCT_HHAccounts_TEST {
     *    hh accounts' primary contact set to one of the HH contacts
     **********************************************************************************************************/            
      static testMethod void UpdateContactsMergeHHAccounts() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'UpdateContactsMergeHHAccounts') return;
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettings();
@@ -402,6 +417,9 @@ private with sharing class ACCT_HHAccounts_TEST {
     *    hh accounts' primary contact set to one of the HH contacts
     **********************************************************************************************************/            
      static testMethod void UpdateContactsSplitHHAccounts() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'UpdateContactsSplitHHAccounts') return;
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettings();
@@ -428,7 +446,7 @@ private with sharing class ACCT_HHAccounts_TEST {
         insert listCon;
         
         // refresh our contacts to get their accounts
-        listCon = [select Name, FirstName, LastName, AccountId from Contact order by FirstName];
+        listCon = [select Name, FirstName, LastName, AccountId from Contact order by Id];
         system.assertEquals(5, listCon.size());
         system.assertNotEquals(null, listCon[0].AccountId);        
         
@@ -456,7 +474,7 @@ private with sharing class ACCT_HHAccounts_TEST {
         test.stopTest();    // to flush any future calls.
         
         listAcc = [select Name, npe01__SYSTEM_AccountType__c, npo02__SYSTEM_CUSTOM_NAMING__c, npe01__SYSTEMIsIndividual__c, 
-            npe01__One2OneContact__c, npo02__Formal_Greeting__c, npo02__Informal_Greeting__c, Number_of_Household_Members__c from Account order by Name];
+            npe01__One2OneContact__c, npo02__Formal_Greeting__c, npo02__Informal_Greeting__c, Number_of_Household_Members__c from Account order by Id];
         system.assertEquals(3, listAcc.size());
         
         for (Account acc : listAcc) {
@@ -502,6 +520,9 @@ private with sharing class ACCT_HHAccounts_TEST {
     *    hh accounts' primary contact set to one of the HH contacts
     **********************************************************************************************************/            
      static testMethod void DeleteContactsFromHHAccounts() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'DeleteContactsFromHHAccounts') return;
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettings();
@@ -571,6 +592,9 @@ private with sharing class ACCT_HHAccounts_TEST {
     *     hh accounts' primary contact valid
     **********************************************************************************************************/            
     static testMethod void UndeleteContactsFromHHAccounts() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'UndeleteContactsFromHHAccounts') return;
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettings();
@@ -592,7 +616,7 @@ private with sharing class ACCT_HHAccounts_TEST {
         insert listCon;
         
         // refresh our contacts to get their accounts
-        listCon = [select Name, FirstName, LastName, AccountId from Contact order by Name];
+        listCon = [select Name, FirstName, LastName, AccountId from Contact order by Id];
         system.assertEquals(5, listCon.size());
         system.assertNotEquals(null, listCon[0].AccountId);        
         
@@ -610,7 +634,7 @@ private with sharing class ACCT_HHAccounts_TEST {
         
         Test.startTest();      
         delete listConDel;
-        list<Contact> listCon2 = [select Id, Name from Contact order by Name];
+        list<Contact> listCon2 = [select Id, Name from Contact order by Id];
         system.assertEquals(1, listCon2.size());
         list<Account> listAcc2 = [select Id, Name from Account where id = :listAcc[0].Id];
         system.assertEquals(1, listAcc2.size());
@@ -624,7 +648,7 @@ private with sharing class ACCT_HHAccounts_TEST {
         undelete listCon[1];
         test.stopTest();    // to flush any future calls.
        
-        listCon = [select Id, FirstName, LastName, AccountId from Contact order by Name];
+        listCon = [select Id, FirstName, LastName, AccountId from Contact order by Id];
         system.assertEquals(2, listCon.size());
         
         listAcc = [select Name, npe01__SYSTEM_AccountType__c, npo02__SYSTEM_CUSTOM_NAMING__c, npe01__SYSTEMIsIndividual__c, 
@@ -663,6 +687,9 @@ private with sharing class ACCT_HHAccounts_TEST {
     *    hh accounts' primary contact valid
     **********************************************************************************************************/    
     static testmethod void UpdateOneToOneAndBucketContactsToHHAccounts() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'UpdateOneToOneAndBucketContactsToHHAccounts') return;
 
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettings();
@@ -741,6 +768,9 @@ private with sharing class ACCT_HHAccounts_TEST {
     *    no change for any other type of account
     **********************************************************************************************************/                
     static testMethod void changeContactOwners() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'changeContactOwners') return;
         
         Id ownerId1 = UserInfo.getUserId();             
@@ -926,6 +956,9 @@ private with sharing class ACCT_HHAccounts_TEST {
     *    the system fields on the account are set correctly
     **********************************************************************************************************/            
     static testMethod void newHHAccountWithRecordTypeOnly() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'newHHAccountWithRecordTypeOnly') return;
         
         ID rtIdAccountHH = ACCT_IndividualAccounts_TDTM.rtIdForAccountModel(true);
@@ -947,6 +980,9 @@ private with sharing class ACCT_HHAccounts_TEST {
     *    the system fields on the account are set correctly
     **********************************************************************************************************/            
     static testMethod void updateAccountToHHRecordType() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+        
         if (strTestOnly != '*' && strTestOnly != 'updateAccountToHHRecordType') return;
         
         ID rtIdAccountHH = ACCT_IndividualAccounts_TDTM.rtIdForAccountModel(true);
@@ -975,6 +1011,9 @@ private with sharing class ACCT_HHAccounts_TEST {
     *    the Account's Number of Household Members is still updated
     **********************************************************************************************************/            
     static testMethod void addContactCheckNumberHHMembers() {
+        //skip the test if Advancement is installed
+        if(ADV_PackageInfo_SVC.useAdv()) return;
+
         if (strTestOnly != '*' && strTestOnly != 'addContactCheckNumberHHMembers') return;
 
         // turn off household naming        

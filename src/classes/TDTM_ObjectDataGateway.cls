@@ -67,7 +67,7 @@ public without sharing class TDTM_ObjectDataGateway implements TDTM_iTableDataGa
     public static List<SObject> getClassesToCallForObject(String objectName, TDTM_Runnable.Action action) {   
         string strAction = action.Name();
         string currUserName = UserInfo.getUserName();
-        List<SObject> listClasses = new list<Sobject>();
+        List<SObject> listClasses = new List<Sobject>();
         for (Trigger_Handler__c th : listTH) {
             Set<String> excludedUserNames = (th.Usernames_to_Exclude__c != null ?
                     new Set<String>(th.Usernames_to_Exclude__c.split(';')) : new Set<String>());
@@ -81,7 +81,7 @@ public without sharing class TDTM_ObjectDataGateway implements TDTM_iTableDataGa
 
     /*******************************************************************************************************
      * @description to allow test code to modify the saved trigger handlers and have them reread into the cache.
-     */ 
+     */
     public static void ClearCachedTriggerHandlersForTest() {
         listTH = null;
     }
@@ -91,9 +91,13 @@ public without sharing class TDTM_ObjectDataGateway implements TDTM_iTableDataGa
      */
     public static list<Trigger_Handler__c> listTH {
         get {
-            if (listTH == null) {
-                listTH =  [select Asynchronous__c, Class__c, Load_Order__c, Object__c, Active__c, Usernames_to_Exclude__c, 
-                    Trigger_Action__c, User_Managed__c from Trigger_Handler__c order by Load_Order__c];
+            if (ADV_PackageInfo_SVC.useAdv() && ADV_PackageInfo_SVC.getApiNPSP() != null) {
+                listTH = ADV_PackageInfo_SVC.getApiNPSP().getDefaultTdtmConfigNpspRecords(listTH);
+            } else {
+                if (listTH == null) {
+                    listTH =  [SELECT Asynchronous__c, Class__c, Load_Order__c, Object__c, Active__c, Usernames_to_Exclude__c,
+                        Trigger_Action__c, User_Managed__c FROM Trigger_Handler__c ORDER BY Load_Order__c];
+                }
             }
             return listTH;
         }
