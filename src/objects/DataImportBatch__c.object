@@ -199,7 +199,7 @@
     </fields>
     <fields>
         <fullName>Donation_Matching_Rule__c</fullName>
-        <defaultValue>&quot;npsp__Donation_Amount__c;npsp__Donation_Date__c"</defaultValue>
+        <defaultValue>&quot;Donation_Amount__c;Donation_Date__c"</defaultValue>
         <description>Specifies which fields to match by when trying to match Donations in Data Import records against existing Opportunities and Payments. Control or Command click to select more than one field.</description>
         <externalId>false</externalId>
         <inlineHelpText>Specifies which fields to match by when trying to match Donations in Data Import records against existing Opportunities and Payments. Control or Command click to select more than one field.</inlineHelpText>
@@ -386,7 +386,7 @@
         <masterLabel>Process Batch</masterLabel>
         <openType>sidebar</openType>
         <protected>false</protected>
-        <url>/apex/npsp__BDI_DataImport?batchId={!DataImportBatch__c.Id}&amp;retURL={!URLFOR(&apos;/&apos; + DataImportBatch__c.Id)}</url>
+        <url>/apex/BDI_DataImport?batchId={!DataImportBatch__c.Id}&amp;retURL={!URLFOR(&apos;/&apos; + DataImportBatch__c.Id)}</url>
     </webLinks>
     <webLinks>
         <fullName>View_Templates</fullName>
