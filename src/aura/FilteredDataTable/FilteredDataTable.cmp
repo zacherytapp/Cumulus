@@ -1,0 +1,33 @@
+<aura:component description="FilteredDataTable"
+                implements="flexipage:availableForRecordHome, force:hasRecordId, force:hasSObjectName"
+                controller="FilteredDataTable_CTRL">
+
+    <!-- attributes -->
+    <aura:attribute name="listLabel" type="String" />
+    <aura:attribute name="data" type="Object" />
+    <aura:attribute name="columns" type="List" />
+    <aura:attribute name="childSObjectName" type="String" required="true" default="Enter Child Object Name" />
+    <aura:attribute name="relationshipField" type="String" required="true" default="Enter Relationship Field API Name" />
+    <aura:attribute name="whereClause" type="String" />
+    <aura:attribute name="fieldSet" type="String" required="true" default="Enter Field Set on Child Object here to populate columns"/>
+
+    <!-- handlers-->
+    <aura:handler name="init" value="{! this }" action="{! c.doInit }"/>
+
+    <lightning:card title="{!v.listLabel}" class="slds-card_boundary">
+        <!-- the container element determine the height of the datatable -->
+<!--
+        <div style="height: 50px">
+-->
+            <lightning:datatable
+                    keyField="id"
+                    data="{!v.data}"
+                    columns="{!v.columns}"
+                    hideCheckboxColumn="true"
+            />
+<!--
+        </div>
+-->
+    </lightning:card>
+
+</aura:component>

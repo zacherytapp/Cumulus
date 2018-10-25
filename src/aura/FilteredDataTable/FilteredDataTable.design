@@ -1,0 +1,14 @@
+<design:component label="Filtered Related List">
+
+    <design:attribute name="listLabel" label="List Label" />
+    <design:attribute name="childSObjectName" label="Child Object Name" />
+    <design:attribute name="relationshipField" label="Relationship Field" />
+    <design:attribute name="whereClause" label="SOQL WHERE Clause" />
+    <design:attribute name="fieldSet" label="Field Set" />
+
+    <sfdc:objects>
+        <sfdc:object>Contact</sfdc:object>
+        <sfdc:object>Account</sfdc:object>
+    </sfdc:objects>
+
+</design:component>

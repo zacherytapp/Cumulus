@@ -1444,4 +1444,12 @@ ISBLANK(npe03__Recurring_Donation__c),
         <page>OPP_OpportunityNamingBTN</page>
         <protected>false</protected>
     </webLinks>
+    <validationRules>
+        <fullName>Limit_Opportunity_Hierarchy</fullName>
+        <active>true</active>
+        <description>Opportunity Hierarchy can only go one layer deep</description>
+        <errorConditionFormula>NOT(ISBLANK(ParentOpportunity__r.ParentOpportunity__c))</errorConditionFormula>
+        <errorDisplayField>ParentOpportunity__c</errorDisplayField>
+        <errorMessage>The selected Parent Opportunity is already a child of another Opportunity.</errorMessage>
+    </validationRules>
 </CustomObject>

@@ -438,6 +438,7 @@
         <members>UTIL_Where</members>
         <members>UTIL_Where_TEST</members>
         <members>UTIL_iSoqlListViewConsumer</members>
+        <members>FilteredDataTable_CTRL</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -586,6 +587,7 @@
         <members>dataProviderInterface</members>
         <members>defaultTokens</members>
         <members>svg</members>
+        <members>FilteredDataTable</members>
         <name>AuraDefinitionBundle</name>
     </types>
     <types>
@@ -2510,6 +2512,7 @@
     </types>
     <types>
         <members>Level__c.Target_Required</members>
+        <members>Opportunity.Limit_Opportunity_Hierarchy</members>
         <name>ValidationRule</name>
     </types>
     <types>
