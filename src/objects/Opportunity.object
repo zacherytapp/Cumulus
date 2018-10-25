@@ -1227,6 +1227,20 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>ParentOpportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>The Major Gift Opportunity this child Opportunity belongs to</inlineHelpText>
+        <label>Parent Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>Child Opportunities</relationshipLabel>
+        <relationshipName>ChildOpportunities</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Previous_Grant_Opportunity__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <description>If this Grant is a renewal of a previous Grant, use this field to relate this record to the previous Grant.</description>
