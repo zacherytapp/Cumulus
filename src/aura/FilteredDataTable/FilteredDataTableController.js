@@ -15,9 +15,7 @@
         columns.forEach(function(col){
            fields.push(col.fieldName);
         });
-
-        console.log(fields);
-
+        
         var sObjectName = component.get('v.sObjectName');
         var recordId = component.get('v.recordId');
         var whereClause = component.get('v.whereClause');
