@@ -218,7 +218,7 @@ private class OPP_CampaignMember_TEST {
             CloseDate = system.today(),
             StageName = UTIL_UnitTestData_TEST.getClosedWonStage(),
             Amount = 8,
-            CampaignId=cam.id
+            CampaignId=cam.Id
         );
 
         test.startTest();
@@ -227,9 +227,9 @@ private class OPP_CampaignMember_TEST {
 
         list<campaignmemberstatus> querycmstatus = [SELECT id, Label, hasResponded, SortOrder FROM CampaignMemberStatus WHERE Label=:NotrespondedStatus];
         system.assertEquals(1,querycmstatus.size(),'Only one campaign member status should exist for this status.');
-        system.assertEquals(false,querycmstatus[0].hasResponded,'Campaign Member Status should not be marked responded as it was created.');
+        system.assertEquals(false,querycmstatus[0].HasResponded,'Campaign Member Status should not be marked responded as it was created.');
 
-        list<CampaignMember> querycm = [SELECT Id, Status, HasResponded FROM CampaignMember WHERE contactId=:con.id AND campaignId=:cam.id];
+        list<CampaignMember> querycm = [SELECT Id, Status, HasResponded FROM CampaignMember WHERE ContactId=:con.Id AND CampaignId=:cam.Id];
         system.assertEquals(1, querycm.size(), 'A campaign member should still exist.');
         system.assertEquals(NotrespondedStatus, querycm[0].Status, 'Status should be created per the npe01__Contacts_And_Orgs_Settings__c.Campaign_Member_Responded_Status__c setting.');
         system.assertEquals(false, querycm[0].HasResponded, 'Campaign member should have a non-responded status since it was already created that way.');
@@ -315,7 +315,7 @@ private class OPP_CampaignMember_TEST {
             Amount = 8,
             CampaignId=cam.id
     	);
-    	
+
     	test.startTest();
         insert opp;
         test.stopTest();

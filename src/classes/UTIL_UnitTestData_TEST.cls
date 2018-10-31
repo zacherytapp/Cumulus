@@ -66,6 +66,8 @@ public class UTIL_UnitTestData_TEST {
 
     /** @description The name to use for the Individual Bucket Account in test code. */
     public static final string TEST_INDIVIDUAL_ACCOUNT_NAME = 'IndividualAccountNameForTests';
+    
+    public static final String PROFILE_READONLY_USER = 'Read Only';
 
 // create data for use in unit tests
 // should not be referenced by production code
@@ -531,15 +533,25 @@ public class UTIL_UnitTestData_TEST {
      * @return void
      */
     public static void assertPageHasError(String expectedMsg) {
+        assertPageHasMessage(expectedMsg, ApexPages.Severity.ERROR);
+    }
+
+    /**
+     * @description Assert a Visualforce page has a message displayed
+     * @param expectedMsg Expected error message
+     * @param expectedSeverity Expected severity level
+     * @return void
+     */
+    public static void assertPageHasMessage(String expectedMsg, ApexPages.Severity expectedSeverity) {
         ApexPages.Message[] msgs = ApexPages.getMessages();
 
         System.assert(
-            ApexPages.hasMessages(ApexPages.Severity.ERROR), 
+            ApexPages.hasMessages(expectedSeverity), 
             'Expected page to contain at least one error message. Messages: ' + msgs
         );
  
         for (ApexPages.Message msg : msgs) {
-            if (msg.getSummary().contains(expectedMsg) && msg.getSeverity() == ApexPages.Severity.ERROR) {
+            if (msg.getSummary().contains(expectedMsg) && msg.getSeverity() == expectedSeverity) {
                 return;       
             }
         }
