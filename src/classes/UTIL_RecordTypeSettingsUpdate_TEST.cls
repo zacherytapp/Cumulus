@@ -33,7 +33,7 @@
 * @description Tests for UTIL_RecordTypeSettingsUpdate
 */
 @isTest(isParallel=True)
-private class UTIL_RecordTypeSettingsUpdate_TEST {
+public class UTIL_RecordTypeSettingsUpdate_TEST {
 
     /*******************************************************************************************************
     * @description An exception class used in UTIL_RecordTypeSettingsUpdate Mock class

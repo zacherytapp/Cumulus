@@ -1045,7 +1045,7 @@ private class LD_LeadConvertOverride_TEST {
     @isTest private static void contactFinderBuildsCorrectSOQLQuery() {
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.ONE_TO_ONE_PROCESSOR));
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(CAO_Constants.BUCKET_ACCOUNT_NAME);
         
         Lead l = new Lead();
         l.FirstName = 'Jane';
@@ -1082,7 +1082,7 @@ private class LD_LeadConvertOverride_TEST {
     @isTest private static void contactFinderBuildsCorrectSearchQuery() {
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.ONE_TO_ONE_PROCESSOR));
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(CAO_Constants.BUCKET_ACCOUNT_NAME);
         
         Lead l = new Lead();
         l.FirstName = 'Jane';
@@ -1119,7 +1119,7 @@ private class LD_LeadConvertOverride_TEST {
     @isTest private static void accFinderBuildsCorrectSearchQuery() {
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (npe01__Account_Processor__c = CAO_Constants.ONE_TO_ONE_PROCESSOR));
-        CAO_Constants.setIndividualAccountForTests(CAO_Constants.INDIVIDUAL_ACCOUNT_NAME_FOR_TESTS);
+        CAO_Constants.setIndividualAccountForTests(CAO_Constants.BUCKET_ACCOUNT_NAME);
         
         Lead l = new Lead();
         l.FirstName = 'Jane';

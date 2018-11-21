@@ -305,8 +305,7 @@ private with sharing class ALLO_Allocations_TEST {
     * allocation created
     ********************************************************************************************************/
     static testMethod void campaignAllocations() {
-        if (strTestOnly != '*' && strTestOnly != 'campaignAllocations') return;
-        
+
         General_Accounting_Unit__c defaultgau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
         General_Accounting_Unit__c defaultgau = new General_Accounting_Unit__c(Name='General');
         insert defaultgau;
