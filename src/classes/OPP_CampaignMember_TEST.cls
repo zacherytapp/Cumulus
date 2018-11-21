@@ -37,17 +37,10 @@
 private class OPP_CampaignMember_TEST {
 
     /*********************************************************************************************************
-    * @description if you only want to run one test in this class, fill in its name here.
-    * if you want to run all tests, then use '*'
-    */
-    private static string strTestOnly = '*';
-    
-    /*********************************************************************************************************
     * @description Inserts a new opportunity for a contact with a primary campaign source, and a new member
     * status. Verifies that a campaign member and a new campaign member status are created.
     */
     @isTest static void newMemberCreateStatus() {
-        if (strTestOnly != '*' && strTestOnly != 'newMemberCreateStatus') return;
 
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_And_Orgs_Settings__c(
@@ -91,7 +84,6 @@ private class OPP_CampaignMember_TEST {
     * member is updated with that status.
     */
     @isTest static void updateMemberCreateStatus() {
-        if (strTestOnly != '*' && strTestOnly != 'updateMemberCreateStatus') return;
 
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_And_Orgs_Settings__c(
@@ -138,7 +130,6 @@ private class OPP_CampaignMember_TEST {
     * campaign member's status was created as responded.
     */
     @isTest static void updateStatus() {
-        if (strTestOnly != '*' && strTestOnly != 'updateStatus') return;
 
         String respondedStatus=getUniqueStatus()+'1';
 
@@ -188,7 +179,6 @@ private class OPP_CampaignMember_TEST {
     * Verifies campaign member's status was used, but not created a second time for that campaign.
     */
     @isTest static void settingUsesExistingStatus() {
-        if (strTestOnly != '*' && strTestOnly != 'settingUsesExistingStatus') return;
 
         String respondedStatus=getUniqueStatus()+'1';
         String NotrespondedStatus=getUniqueStatus()+'2';
@@ -240,7 +230,6 @@ private class OPP_CampaignMember_TEST {
     * is created and that the first non responded status was given.
     */
     @isTest static void createMemberNonResponded() {
-        if (strTestOnly != '*' && strTestOnly != 'createMemberNonResponded') return;
 
         String nonRespondedStatus=getUniqueStatus()+'1';
 
@@ -287,7 +276,6 @@ private class OPP_CampaignMember_TEST {
     * is created and that the first responded status was given.
     */
     @isTest static void createMemberResponded() {
-        if (strTestOnly != '*' && strTestOnly != 'createMemberResponded') return;
 
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_And_Orgs_Settings__c(
@@ -330,7 +318,6 @@ private class OPP_CampaignMember_TEST {
     * member status. Verifies that a campaign member isn't created.
     */
     @isTest static void omitCampaignMember() {
-        if (strTestOnly != '*' && strTestOnly != 'omitCampaignMember') return;
 
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_And_Orgs_Settings__c(
@@ -368,7 +355,6 @@ private class OPP_CampaignMember_TEST {
     * is disabled. Verifies no campaign member isn't created.
     */
     @isTest static void featureOff() {
-        if (strTestOnly != '*' && strTestOnly != 'featureOff') return;
 
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_And_Orgs_Settings__c(
@@ -406,7 +392,6 @@ private class OPP_CampaignMember_TEST {
     * campaign members created.
     */
     @isTest static void batchCreateMixedMembers() {
-        if (strTestOnly != '*' && strTestOnly != 'batchCreateMixedMembers') return;
 
         UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_And_Orgs_Settings__c(

@@ -49,17 +49,10 @@ private class CON_DeleteContactOverride_TEST {
     /** @description Cancel RetURL parameter. */
     private static final String PARAM_RETURL_FAIL = 'failRetURL';
 
-    /*********************************************************************************************************
-    * @description if you only want to run one test in this class, fill in its name here.
-    * if you want to run all tests, then use '*'
-    */
-    private static string strTestOnly = '*';
-
     /*******************************************************************************************************
     * @description Deletes a contact not alone in their household, verifies household is not deleted.
     */
     @isTest static void deleteWithOtherMembers() {
-        if (strTestOnly != '*' && strTestOnly != 'deleteWithOtherMembers') return;
         
         Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
@@ -93,8 +86,6 @@ private class CON_DeleteContactOverride_TEST {
     * recycle bin and not hard deleted.
     */
     @isTest static void deleteOneToOne() {
-        if (strTestOnly != '*' && strTestOnly != 'deleteOneToOne') return;
-        
         npe01__Contacts_and_Orgs_Settings__c contactSettingsForTests = UTIL_CustomSettingsFacade.getContactsSettingsForTests(
             new npe01__Contacts_and_Orgs_Settings__c (
                 npe01__Account_Processor__c = CAO_Constants.ONE_TO_ONE_PROCESSOR
@@ -129,7 +120,6 @@ private class CON_DeleteContactOverride_TEST {
     * account. Verifies that contact is in the recycle bin and not hard deleted.
     */
     @isTest static void deleteAloneInHousehold() {
-        if (strTestOnly != '*' && strTestOnly != 'deleteAloneInHousehold') return;
 
         Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
@@ -166,7 +156,6 @@ private class CON_DeleteContactOverride_TEST {
         - Fail (or Cancel) URL
     **********************************************************************************************************/ 
     private static testMethod void testNavigationParametersAreSetInConstructor() {
-        if (strTestOnly != '*' && strTestOnly != 'testNavigationParametersAreSetInConstructor') return;
 
         Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
@@ -196,7 +185,6 @@ private class CON_DeleteContactOverride_TEST {
         Return URL property is set to Contact Home
     **********************************************************************************************************/ 
     private static testMethod void testRetUrlIsContactHomeIfNotProvided() {
-        if (strTestOnly != '*' && strTestOnly != 'testRetUrlIsContactHomeIfNotProvided') return;
 
         Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
@@ -220,7 +208,6 @@ private class CON_DeleteContactOverride_TEST {
         Controller retUrl is vfRetURLInSFX page param for LEx.
     **********************************************************************************************************/ 
     private static testMethod void testRetUrlForClassicAndLex() {
-        if (strTestOnly != '*' && strTestOnly != 'testRetUrlForClassicAndLex') return;
 
         Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
@@ -249,7 +236,6 @@ private class CON_DeleteContactOverride_TEST {
         Cancel action sets sfoceNav to "back" when in LEx.
     **********************************************************************************************************/ 
     private static testMethod void testOnCancel() {
-        if (strTestOnly != '*' && strTestOnly != 'testOnCancel') return;
 
         Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;
@@ -290,7 +276,6 @@ private class CON_DeleteContactOverride_TEST {
         The Account is not deleted. 
     **********************************************************************************************************/ 
     private static testMethod void testDeleteContactAndLeaveEmptyAccount() {
-        if (strTestOnly != '*' && strTestOnly != 'testDeleteContactAndLeaveEmptyAccount') return;
 
         Contact con = UTIL_UnitTestData_TEST.getContact();
         insert con;

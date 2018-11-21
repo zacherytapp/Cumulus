@@ -36,10 +36,6 @@
 @isTest(IsParallel=true)
 public with sharing class ADDR_Validator_TEST {
 
-    // if you only want to run one test in this class, fill in its name here.
-    // if you want to run all tests, then use '*'
-    private static string strTestOnly = '*';
-
     private static boolean hasAsyncAddrTriggers() {
         return TDTM_DefaultConfig.ADDR_Address_TDTM_TestAsync ||
             TDTM_DefaultConfig.ADDR_Contact_TDTM_TestAsync ||
@@ -75,8 +71,6 @@ public with sharing class ADDR_Validator_TEST {
         //skip the test if Advancement is installed
         if(ADV_PackageInfo_SVC.useAdv()) return;
 
-        if (strTestOnly != '*' && strTestOnly != 'testContactAddress') return;
-        
         // address validation is async, so no way to successfully test if other related triggers are already async!
         if (hasAsyncAddrTriggers()) return;
         
@@ -118,8 +112,6 @@ public with sharing class ADDR_Validator_TEST {
         //skip the test if Advancement is installed
         if(ADV_PackageInfo_SVC.useAdv()) return;
 
-        if (strTestOnly != '*' && strTestOnly != 'testContactInvalidAddress') return;
-        
         // address validation is async, so no way to successfully test if other related triggers are already async!
         if (hasAsyncAddrTriggers()) return;
         
@@ -147,8 +139,6 @@ public with sharing class ADDR_Validator_TEST {
         //skip the test if Advancement is installed
         if(ADV_PackageInfo_SVC.useAdv()) return;
 
-        if (strTestOnly != '*' && strTestOnly != 'test400') return;
-        
         // address validation is async, so no way to successfully test if other related triggers are already async!
         if (hasAsyncAddrTriggers()) return;
         
@@ -176,8 +166,6 @@ public with sharing class ADDR_Validator_TEST {
         //skip the test if Advancement is installed
         if(ADV_PackageInfo_SVC.useAdv()) return;
 
-        if (strTestOnly != '*' && strTestOnly != 'test401') return;
-        
         // address validation is async, so no way to successfully test if other related triggers are already async!
         if (hasAsyncAddrTriggers()) return;
         
@@ -205,8 +193,6 @@ public with sharing class ADDR_Validator_TEST {
         //skip the test if Advancement is installed
         if(ADV_PackageInfo_SVC.useAdv()) return;
 
-        if (strTestOnly != '*' && strTestOnly != 'test402') return;
-        
         // address validation is async, so no way to successfully test if other related triggers are already async!
         if (hasAsyncAddrTriggers()) return;
         
@@ -234,8 +220,6 @@ public with sharing class ADDR_Validator_TEST {
         //skip the test if Advancement is installed
         if(ADV_PackageInfo_SVC.useAdv()) return;
 
-        if (strTestOnly != '*' && strTestOnly != 'test500') return;
-        
         // address validation is async, so no way to successfully test if other related triggers are already async!
         if (hasAsyncAddrTriggers()) return;
         
@@ -263,8 +247,6 @@ public with sharing class ADDR_Validator_TEST {
         //skip the test if Advancement is installed
         if(ADV_PackageInfo_SVC.useAdv()) return;
 
-        if (strTestOnly != '*' && strTestOnly != 'testContactAmbiguousAddress') return;
-        
         // address validation is async, so no way to successfully test if other related triggers are already async!
         if (hasAsyncAddrTriggers()) return;
         
@@ -294,8 +276,6 @@ public with sharing class ADDR_Validator_TEST {
         //skip the test if Advancement is installed
         if(ADV_PackageInfo_SVC.useAdv()) return;
 
-        if (strTestOnly != '*' && strTestOnly != 'testContactZipOnly') return;
-        
         // address validation is async, so no way to successfully test if other related triggers are already async!
         if (hasAsyncAddrTriggers()) return;
         
@@ -332,8 +312,6 @@ public with sharing class ADDR_Validator_TEST {
         //skip the test if Advancement is installed
         if(ADV_PackageInfo_SVC.useAdv()) return;
 
-        if (strTestOnly != '*' && strTestOnly != 'testContactCityAndStateOnly') return;
-        
         // address validation is async, so no way to successfully test if other related triggers are already async!
         if (hasAsyncAddrTriggers()) return;
         
@@ -368,8 +346,6 @@ public with sharing class ADDR_Validator_TEST {
     }
 
     static testMethod void testController() {
-        if (strTestOnly != '*' && strTestOnly != 'testController') return;
-        
         STG_PanelADDRVerification_CTRL sc = new STG_PanelADDRVerification_CTRL();
         sc.initDynamicFields(); //this will also set the settings property
         
@@ -394,8 +370,6 @@ public with sharing class ADDR_Validator_TEST {
     }
 
     static testMethod void testBlankService() {
-        if (strTestOnly != '*' && strTestOnly != 'testBlankService') return;
-        
         STG_PanelADDRVerification_CTRL sc = new STG_PanelADDRVerification_CTRL();
         sc.initDynamicFields(); //this will also set the settings property
         
@@ -409,8 +383,6 @@ public with sharing class ADDR_Validator_TEST {
     }
 
     static testMethod void testControllerMissingSetting() {
-        if (strTestOnly != '*' && strTestOnly != 'testControllerMissingSetting') return;
-        
         STG_PanelADDRVerification_CTRL sc = new STG_PanelADDRVerification_CTRL();
         sc.initDynamicFields(); //this will also set the settings property
         
@@ -430,8 +402,6 @@ public with sharing class ADDR_Validator_TEST {
         //skip the test if Advancement is installed
         if(ADV_PackageInfo_SVC.useAdv()) return;
 
-        if (strTestOnly != '*' && strTestOnly != 'dontValidatePreviouslyValidatedAddresses') return;
-        
         // address validation is async, so no way to successfully test if other related triggers are already async!
         if (hasAsyncAddrTriggers()) return;
 

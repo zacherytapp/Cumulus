@@ -36,10 +36,6 @@
 @isTest(isParallel=True)
 public with sharing class ADDR_Validator_Batch_TEST {
 
-    // if you only want to run one test in this class, fill in its name here.
-    // if you want to run all tests, then use '*'
-    private static string strTestOnly = '*';
-    
     public static void createDefaultSettings() {
     	// use the household account model
         UTIL_CustomSettingsFacade.getContactsSettings();
@@ -60,8 +56,6 @@ public with sharing class ADDR_Validator_Batch_TEST {
     public static testmethod void oneValidAddress() {
         //skip the test if Advancement is installed
         if(ADV_PackageInfo_SVC.useAdv()) return;
-
-    	if (strTestOnly != '*' && strTestOnly != 'oneValidAddress') return;
 
     	TDTM_DefaultConfig.startTestDataInit();
     	createDefaultSettings();
@@ -111,7 +105,6 @@ public with sharing class ADDR_Validator_Batch_TEST {
         if(ADV_PackageInfo_SVC.useAdv()) return;
 
         Integer batchSize = 100;
-    	if (strTestOnly != '*' && strTestOnly != 'multipleValidAddresses') return;
 
         UTIL_Debug.disableDebugLogging();
         TDTM_DefaultConfig.startTestDataInit();
@@ -173,8 +166,6 @@ public with sharing class ADDR_Validator_Batch_TEST {
         //skip the test if Advancement is installed
         if(ADV_PackageInfo_SVC.useAdv()) return;
 
-        if (strTestOnly != '*' && strTestOnly != 'oneValidZipcode') return;
-
         TDTM_DefaultConfig.startTestDataInit();
         createDefaultSettings();
         
@@ -213,15 +204,12 @@ public with sharing class ADDR_Validator_Batch_TEST {
     }
     
     public static testmethod void multipleValidZipcodes() {
-        if (strTestOnly != '*' && strTestOnly != 'multipleValidZipcodes') return;
         createDefaultSettings();
     }
     
     public static testmethod void multipleValidAddressessZipcodes() {
         //skip the test if Advancement is installed
         if(ADV_PackageInfo_SVC.useAdv()) return;
-
-    	if (strTestOnly != '*' && strTestOnly != 'multipleValidAddressessZipcodes') return;  
 
         TDTM_DefaultConfig.startTestDataInit();
     	createDefaultSettings();
@@ -297,7 +285,6 @@ public with sharing class ADDR_Validator_Batch_TEST {
     }
     
     public static testmethod void validAddressInvalidZipcode() {
-        if (strTestOnly != '*' && strTestOnly != 'validAddressInvalidZipcode') return;     
         createDefaultSettings();
     }     
 }
