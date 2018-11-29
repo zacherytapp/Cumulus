@@ -1,0 +1,49 @@
+<aura:component description="BDI_dataImportForm">
+    <aura:attribute name="layoutSections" type="List" access="public"/>
+    <aura:attribute name="activeSections" type="List" default="[]"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+    <aura:attribute name="showForm" type="Boolean" default="true" description="Workaround to reset the recordEditForm"/>
+
+    <aura:handler name="change" value="{!v.layoutSections}" action="{!c.onLayoutSectionsChanged}"/>
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner />
+    </aura:if>
+    <aura:if isTrue="{!v.showForm}">
+        <lightning:recordEditForm
+                aura:id="recordEditForm"
+                objectApiName="DataImport__c"
+                onload="{!c.handleLoad}"
+                onsubmit="{!c.handleSubmit}"
+                onsuccess="{!c.handleSuccess}"
+                >
+            <lightning:messages/>
+            <div class="slds-card">
+                <lightning:accordion allowMultipleSectionsOpen="true" activeSectionName="{!v.activeSections}">
+                    <aura:iteration items="{!v.layoutSections}" var="section" indexVar="{!sectionIndex}">
+                        <aura:if isTrue="{!section.editHeading}">
+                            <lightning:accordionSection name="{!section.label}" label="{!section.label}">
+                                <lightning:layout multipleRows="true">
+                                    <aura:iteration items="{!section.layoutColumns}" var="column">
+                                            <aura:iteration items="{!column.layoutItems}" var="item">
+                                                <lightning:layoutItem size="6" padding="around-small">
+                                                    <lightning:inputField fieldName="{!item.field}" aura:id="formInputField"/>
+                                                </lightning:layoutItem>
+                                            </aura:iteration>
+                                    </aura:iteration>
+                                </lightning:layout>
+                            </lightning:accordionSection>
+                        </aura:if>
+                    </aura:iteration>
+                    <lightning:layout horizontalAlign="center" class="slds-m-bottom_small">
+                        <lightning:layoutItem padding="around-small">
+                            <lightning:button aura:id="submit" type="submit" label="Save" variant="brand"/>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem padding="around-small">
+                            <lightning:button aura:id="reset" type="reset" label="Cancel" variant="neutral"/>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </lightning:accordion>
+            </div>
+        </lightning:recordEditForm>
+    </aura:if>
+</aura:component>

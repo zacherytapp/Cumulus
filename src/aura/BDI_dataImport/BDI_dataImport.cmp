@@ -1,0 +1,8 @@
+<aura:component description="BDI_dataImport" controller="BDI_FormController" implements="flexipage:availableForAllPageTypes" access="global">
+    <aura:attribute name="layoutName" type="String"/>
+    <aura:attribute name="layoutSections" type="List"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+
+    <c:BDI_dataImportForm layoutSections="{!v.layoutSections}"/>
+</aura:component>
