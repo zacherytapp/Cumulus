@@ -197,7 +197,26 @@ tasks:
                     - NewCase
                     - SendEmail
 
+    preflight:
+        description: static preflight test thing
+        class_path: tasks.preflight.StaticPreflightTask
+
 flows:
+    install_prod_preflight:
+        steps:
+            1: 
+                task: preflight
+                options:
+                    task_name: update_dependencies
+            2: 
+                task: preflight
+                options:
+                    task_name: deploy_pre
+            3: 
+                task: preflight
+                options:
+                    task_name: install_managed
+
     config_dev:
         steps:
             3:
