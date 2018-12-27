@@ -307,8 +307,6 @@ private with sharing class ALLO_Allocations_TEST {
     static testMethod void campaignAllocations() {
 
         General_Accounting_Unit__c defaultgau = new General_Accounting_Unit__c(Name=UTIL_UnitTestData_TEST.TEST_NAME);
-        General_Accounting_Unit__c defaultgau = new General_Accounting_Unit__c(Name='General');
-        insert defaultgau;
 
         setupSettings(new Allocations_Settings__c(Default_Allocations_Enabled__c = true, Default__c = defaultGau.id));
 
