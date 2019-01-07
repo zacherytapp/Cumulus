@@ -33,15 +33,16 @@
 * @group Opportunity
 * @description Test class for the Send Acknowledgment buttons (single and list view) on Opportunities.  
 */
-@isTest(isParallel=True)
+@isTest(isParallel=true)
 public with sharing class OPP_SendAcknowledgmentBTN_TEST {
     private static final String TO_BE_ACKNOWLEDGED_STATUS = 'To Be Acknowledged';
 
     /*********************************************************************************************************
-    * @description Tests the controller for the Send Acknowledgment Button
+    * @description verify the page attempts to send the acknowledgement
     */
-    static testmethod void testSendAcknowledgment() {        
-        list<Opportunity> listOpp = setUpOpportunities(1);
+    @isTest
+    private static void testSendAcknowledgment() {        
+        List<Opportunity> listOpp = setUpOpportunities(1);
         ApexPages.StandardSetController sc = new ApexPages.StandardSetController(listOpp);
         sc.setSelected(listOpp);
         OPP_SendAcknowledgmentBTN_CTRL ctrl = new OPP_SendAcknowledgmentBTN_CTRL(sc);
@@ -50,21 +51,23 @@ public with sharing class OPP_SendAcknowledgmentBTN_TEST {
         ctrl.SendAcknowledgment();
         Test.stopTest();
         
-        listOpp = [select Id, name, Acknowledgment_Status__c, Acknowledgment_Date__c from Opportunity];
-        system.assertEquals(1, listOpp.size());
+        listOpp = getOpps();
+
+        System.assertEquals(1, listOpp.size());
 
         // we don't know if the workflow is active or not.
-        system.assert(listOpp[0].Acknowledgment_Status__c == label.sendAcknowledgmentFailedStatus ||
-            listOpp[0].Acknowledgment_Status__c == label.sendAcknowledgmentSucceeded);            
-        system.assertNotEquals(null, ctrl.listOppNotSent);
-        system.assertNotEquals(ctrl.cSent, ctrl.cNotSent);   
+        System.assert(
+            listOpp[0].Acknowledgment_Status__c == OPP_SendAcknowledgmentBTN_CTRL.ACKNOWLEDGEMENT_FAILED ||
+            listOpp[0].Acknowledgment_Status__c == OPP_SendAcknowledgmentBTN_CTRL.ACKNOWLEDGED, 
+            'Acknowledge Status Mismatch Expected: (' +  OPP_SendAcknowledgmentBTN_CTRL.ACKNOWLEDGEMENT_FAILED +
+             ' OR ' + OPP_SendAcknowledgmentBTN_CTRL.ACKNOWLEDGED + ') ACTUAL: ' + listOpp[0].Acknowledgment_Status__c
+        );  
+        System.assertNotEquals(null, ctrl.oppsNotSent);
+        System.assertNotEquals(ctrl.sentCount, ctrl.notSentCount);   
     }
 
     /*********************************************************************************************************
-    @description 
-        Test SendAcknowledgment() rollback when an exception occurs 
-    verify:
-        The transaction is completely rolled back and there is no partial commit
+    @description verify the page will rollback the opportunity changes when an exception occurs     
     **********************************************************************************************************/ 
     private static testMethod void testSendAcknowledgmentRollsBackAllDmlsOnError() { 
         Test.setCurrentPage(Page.OPP_SendAcknowledgmentBTN);
@@ -76,6 +79,7 @@ public with sharing class OPP_SendAcknowledgmentBTN_TEST {
         ApexPages.StandardSetController sc = new ApexPages.StandardSetController(opps);
         sc.setSelected(opps);
         OPP_SendAcknowledgmentBTN_CTRL ctrl = new OPP_SendAcknowledgmentBTN_CTRL(sc);
+        ctrl.oppsToAcknowledge = opps;
         
         Test.startTest();
         ctrl.SendAcknowledgment();
@@ -83,13 +87,112 @@ public with sharing class OPP_SendAcknowledgmentBTN_TEST {
 
         UTIL_UnitTestData_TEST.assertPageHasError('invalid cross reference');
 
-        for (Opportunity opp : [SELECT Acknowledgment_Status__c FROM Opportunity]) {
-            System.assertEquals(TO_BE_ACKNOWLEDGED_STATUS, opp.Acknowledgment_Status__c, 'The Acknowledgment Status should be unchanged');
-        }     
+        for (Opportunity opp : getOpps()) {
+            System.assertEquals(
+                TO_BE_ACKNOWLEDGED_STATUS, opp.Acknowledgment_Status__c, 
+                'The Acknowledgment Status should be unchanged'
+            );
+        }    
+
+        System.assertEquals(0, ctrl.sentCount, 'Sent Counter was not rolledback');
+        System.assertEquals(1, ctrl.notSentCount, 'Not Sent Counter was not rolledback');
+
     }
 
-    // Helpers
-    ////////////
+    /*********************************************************************************************************
+    @description verify the page will not attempt to send the acknowledgement when the opportunity is already 
+    * acknowledged but will still attempt other opportunities
+    **********************************************************************************************************/     
+    @isTest
+    private static void shouldNotSendAckWhenAlreadySent() { 
+        final Integer totalOppsCreated = 5;
+        final Integer oppsAlreadyAcknowledged = 3;
+
+        final Date initialDate = Date.newInstance(2018, 1, 1);
+
+        List<Opportunity> allOpps = setUpOpportunities(totalOppsCreated);
+        Set<Id> resendOppIds = new Set<Id>();
+        Set<Id> sendOppIds = new Set<Id>();
+        
+        for (Integer oppIndex=0; oppIndex < allOpps.size(); oppIndex++) {
+            Opportunity o = allOpps[oppIndex];
+            o.Acknowledgment_Date__c = initialDate;
+            if (oppIndex < oppsAlreadyAcknowledged) {
+                o.Acknowledgment_Status__c = OPP_SendAcknowledgmentBTN_CTRL.ACKNOWLEDGED;
+                resendOppIds.add(o.Id);
+            } else {
+                sendOppIds.add(o.Id);
+            }
+        }     
+        
+        update allOpps;
+
+        ApexPages.StandardSetController sc = new ApexPages.StandardSetController(allOpps);
+        sc.setSelected(allOpps);
+        OPP_SendAcknowledgmentBTN_CTRL ctrl = new OPP_SendAcknowledgmentBTN_CTRL(sc);                
+        
+        Test.startTest();
+        ctrl.SendAcknowledgment();
+        Test.stopTest();
+
+        // check the resulting acknowledgement status 
+        allOpps = getOpps();
+
+        System.assertEquals(totalOppsCreated, allOpps.size(), 'Opportunity Size mismatch');     
+        System.assertEquals(oppsAlreadyAcknowledged, ctrl.alreadySentCount, 'Incorrect # of acks already sent');
+
+        Integer sentCount = 0;
+        Integer notSentCount = 0;
+
+        for (Opportunity o : allOpps) {
+            if (resendOppIds.contains(o.Id)) {
+                System.assertEquals(
+                    OPP_SendAcknowledgmentBTN_CTRL.ACKNOWLEDGED, 
+                    o.Acknowledgment_Status__c, 
+                    'Acknowledgement status is wrong'
+                );
+                System.assertEquals(initialDate, o.Acknowledgment_Date__c, 'Acknowledgement date is wrong'); 
+                continue;
+            } 
+
+            if (o.Acknowledgment_Status__c == OPP_SendAcknowledgmentBTN_CTRL.ACKNOWLEDGED) {
+                sentCount++;
+            }
+
+            if (o.Acknowledgment_Status__c == OPP_SendAcknowledgmentBTN_CTRL.ACKNOWLEDGEMENT_FAILED) {
+                notSentCount++;
+            }                  
+        }  
+
+        System.assertEquals(notSentCount, ctrl.notSentCount, 'Incorrect # of not sent acks');
+        System.assertEquals(sentCount, ctrl.sentCount, 'Incorrect # of sent acks');
+                
+    }
+
+
+    /*********************************************************************************************************
+    * @description Verify the page displays an error message if no opportunity is selected 
+    **********************************************************************************************************/     
+    @isTest
+    private static void shouldDisplayErrorWhenNoOppSelected() { 
+        Test.setCurrentPage(Page.OPP_SendAcknowledgmentBTN);
+
+        List<Opportunity> opps = new List<Opportunity>();
+
+        ApexPages.StandardSetController sc = new ApexPages.StandardSetController(opps);
+        sc.setSelected(opps);
+        OPP_SendAcknowledgmentBTN_CTRL ctrl = new OPP_SendAcknowledgmentBTN_CTRL(sc);
+        
+        Test.startTest();
+        ctrl.sendAcknowledgment();
+        Test.stopTest();
+
+        UTIL_UnitTestData_TEST.assertPageHasError(System.Label.sendAcknowledgmentNoneSelected);
+    }
+
+    /*********************************************************************************************************
+     * Helpers
+     **********************************************************************************************************/
 
     /*********************************************************************************************************
     * @description Create Opportunities and Opportunity Contact Roles
@@ -115,18 +218,28 @@ public with sharing class OPP_SendAcknowledgmentBTN_TEST {
                 CloseDate = today,
                 Amount = 100,
                 Name = UTIL_UnitTestData_TEST.TEST_NAME,
-                StageName = closedWonStage, Acknowledgment_Status__c = TO_BE_ACKNOWLEDGED_STATUS
+                StageName = closedWonStage, 
+                Acknowledgment_Status__c = TO_BE_ACKNOWLEDGED_STATUS
             ));
         }
-        insert opps;  
-        
-        List<OpportunityContactRole> ocrs = new List<OpportunityContactRole>();
-        for (Opportunity opp : opps) {
-            ocrs.add(new OpportunityContactRole(OpportunityId = opp.Id, ContactId = contact.Id, IsPrimary = true));
-        }      
-        insert ocrs;
-        
+        insert opps;
+              
         return opps;
     }
 
+    /*********************************************************************************************************
+    * @description Return all opportunities
+    * @return List<Opportunity> List of Opportunities
+    **********************************************************************************************************/
+  
+    private static List<Opportunity> getOpps() {
+        return [
+            SELECT 
+                Id, 
+                Name, 
+                Acknowledgment_Status__c, 
+                Acknowledgment_Date__c 
+            FROM Opportunity
+        ];
+    }    
 }
