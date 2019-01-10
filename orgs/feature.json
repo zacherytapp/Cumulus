@@ -5,6 +5,7 @@
   "orgPreferences" : {
     "enabled": [
       "ChatterEnabled",
+      "NotesReservedPref01",
       "S1DesktopEnabled",
       "Translation"
     ],
