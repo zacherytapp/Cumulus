@@ -5,9 +5,11 @@
     <aura:attribute name="showForm" type="Boolean" default="true" description="Workaround to reset the recordEditForm"/>
 
     <aura:handler name="change" value="{!v.layoutSections}" action="{!c.onLayoutSectionsChanged}"/>
+
     <aura:if isTrue="{!v.showSpinner}">
         <lightning:spinner />
     </aura:if>
+
     <aura:if isTrue="{!v.showForm}">
         <lightning:recordEditForm
                 aura:id="recordEditForm"
@@ -22,13 +24,20 @@
                     <aura:iteration items="{!v.layoutSections}" var="section" indexVar="{!sectionIndex}">
                         <aura:if isTrue="{!section.editHeading}">
                             <lightning:accordionSection name="{!section.label}" label="{!section.label}">
-                                <lightning:layout multipleRows="true">
+                                <lightning:layout>
                                     <aura:iteration items="{!section.layoutColumns}" var="column">
-                                            <aura:iteration items="{!column.layoutItems}" var="item">
-                                                <lightning:layoutItem size="6" padding="around-small">
-                                                    <lightning:inputField fieldName="{!item.field}" aura:id="formInputField"/>
-                                                </lightning:layoutItem>
-                                            </aura:iteration>
+                                        <lightning:layoutItem size="6">
+                                            <lightning:layout multipleRows="true">
+                                                <aura:iteration items="{!column.layoutItems}" var="item">
+                                                    <lightning:layoutItem size="12" padding="around-small">
+                                                        <lightning:inputField
+                                                                class="{!item.behavior == 'Required' ? 'required' : ''}"
+                                                                fieldName="{!item.field}"
+                                                                aura:id="formInputField"/>
+                                                    </lightning:layoutItem>
+                                                </aura:iteration>
+                                            </lightning:layout>
+                                        </lightning:layoutItem>
                                     </aura:iteration>
                                 </lightning:layout>
                             </lightning:accordionSection>

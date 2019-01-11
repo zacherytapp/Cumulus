@@ -44,7 +44,7 @@ public with sharing class BDI_FormController {
         })[0];
 
         Metadata.Layout layout = (Metadata.Layout)metadata;
-        System.debug(JSON.serializePretty(layout));
+
         return JSON.serialize(layout.layoutSections);
     }
 }

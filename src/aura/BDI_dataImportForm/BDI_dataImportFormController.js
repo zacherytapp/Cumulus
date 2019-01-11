@@ -14,6 +14,7 @@
 
     handleSubmit: function(component, event, helper) {
         helper.showSpinner(component);
+        helper.checkRequired(component, event);
     },
 
     handleSuccess: function(component, event, helper) {
