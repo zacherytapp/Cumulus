@@ -21,7 +21,7 @@
      */
     createEntryForm: function (component) {
         $A.createComponent(
-            'c:BGE_EntryForm',
+            'c:BGE_FormBugDemo',
             {
                 'aura:id': 'entryForm',
                 'labels': component.get('v.labels'),
@@ -83,174 +83,6 @@
     },
 
     /**
-     * @description: handles the display or clearing of errors from the results of dry run
-     * @param rowErrors: object with row Id, title, and list of associated messages
-     */
-    handleTableErrors: function(component, rowErrors) {
-        var tableErrors = { rows: {}, table: {}, size: 0 };
-
-        rowErrors.forEach(function(error) {
-            var rowError = {
-                title: error.title,
-                messages: error.messages
-            };
-            tableErrors.rows[error.id] = rowError;
-        });
-
-        tableErrors.size = rowErrors.length;
-
-        component.set('v.errors', tableErrors);
-    },
-
-    /**
-     * @description: saves inline edits from dataTable.
-     * @param draftValues: changed values in the table
-     */
-    handleTableSave: function(component, draftValues) {
-        this.showSpinner(component);
-        var action = component.get('c.updateDataImports');
-        action.setParams({dataImports: draftValues, batchId: component.get('v.recordId')});
-        action.setCallback(this, function (response) {
-            var state = response.getState();
-            if (state === 'SUCCESS') {
-                this.showToast(component, $A.get('$Label.c.PageMessagesConfirm'), $A.get('$Label.c.bgeGridGiftUpdated'), 'success');
-                var responseRows = response.getReturnValue();
-                this.setDataTableRows(component, responseRows);
-                this.setTotals(component, responseRows);
-
-                //call dry run in callback to speed up refresh of datatable rows
-                var recordIds = [];
-                draftValues.forEach(function(draftVal){
-                    recordIds.push(draftVal.Id);
-                });
-                this.runDryRun(component, recordIds);
-            } else {
-                this.handleApexErrors(component, response.getError());
-            }
-            this.hideSpinner(component);
-        });
-        $A.enqueueAction(action);
-    },
-
-    /**
-     * @description: opens the batch wizard modal for edit mode of the component
-     */
-    openBatchWizard: function(component, event) {
-        let modalBody;
-        let modalHeader;
-        let modalFooter;
-        const batchId = component.get('v.recordId');
-
-        let progressStepLabels = [
-            $A.get('$Label.c.bgeBatchOverviewWizard'),
-            $A.get('$Label.c.bgeBatchSelectFields'),
-            $A.get('$Label.c.bgeBatchSetFieldOptions'),
-            $A.get('$Label.c.bgeBatchSetBatchOptions')
-        ];
-
-        $A.createComponents([
-                ['c:BGE_ConfigurationWizard', {sObjectName: 'DataImportBatch__c', recordId: batchId}],
-                ['c:modalHeader', {header: $A.get('$Label.c.bgeBatchInfoWizard')}],
-                ['c:modalFooter', {progressStepLabels: progressStepLabels}]
-            ],
-            function(components, status, errorMessage){
-                if (status === 'SUCCESS') {
-                    modalBody = components[0];
-                    modalHeader = components[1];
-                    modalFooter = components[2];
-                    component.find('overlayLib').showCustomModal({
-                        body: modalBody,
-                        header: modalHeader,
-                        footer: modalFooter,
-                        showCloseButton: true,
-                        cssClass: 'slds-modal_large'
-                    })
-                } else {
-                    this.showToast(component, $A.get('$Label.c.PageMessagesError'), errorMessage, 'error');
-                }
-            }
-        );
-    },
-
-    /**
-     * @description: redirects the user to the Process Batch page if validity conditions are met
-     */
-    processBatch: function(component) {
-        let userCanProcessBatch = (this.tableHasNoDryRunErrors(component) && this.totalsMatchIfRequired(component));
-
-        if (userCanProcessBatch) {
-            const batchId = component.get('v.recordId');
-            const bdiBatchClass = component.get('v.labels.bdiBatchClass');
-            let url = '/apex/' + bdiBatchClass + '?batchId=' + batchId + '&retURL=' + batchId;
-            let urlEvent = $A.get('e.force:navigateToURL');
-            urlEvent.setParams({
-                'url': url
-            });
-            urlEvent.fire();
-        }
-    },
-
-    /**
-     * @description: starts the BDI dry run to verify DataImport__c matches
-     * @param recordIds: list of DataImport__c RecordIds to check for dry run
-     */
-    runDryRun: function(component, recordIds) {
-        var action = component.get('c.runDryRun');
-        var batchId = component.get('v.recordId');
-        this.showSpinner(component);
-        action.setParams({dataImportIds: recordIds, batchId: batchId});
-        action.setCallback(this, function (response) {
-            var state = response.getState();
-            if (state === 'SUCCESS') {
-                var responseRows = response.getReturnValue();
-                this.setDataTableRows(component, responseRows);
-                this.setTotals(component, responseRows);
-            } else {
-                this.handleApexErrors(component, response.getError());
-            }
-            this.hideSpinner(component);
-        });
-        $A.enqueueAction(action);
-    },
-
-    /**
-     * @description: sets column with a derived Donor field, any columns passed from Apex, and Delete action.
-     * @param dataColumns: custom Column class data passed from the Apex controller.
-     */
-    setColumns: function(component, dataColumns) {
-        var columns = [];
-        columns.push({label: 'Donor', fieldName: 'donorLink', type: 'url', editable: false, typeAttributes: {label: {fieldName: 'donorName'}}});
-
-        dataColumns.forEach(function(col){
-            columns.push({label: col.label,
-                fieldName: col.fieldName,
-                type: col.type,
-                editable: !col.readOnly,
-                typeAttributes: JSON.parse(col.typeAttributes)});
-        });
-
-        columns.push({
-            type: 'action',
-            typeAttributes: {
-                rowActions: [
-                    {
-                        label: $A.get('$Label.c.bgeActionView'),
-                        name: 'view',
-                        title: $A.get('$Label.c.bgeActionView')
-                    },
-                    {
-                        label: $A.get('$Label.c.bgeActionDelete'),
-                        name: 'delete',
-                        title: $A.get('$Label.c.bgeActionDelete')
-                    }
-                ]
-            }
-        });
-
-        component.set('v.columns', columns);
-    },
-
-    /**
      * @description: sets data import fields for dynamic use in the recordEditForm.
      * @param dataColumns: custom Column class data passed from the Apex controller.
      */
@@ -273,49 +105,12 @@
     },
 
     /**
-     * @description: flattens the DataImportRow class data to include donor information at the same level as the rest of the DataImport__c record.
-     * @param responseRows: custom DataImportRow class data passed from the Apex controller.
-     */
-    setDataTableRows: function(component, responseRows) {
-        var rows = [];
-        var errors = [];
-        responseRows.forEach(function(currentRow) {
-            var row = currentRow.record;
-            row.donorName = currentRow.donorName;
-            row.donorLink = currentRow.donorLink;
-            row.matchedRecordUrl = currentRow.matchedRecordUrl;
-            row.matchedRecordLabel = currentRow.matchedRecordLabel;
-            row.errors = currentRow.errors;
-            rows.push(row);
-
-            //get payment and opportunity error information if import failed
-            if (row.errors.length > 0) {
-                var rowError = {
-                    id: row.Id,
-                    title: $A.get('$Label.c.PageMessagesError'),
-                    messages: row.errors
-                };
-                errors.push(rowError);
-            }
-        });
-
-        if (errors) {
-            this.handleTableErrors(component, errors);
-        }
-
-        component.set('v.data', rows);
-    },
-
-    /**
      * @description: sets data import fields to use dynamically in the recordEditForm.
      * @param model: full DataImportModel from the Apex controller
      */
     setModel: function (component, model) {
         component.set('v.labels', model.labels);
         this.setDataServiceFields(component, model.labels);
-        this.setDataTableRows(component, model.dataImportRows);
-        this.setTotals(component, model.dataImportRows);
-        this.setColumns(component, model.columns);
         this.setDataImportFields(component, model.columns);
         component.set('v.isNamespaced', Boolean(model.isNamespaced));
         component.set('v.isLoaded', true);
@@ -332,106 +127,6 @@
         fields.push(labels.requireTotalMatch);
         fields.push('Name');
         component.set('v.batchFields', fields);
-    },
-
-    /**
-     * @description: Calculates actual totals from queried Data Import rows
-     * @param rows: rows returned from the Apex controller
-     */
-    setTotals: function (component, rows) {
-        var countGifts = 0;
-        var totalGiftAmount = 0;
-        rows.forEach(function (currentRow) {
-            var row = currentRow.record;
-            countGifts += 1;
-            var amount = row[component.get('v.labels.donationAmountField')];
-            if (amount) {
-                totalGiftAmount += amount;
-            }
-        });
-        var totals = component.get('v.totals');
-        totals.countGifts = countGifts;
-        totals.totalGiftAmount = totalGiftAmount;
-        component.set('v.totals', totals);
-    },
-
-    /**
-     * @description: if totals are required, verifies that totals match. Otherwise, shows an error toast and returns false.
-     * @return: boolean indicating if table has errors
-     */
-    tableHasNoDryRunErrors: function(component) {
-        const errors = component.get('v.errors');
-        let tableHasNoDryRunErrors = true;
-
-        if (errors && errors.size > 0) {
-            this.showToast(component, $A.get('$Label.c.PageMessagesError'), $A.get('$Label.c.bgeGridErrorFromDryRun'), 'error');
-            tableHasNoDryRunErrors = false;
-        }
-        return tableHasNoDryRunErrors;
-    },
-
-    /**
-     * @description: if totals are required, verifies that totals match. Otherwise, shows an error toast and returns false.
-     * @return: boolean indicating if totals match if required
-     */
-    totalsMatchIfRequired: function(component) {
-        const totals = component.get('v.totals');
-        const record = component.get('v.record');
-        const labels = component.get('v.labels');
-
-        let totalsMatchIfRequired = true;
-
-        if (record[labels.requireTotalMatch]) {
-            if (record[labels.expectedCountField] == 0 && record[labels.expectedTotalField] == 0) {
-                this.showToast(component, $A.get('$Label.c.PageMessagesError'), $A.get('$Label.c.bgeGridWarningRequiredTotalsExpected'), 'warning');
-                totalsMatchIfRequired = false;
-            }
-
-            if ((record[labels.expectedTotalField] != 0 && totals.totalGiftAmount != record[labels.expectedTotalField]) ||
-                (record[labels.expectedCountField] != 0 && totals.countGifts != record[labels.expectedCountField])) {
-                this.showToast(component, $A.get('$Label.c.PageMessagesError'), $A.get('$Label.c.bgeGridErrorRequiredTotalsExpected'), 'error');
-                totalsMatchIfRequired = false;
-            }
-        }
-
-        return totalsMatchIfRequired;
-    },
-
-    /**
-     * @description: Navigates to the record view of the Data Import record
-     * @param row: Information about which row the action was called from
-     */
-    handleViewRowAction: function(component, row) {
-        let navEvt = $A.get("e.force:navigateToSObject");
-        navEvt.setParams({
-            recordId: row.Id,
-            slideDevName: 'detail'
-        });
-        navEvt.fire();
-    },
-
-    /**
-     * @description: Deletes the data import record displayed in a given row
-     * @param row: Information about which row the action was called from
-     */
-    handleDeleteRowAction: function(component, row) {
-        let self = this;
-        self.showSpinner(component);
-        let action = component.get('c.deleteDataImportRow');
-        action.setParams({batchId: component.get('v.recordId'), dataImportId: row.Id});
-        action.setCallback(this, function (response) {
-            const state = response.getState();
-            if (state === 'SUCCESS') {
-                const returnValue = JSON.parse(response.getReturnValue());
-                self.setDataTableRows(component, returnValue);
-                self.setTotals(component, returnValue);
-                self.showToast(component, $A.get('$Label.c.PageMessagesConfirm'), $A.get('$Label.c.bgeGridGiftDeleted'), 'success');
-            } else {
-                self.handleApexErrors(component, response.getError());
-            }
-            self.hideSpinner(component);
-        });
-        $A.enqueueAction(action);
     },
 
     /**
@@ -452,7 +147,7 @@
     },
 
     /**
-     * @description: shows spinner over BGE_EntryForm component
+     * @description: shows spinner over BGE_FormBugDemo component
      */
     showFormSpinner: function (component) {
         var spinner = component.find('formSpinner');
@@ -468,7 +163,7 @@
     },
 
     /**
-     * @description: hides spinner over BGE_EntryForm component
+     * @description: hides spinner over BGE_FormBugDemo component
      */
     hideFormSpinner: function (component) {
         var spinner = component.find('formSpinner');
