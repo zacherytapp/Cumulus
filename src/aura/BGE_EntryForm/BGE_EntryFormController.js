@@ -20,7 +20,8 @@
      */
     cancelForm: function (component, event, helper) {
         helper.sendMessage('onCancel', '');
-        component.destroy();
+        helper.resetForm(component);
+        //component.destroy();
     },
 
     /**
@@ -83,7 +84,9 @@
     onSuccess: function (component, event, helper) {
         var message = {'recordId': event.getParams().response.id};
         helper.sendMessage('onSuccess', message);
-        component.destroy();
+        //component.destroy();
+        helper.resetForm(component);
+        component.set('v.pendingSave',false);
     },
 
     /**

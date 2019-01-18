@@ -46,7 +46,10 @@
     <aura:attribute name="openOpportunities" type="List" description="List of open Opportunities" access="public" />
     <aura:attribute name="unpaidPayments" type="List" description="List of unpaid Payments" access="public" />
     <aura:attribute name="selectedDonation" type="SObject" description="Stored selected open donation. Can also be null or empty." access="public" />
+    <aura:attribute name="showForm" type="Boolean" default="true" description="show the entry form" access="public" />
 
+
+    
     <!-- Private Attributes-->
     <aura:attribute name="pendingSave" default="false" type="Boolean"
                     description="Controls whether Save is disabled because form has uncommitted changes" access="private"/>
@@ -115,7 +118,7 @@
             <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="4" largeDeviceSize="2" class="slds-p-horizontal_small">
                 <label for="donorType" class="slds-form-element__label">{!$Label.c.bgeGridDonorType}</label>
                 <lightning:select aura:id="donorType" class="hideLabel" label="Donor Type"
-                                  value="{!v.donorType}" onchange="{!c.setDonorType}">
+                                value="{!v.donorType}" onchange="{!c.setDonorType}">
                     <option value="Contact1">{!v.labels.contactObject}</option>
                     <option value="Account1">{!v.labels.accountObject}</option>
                 </lightning:select>
@@ -128,9 +131,9 @@
                         {!v.labels.contactObject}
                     </label>
                     <lightning:inputField aura:id="contactLookup"
-                                          fieldName="{!v.labels.contactLookup}"
-                                          class="hideLabel"
-                                          onchange="{!c.onDonorChange}"
+                                        fieldName="{!v.labels.contactLookup}"
+                                        class="hideLabel"
+                                        onchange="{!c.onDonorChange}"
                     />
                 </aura:if>
                 <aura:if isTrue="{!v.donorType == 'Account1'}">
@@ -139,9 +142,9 @@
                         {!v.labels.accountObject}
                     </label>
                     <lightning:inputField aura:id="accountLookup"
-                                          fieldName="{!v.labels.accountLookup}"
-                                          class="hideLabel"
-                                          onchange="{!c.onDonorChange}"
+                                        fieldName="{!v.labels.accountLookup}"
+                                        class="hideLabel"
+                                        onchange="{!c.onDonorChange}"
                     />
                 </aura:if>
 
@@ -149,32 +152,34 @@
             <!--END DONOR FIELDS-->
 
             <!--Field iteration -->
-            <aura:iteration items="{!v.dataImportFields}" var="field">
-                <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="4" largeDeviceSize="2" class="slds-p-horizontal_small">
-                    <aura:if isTrue="{!greaterthan(field.options.length, 0)}">
-                        <lightning:select aura:id="dynamicInputFields"
-                                          label="{!field.label}"
-                                          value="{!field.value}"
-                                          required="{!field.required}">
-                            <option value=""></option>
-                            <aura:iteration items="{!field.options}" var="opt">
-                                <option value="{!opt.value}">{!opt.label}</option>
-                            </aura:iteration>
-                        </lightning:select>
-                        <aura:set attribute="else">
-                            <label for="{!field.name}" class="slds-form-element__label">
-                                <aura:if isTrue="{!field.required}"><abbr class="slds-required" title="required">* </abbr></aura:if>
-                                <span>{!field.label}</span>
-                            </label>
-                            <lightning:inputField aura:id="dynamicInputFields"
-                                                  class="hideTooltip equalHeight hideLabel"
-                                                  fieldName="{!field.name}"
-                                                  value="{!field.value}"
-                            />
-                        </aura:set>
-                    </aura:if>
-                </lightning:layoutItem>
-            </aura:iteration>
+            <aura:if isTrue="{!v.showForm}">
+                <aura:iteration items="{!v.dataImportFields}" var="field">
+                    <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="4" largeDeviceSize="2" class="slds-p-horizontal_small">
+                        <aura:if isTrue="{!greaterthan(field.options.length, 0)}">
+                            <lightning:select aura:id="dynamicInputFields"
+                                            label="{!field.label}"
+                                            value="{!field.value}"
+                                            required="{!field.required}">
+                                <option value=""></option>
+                                <aura:iteration items="{!field.options}" var="opt">
+                                    <option value="{!opt.value}">{!opt.label}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                            <aura:set attribute="else">
+                                <label for="{!field.name}" class="slds-form-element__label">
+                                    <aura:if isTrue="{!field.required}"><abbr class="slds-required" title="required">* </abbr></aura:if>
+                                    <span>{!field.label}</span>
+                                </label>
+                                <lightning:inputField aura:id="dynamicInputFields"
+                                                    class="hideTooltip equalHeight hideLabel"
+                                                    fieldName="{!field.name}"
+                                                    value="{!field.value}"
+                                />
+                            </aura:set>
+                        </aura:if>
+                    </lightning:layoutItem>
+                </aura:iteration>
+            </aura:if>
 
             <!--Form buttons-->
             <div class="slds-grid slds-p-around_medium slds-grid_align-center slds-size_1-of-1">

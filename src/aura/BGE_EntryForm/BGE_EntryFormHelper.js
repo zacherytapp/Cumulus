@@ -202,6 +202,22 @@
         }
 
         return hasDonor;
-    }
+    },
+
+    /**
+     * @description: reset the form fields for next entry
+     */
+    resetForm: function (component) {
+        let dynamicInputFields = component.find('dynamicInputFields');
+        this.clearDonationSelectionOptions(component);
+        
+        for (let i=0; i<dynamicInputFields.length; i++) {
+            dynamicInputFields[i].set('v.value','')
+        }
+        component.set('v.showForm', false);
+        component.set('v.showForm', true);
+        component.set('v.pendingSave',false);
+    },
+
 
 })

@@ -32,9 +32,9 @@
         if (channel === 'onSuccess') {
             helper.runDryRun(component, [message.recordId]);
             helper.showToast(component, $A.get('$Label.c.PageMessagesConfirm'), $A.get('$Label.c.bgeGridGiftSaved'), 'success');
-            helper.createEntryForm(component);
+            //helper.createEntryForm(component);
         } else if (channel === 'onCancel') {
-            helper.createEntryForm(component);
+            //helper.createEntryForm(component);
         } else if (channel === 'setDonorType') {
             component.set('v.donorType', message.donorType);
         } else if (channel === 'hideFormSpinner') {
