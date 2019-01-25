@@ -67,10 +67,18 @@ tasks:
             path: unpackaged/config/delete
 
     robot_libdoc:
+        description: Generates html documentation for the NPSP Robot Library
+        class_path: cumulusci.tasks.robotframework.RobotLibDoc
+        options:
+            path: tests/NPSP.py
+            output: tests/NPSP_Library.html
+
+    robot_libdoc_resource:
+        description: Generates html documentation for the NPSP Robot Resource
         class_path: cumulusci.tasks.robotframework.RobotLibDoc
         options:
             path: tests/NPSP.robot
-            output: tests/NPSP_Robot_Library.html
+            output: tests/NPSP_Resource.html
             
     update_admin_profile:
         options:
@@ -204,6 +212,19 @@ tasks:
                     - NPSP_Engagement_Plan_Record_Page
                     - NPSP_GAU_Allocation
                     - NPSP_General_Accounting_Unit
+
+    metadeploy_prod:
+        description: Publishes the latest production release to the MetaDeploy install production plan
+        class_path: cumulusci.tasks.metadeploy.Publish
+        group: Release Management
+        options:
+            product_id: 0AL5gmZ
+            flow: install_prod
+            title: Install NPSP
+            slug: install
+            tier: primary
+            preflight_message: Everything looks good to install
+            post_install_message: Thanks for installing NPSP.  Please visit the [Nonprofit Success Pack](https://powerofus.force.com/_ui/core/chatter/groups/GroupProfilePage?g=0F980000000CjRe) group on the Power of Us Hub for any questions about NPSP.
 
 flows:
     config_dev:
